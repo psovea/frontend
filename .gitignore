@@ -2,6 +2,7 @@
 node_modules
 .module-cache
 build/
+public/bundle.js
 
 # Ignoring editor specific files
 
