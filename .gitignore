@@ -1,0 +1,15 @@
+.DS_STORE
+node_modules
+.module-cache
+build/
+
+# Ignoring editor specific files
+
+*.sublime-project
+*.sublime-workspace
+.idea
+*.iml
+.vscode
+*.swp
+*.swo
+
