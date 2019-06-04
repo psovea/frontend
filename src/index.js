@@ -1,10 +1,9 @@
-import css1 from "./css/normalize.css";
-import css2 from "./css/skeleton.css";
+import chota from "chota";
 import React from "react";
 import ReactDOM from "react-dom";
 
 const App = () => {
-  return <div>Hello Object!</div>;
+  return <a class="button success">Chota added succesfully</a>;
 };
 
 ReactDOM.render(<App />, document.querySelector("#root"));
