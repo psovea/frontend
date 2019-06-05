@@ -1,5 +1,6 @@
-#main
-{
+/* Necessary because else we can scroll a little bit up and down. 
+ * This code locks our screen in place and prevents that. */
+#main {
   height: 100vh;
   width: 100vw;
 }

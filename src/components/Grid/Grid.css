@@ -1,20 +1,3 @@
-.test
-{
-  background-color: #ffff00;
-}
-
-
-.sidebar
-{
-  float: left;
-  height: 100%;
-  width: 10%;
-  position: fixed;
-  background-color: blue;
-}
-
-.grid-box
-{
-  float: right
-  width: 90%;
-}
+.pie { background-color: red; }
+.graph { background-color: blue; }
+.stats { background-color: green; }
