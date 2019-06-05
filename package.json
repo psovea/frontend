@@ -35,6 +35,8 @@
   },
   "dependencies": {
     "bundle": "^2.1.0",
-    "chota": "^0.6.2"
+    "chart.js": "^2.8.0",
+    "chota": "^0.6.2",
+    "react-chartjs-2": "^2.7.6"
   }
 }
