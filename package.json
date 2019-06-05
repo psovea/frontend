@@ -36,6 +36,8 @@
   "dependencies": {
     "bundle": "^2.1.0",
     "chota": "^0.6.2",
-    "google-map-react": "^1.1.4"
+    "google-map-react": "^1.1.4",
+    "leaflet": "^1.5.1",
+    "react-leaflet": "^2.3.0"
   }
 }

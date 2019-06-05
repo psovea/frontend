@@ -1,35 +1,32 @@
-import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
+import React from 'react'
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 
-class Maps extends Component {
-    static defaultProps = {
-        center: {
-            lat: 59.95,
-            lng: 30.33
-        },
-        zoom: 11
-    };
+class Maps extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            lat: 52.3680,
+            lng: 4.9036,
+            zoom: 13
+        }
+    }
 
     render() {
+        const position = [this.state.lat, this.state.lng];
         return (
-            // Important! Always set the container height explicitly
-            <div style={{ height: '100vh', width: '100%' }}>
-                <GoogleMapReact
-                    bootstrapURLKeys={{ key: /* YOUR KEY HERE */ }}
-                    defaultCenter={this.props.center}
-                    defaultZoom={this.props.zoom}
-                >
-                    <AnyReactComponent
-                        lat={59.955413}
-                        lng={30.337844}
-                        text="My Marker"
-                    />
-                </GoogleMapReact>
-            </div>
+            <Map center={position} zoom={this.state.zoom}>
+                <TileLayer
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                />
+                <Marker position={position}>
+                    <Popup>
+                        <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
+                    </Popup>
+                </Marker>
+            </Map>
         );
     }
 }
-
 export default Maps;
