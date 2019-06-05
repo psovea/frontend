@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "bundle": "^2.1.0",
-    "chota": "^0.6.2"
+    "chota": "^0.6.2",
+    "google-map-react": "^1.1.4"
   }
 }
