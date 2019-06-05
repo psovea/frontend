@@ -19,15 +19,15 @@ const data = {
 class Graph extends React.Component {
     render() {
         return (
-            <div>
-                <h2>Vertragingsdata</h2>
+	  <div>
+          	<h2>Vertragingsdata</h2>
                 <Bar
-                    data={data}
-                    width={100}
-                    height={50}
-                    options={{
-                        maintainAspectRatio: false
-                    }}
+        	       	data={data}
+                	width={100}
+                        height={50}
+                        options={{
+                            maintainAspectRatio: false
+                        }}
                 />
             </div>
         );
