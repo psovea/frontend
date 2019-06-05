@@ -1,5 +1,5 @@
-import chota from "chota";
 import React from 'react';
+import './Sidebar.css'
 
 class Sidebar extends React.Component {
     render() {
