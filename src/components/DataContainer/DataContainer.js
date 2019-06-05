@@ -1,4 +1,3 @@
-import chota from "chota";
 import React from "react";
 import "./DataContainer.css"
 
@@ -23,10 +22,9 @@ class DataContainer extends React.Component {
 
         return (
             <div style={divStyle}>
-                
             </div>
-        )
-    };
+        );
+    }
 }
 
 export default DataContainer;
