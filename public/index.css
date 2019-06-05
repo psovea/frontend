@@ -1,4 +1,6 @@
 @import url(chota.css);
+@import url(grid.css);
+@import url(dataContainer.css)
 
 :root {
     /* The chota variables */
@@ -15,19 +17,6 @@
 }
 
 html, body {
-    height: 100%;
+    height: 100vh;
 }
 
-.test {
-    background-color:var(--color-error);
-}
-
-.grid {
-    height: 100%;
-}
-
-.row {
-    background-color:var(--color-lightGrey);
-    height: 33%;
-    border: 2px solid var(--color-grey);
-}
