@@ -4,7 +4,7 @@ import "./DataContainer.css"
 class DataContainer extends React.Component {
     render () {
         return (
-            <div class="dataContainer1-1">
+            <div className="dataContainer1-1">
                 tekst
             </div>
         );

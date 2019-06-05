@@ -5,21 +5,21 @@ import './Grid.css'
 class Grid extends React.Component {
     render() {
         return (
-            <div class="grid">
-                <div class="row">
-                    <div class="col-4"> <DataContainer /> </div>
-                    <div class="col-4"> .col-4 </div>
-                    <div class="col-4"> .col-4 </div>
+            <div className="grid">
+                <div className="row">
+                    <div className="col-4"> <DataContainer /> </div>
+                    <div className="col-4"> .col-4 </div>
+                    <div className="col-4"> .col-4 </div>
                 </div>
-                <div class="row">
-                    <div class="col-4"> .col-4 </div>
-                    <div class="col-4"> .col-4 </div>
-                    <div class="col-4"> .col-4 </div>
+                <div className="row">
+                    <div className="col-4"> .col-4 </div>
+                    <div className="col-4"> .col-4 </div>
+                    <div className="col-4"> .col-4 </div>
                 </div>
-                <div class="row">
-                    <div class="col-4"> .col-4 </div>
-                    <div class="col-4"> .col-4 </div>
-                    <div class="col-4"> .col-4 </div>
+                <div className="row">
+                    <div className="col-4"> .col-4 </div>
+                    <div className="col-4"> .col-4 </div>
+                    <div className="col-4"> .col-4 </div>
                 </div>
             </div>
         );

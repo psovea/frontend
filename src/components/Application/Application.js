@@ -8,13 +8,13 @@ class Application extends React.Component {
     render() {
         return (
         /* We create 1 row which we split in 2 columns. */
-        <div id="main" class="row">
+        <div id="main" className="row">
             {/* First column is the sidebar. */}
-            <div class="col-2">
+            <div className="col-2">
                 <Sidebar />
             </div>
             {/* Second column is used for the dashboards grid. */}
-            <div class="col-10">
+            <div className="col-10">
                 <Grid />
             </div>
         </div>
