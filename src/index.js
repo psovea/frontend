@@ -1,9 +1,5 @@
-import chota from "chota";
 import React from "react";
 import ReactDOM from "react-dom";
+import Application from "./components/Application"
 
-const App = () => {
-  return <a class="button success">Chota added succesfully</a>;
-};
-
-ReactDOM.render(<App />, document.querySelector("#root"));
+ReactDOM.render(<Application />, document.getElementById('root'));
