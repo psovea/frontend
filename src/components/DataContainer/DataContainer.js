@@ -8,8 +8,8 @@ class DataContainer extends React.Component {
             <div class="dataContainer1-1">
                 tekst
             </div>
-        )
-    };
+        );
+    }
 }
 
 export default DataContainer;
