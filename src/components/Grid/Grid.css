@@ -1,0 +1,9 @@
+/* Our grid uses 100% of the height. */
+.grid {
+  height: 100vh;
+}
+
+/* The grid has 3 rows which each use 33% of the height. */
+.row {
+  height: 33vh;
+}

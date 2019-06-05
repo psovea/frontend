@@ -1,7 +1,7 @@
 import chota from "chota";
 import React from 'react';
-import DataContainer from './DataContainer'
-// import css from ""
+import "./Grid.css"
+import DataContainer from '../DataContainer/DataContainer.js'
 
 class Grid extends React.Component {
     render() {
