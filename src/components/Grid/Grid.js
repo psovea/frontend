@@ -8,19 +8,19 @@ class Grid extends React.Component {
         return (
             <div class="grid">
                 <div class="row">
-                    <div class="col-4"> <DataContainer/> </div>
-                    <div class="col-4"> .col-4 </div>
-                    <div class="col-4"> .col-4 </div>
+                    <div class="col-4"> <DataContainer rows="2" collumns="2"/> </div>
+                    <div class="col-4"> </div>
+                    <div class="col-4"> <DataContainer rows="3" collumns="1"/> </div>
                 </div>
                 <div class="row">
-                    <div class="col-4"> .col-4 </div>
-                    <div class="col-4"> .col-4 </div>
-                    <div class="col-4"> .col-4 </div>
+                    <div class="col-4"> </div>
+                    <div class="col-4"> </div>
+                    <div class="col-4"> </div>
                 </div>
                 <div class="row">
-                    <div class="col-4"> .col-4 </div>
-                    <div class="col-4"> .col-4 </div>
-                    <div class="col-4"> .col-4 </div>
+                    <div class="col-4"> <DataContainer rows="1" collumns="1"/> </div>
+                    <div class="col-4"> <DataContainer rows="1" collumns="1"/> </div>
+                    <div class="col-4"> </div>
                 </div>
             </div>
         );
