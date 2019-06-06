@@ -23,7 +23,7 @@ class Grid extends React.Component {
             >    
                 <div key="pie" className="pie" data-grid={{x: 0, y: 2, w: 1, h: 1, maxW: 1}}>Amazing pie chart</div>
                 <div key="stats" className="stats" data-grid={{x: 1, y: 0, w: 2, h: 1}}>Other amazing stats</div>
-                <div key="chart" data-grid={{x: 0, y: 3, w: 3, h: 2}}><Graph /></div>
+                <div key="chart" className="graph" data-grid={{x: 0, y: 3, w: 3, h: 2}}><Graph /></div>
             </ResponsiveGridLayout>
         )
     }
