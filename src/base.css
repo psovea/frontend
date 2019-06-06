@@ -1,0 +1,12 @@
+/* This CSS file defines the base for our project.
+ * It includes color schemes and more. It is included in
+ * index.js, so there is no need to include this style
+ * sheet in other files.
+ */
+
+:root {
+    --light-color:  #f8f8ff;
+    --dark-color:   #22264b;
+    --graph-color1: #e6cf8b;
+    --graph-color2: #b56969;
+}
