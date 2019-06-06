@@ -1,5 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import './Graph.css';
 
 const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -17,21 +18,40 @@ const data = {
 };
 
 class Graph extends React.Component {
-    render() {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          dimensions: null,
+        };
+      }
+
+    componentDidMount() {
+        this.setState({
+          dimensions: {
+            width: this.container.offsetWidth,
+            height: this.container.offsetHeight,
+            },
+        });
+    }
+
+    renderContent() {
+        const { dimensions } = this.state;
         return (
-            <div>
-                <h2>Vertragingsdata</h2>
-                <Bar
-        	    data={data}
-                    width={100}
-                    height={50}
-                    options={{
-                        maintainAspectRatio: false
-                    }}
-                />
+            <div className="Bar">
+                <Bar data={data} width={dimensions.width} height={dimensions.height} options={{ maintainAspectRatio: false }}/>
             </div>
         );
     }
+
+    render() {
+        const { dimensions } = this.state;
+        return (
+          <div className="Bar" ref={el => (this.container = el)}>
+                {dimensions && this.renderContent()}
+          </div>
+        );
+        }
 }
 
-export default Graph; 
+export default Graph;

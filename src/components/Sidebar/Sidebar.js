@@ -5,11 +5,11 @@ class Sidebar extends React.Component {
     render() {
         return (
             <div className="sbar">
-                <h3>psovea</h3>
-                <h3>Regions</h3>
-                <h3>Options</h3>
-                <h3>Iets</h3>
-                <h3>Nog iets</h3>
+                <h2>psovea</h2>
+                <h4>Regions</h4>
+                <h4>Options</h4>
+                <h4>Iets</h4>
+                <h4>Nog iets</h4>
             </div>
             
 
