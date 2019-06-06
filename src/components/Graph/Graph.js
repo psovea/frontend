@@ -25,7 +25,7 @@ class Graph extends React.Component {
           dimensions: null,
         };
       }
-        
+
     componentDidMount() {
         this.setState({
           dimensions: {
@@ -34,11 +34,11 @@ class Graph extends React.Component {
             },
         });
     }
-    
+
     renderContent() {
         const { dimensions } = this.state;
         return (
-            <div class="Bar">
+            <div className="Bar">
                 <Bar data={data} width={dimensions.width} height={dimensions.height} options={{ maintainAspectRatio: false }}/>
             </div>
         );
@@ -47,11 +47,11 @@ class Graph extends React.Component {
     render() {
         const { dimensions } = this.state;
         return (
-          <div class="Bar" ref={el => (this.container = el)}>
+          <div className="Bar" ref={el => (this.container = el)}>
                 {dimensions && this.renderContent()}
           </div>
         );
         }
 }
 
-export default Graph; 
+export default Graph;
