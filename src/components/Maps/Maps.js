@@ -1,7 +1,7 @@
 import React from 'react'
-
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
-
+import HeatmapLayer from 'react-leaflet-heatmap-layer'
+import { addressPoints } from './DummyHeatmap'
 
 class Maps extends React.Component {
     constructor() {
@@ -35,6 +35,14 @@ class Maps extends React.Component {
                 minZoom={11}
                 onClick={this.addMarker}
             >
+                <HeatmapLayer
+                    fitBoundsOnLoad
+                    fitBoundsOnUpdate
+                    points={addressPoints}
+                    longitudeExtractor={m => m[1]}
+                    latitudeExtractor={m => m[0]}
+                    intensityExtractor={m => parseFloat(m[2])}
+                />
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
