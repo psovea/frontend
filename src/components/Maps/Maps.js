@@ -2,30 +2,54 @@ import React from 'react'
 
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 
+
 class Maps extends React.Component {
     constructor() {
-        super()
+        super();
         this.state = {
-            lat: 52.3680,
-            lng: 4.9036,
-            zoom: 13
+            bounds: [[52.462449, 4.738163], [52.290331, 5.135141]],
+            center: [52.3680, 4.9036],
+            initZoom: 13,
+            markers: [[51.505, -0.09]]
         }
+    };
+
+    addMarker = (e) => {
+        const { markers } = this.state
+        markers.push(e.latlng)
+        this.setState({ markers })
     }
 
     render() {
-        const position = [this.state.lat, this.state.lng];
         return (
-            <Map center={position} zoom={this.state.zoom}>
+            <Map
+                center={this.state.center}
+                zoom={this.state.initZoom}
+                bounds={this.state.bounds}
+                maxBounds={this.state.bounds}
+                boundsOptions={{ padding: [50, 50] }}
+                maxZoom={15}
+                minZoom={11}
+                onClick={this.addMarker}
+            >
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 />
-                <Marker position={position}>
-                    <Popup>
-                        <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
-                    </Popup>
-                </Marker>
-            </Map>
+                {
+                    this.state.markers.map((position, idx) =>
+                        <Marker
+                            key={`marker-${idx}`}
+                            position={position}>
+                            <Popup>
+                                <span>
+                                    Transport data here
+                                </span>
+                            </Popup>
+                        </Marker>
+                    )
+                }
+            </Map >
         );
     }
 }
