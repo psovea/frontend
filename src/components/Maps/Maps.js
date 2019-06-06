@@ -14,6 +14,9 @@ class Maps extends React.Component {
         }
     };
 
+    // This function adds a marker to the map. Currently it supports an onClick
+    // action, but in the future we should change this to add a marker on
+    // arrival of data.
     addMarker = (e) => {
         const { markers } = this.state
         markers.push(e.latlng)

@@ -26,7 +26,7 @@ class Grid extends React.Component {
                 <div key="chart" data-grid={{ x: 0, y: 3, w: 3, h: 2 }}>
                     <Graph />
                 </div>
-                <div key="map" data-grid={{x: 0, y: 3, w:3, h:3}} >
+                <div key="map" data-grid={{ x: 0, y: 3, w: 3, h: 3, static: true }} >
                     <Maps />
                 </div>
             </ResponsiveGridLayout>
