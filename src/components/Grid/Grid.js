@@ -33,16 +33,16 @@ class Grid extends React.Component {
                 <div key="bottle" className="stats" data-grid={{ x: 2, y: 2, w: 1, h: 3 }}>
                     <h1>Top 10 bottlenecks:</h1>
                     <ol>
-                        <li>a</li>
-                        <li>b</li>
-                        <li>c</li>
-                        <li>d</li>
-                        <li>e</li>
-                        <li>f</li>
-                        <li>g</li>
-                        <li>h</li>
-                        <li>i</li>
-                        <li>j</li>
+                        <li>Centraal - Muiderpoort</li>
+                        <li>Nassaukade - Marnixplein</li>
+                        <li>Weesperplein - Frederiksplein</li>
+                        <li>Azartplein - Cornelis van Eesterenlaan</li>
+                        <li>Leidseplein - Spiegelgracht</li>
+                        <li>Marnixplein - Bloemgracht</li>
+                        <li>Alexanderplein - Hoogte Kadijk</li>
+                        <li>Sloterdijk - Centraal</li>
+                        <li>Weteringscircuit - Spiegelgracht</li>
+                        <li>Van Limburg Stirumstraat - De Wittenkade</li>
                     </ol>
                 </div>
                 <div key="chart" data-grid={{ x: 0, y: 5, w: 3, h: 2 }}>
