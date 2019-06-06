@@ -1,8 +1,10 @@
 import React from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import Graph from '../Graph/Graph.js';
+import Maps from '../Maps/Maps.js'
+import DoughnutChart from '../DoughnutChart/DoughnutChart.js'
 import './Grid.css';
-import Maps from '../Maps/Maps'
+
 // We need these css imports, else the graphics will glitch
 // while moving components in our grid.
 import '../../../node_modules/react-grid-layout/css/styles.css';
