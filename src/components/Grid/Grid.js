@@ -30,16 +30,18 @@ class Grid extends React.Component {
                 <div key="stats" className="stats" data-grid={{ x: 0, y: 2, w: 2, h: 3 }}>Other amazing stats</div>
                 <div key="bottle" className="stats" data-grid={{ x: 2, y: 2, w: 1, h: 3 }}>
                     <h1>Top 10 bottlenecks:</h1>
-                    1. <br></br>
-                    2. <br></br>
-                    3. <br></br>
-                    4. <br></br>
-                    5. <br></br>
-                    6. <br></br>
-                    7. <br></br>
-                    8. <br></br>
-                    9. <br></br>
-                    10. <br></br>
+                    <ol>
+                        <li>a</li>
+                        <li>b</li>
+                        <li>c</li>
+                        <li>d</li>
+                        <li>e</li>
+                        <li>f</li>
+                        <li>g</li>
+                        <li>h</li>
+                        <li>i</li>
+                        <li>j</li>
+                    </ol>
                 </div>
                 <div key="chart" data-grid={{ x: 0, y: 5, w: 3, h: 2 }}>
                     <Graph />
