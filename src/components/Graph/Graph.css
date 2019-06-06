@@ -1,0 +1,5 @@
+/* Title color of graph. */
+
+.main > h1 {
+    color: var(--graph-color2);
+}
