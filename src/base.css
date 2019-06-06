@@ -10,3 +10,9 @@
     --graph-color1: #e6cf8b;
     --graph-color2: #b56969;
 }
+
+/* Remove horizontal scrollbar. */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
