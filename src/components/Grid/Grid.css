@@ -1,3 +1,6 @@
-.pie { background-color: red; }
-.graph { background-color: blue; }
-.stats { background-color: green; }
+.grid > div {
+    background-color: var(--light-color);
+    padding: 1em;
+    border: solid 1px lightgrey;
+    border-radius: 5px;
+}
