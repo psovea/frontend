@@ -20,8 +20,10 @@
   "homepage": "https://github.com/psovea/frontend#readme",
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
@@ -40,9 +42,12 @@
     "bundle": "^2.1.0",
     "chart.js": "^2.8.0",
     "chota": "^0.6.2",
+    "leaflet": "^1.5.1",
     "react-chartjs-2": "^2.7.6",
     "react-chartjs2": "^1.2.1",
     "react-grid-layout": "^0.16.6",
+    "react-leaflet": "^2.3.0",
+    "react-leaflet-heatmap-layer": "^2.0.0",
     "react-resizable": "^1.8.0"
   }
 }
