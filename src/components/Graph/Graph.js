@@ -1,5 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import './Graph.css';
 
 const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -19,8 +20,8 @@ const data = {
 class Graph extends React.Component {
     render() {
         return (
-            <div>
-                <h2>Vertragingsdata</h2>
+            <div className="main">
+                <h1>Vertragingsdata</h1>
                 <Bar
         	    data={data}
                     width={100}
