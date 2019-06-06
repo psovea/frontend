@@ -47,6 +47,7 @@
     "react-chartjs2": "^1.2.1",
     "react-grid-layout": "^0.16.6",
     "react-leaflet": "^2.3.0",
+    "react-leaflet-heatmap-layer": "^2.0.0",
     "react-resizable": "^1.8.0"
   }
 }
