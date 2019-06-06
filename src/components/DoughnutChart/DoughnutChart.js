@@ -1,7 +1,6 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import './DoughnutChart.css';
-// import ReactResizeDetector from 'react-resize-detector';
 
 const data = {
 	labels: [
@@ -24,24 +23,8 @@ const data = {
 	}]
 };
 
-const options = {
-	responsive: true,
-	maintainAspectRatio: true
-}
-
-
-
 class DoughnutChart extends React.Component {
-	// onResize() {
-	// 	console.log('Changed')
-	// 	return (
-  //     <div>
-	// 			<Doughnut data={data} width={dimensions.width} height={dimensions.height} options={{ maintainAspectRatio: false }}/>
-	// 			{/* <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} /> */}
-  //     </div>
-  //   );
-	// }
-	
+
 	constructor(props) {
     super(props);
     this.state = {
@@ -63,7 +46,6 @@ class DoughnutChart extends React.Component {
     return (
       <div>
 				<Doughnut data={data} width={dimensions.width} height={dimensions.height} options={{ maintainAspectRatio: false }}/>
-				{/* <ReactResizeDetector onResize={this.onResize} /> */}
       </div>
     );
   }
@@ -71,9 +53,8 @@ class DoughnutChart extends React.Component {
 	render() {
     const { dimensions } = this.state;
     return (
-      <div id="parentDiv" className="Doughnut" ref={el => (this.container = el)} onChange={this.handleChange}>
+      <div id="parentDiv" className="Doughnut" ref={el => (this.container = el)}>
 				{dimensions && this.renderContent()}
-				{/* <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} /> */}
       </div>
     );
 	}

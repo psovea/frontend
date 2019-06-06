@@ -18,21 +18,40 @@ const data = {
 };
 
 class Graph extends React.Component {
-    render() {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          dimensions: null,
+        };
+      }
+        
+    componentDidMount() {
+        this.setState({
+          dimensions: {
+            width: this.container.offsetWidth,
+            height: this.container.offsetHeight,
+            },
+        });
+    }
+    
+    renderContent() {
+        const { dimensions } = this.state;
         return (
-            <div className="main">
-                <h1>Vertragingsdata</h1>
-                <Bar
-        	    data={data}
-                    width={100}
-                    height={50}
-                    options={{
-                        maintainAspectRatio: false
-                    }}
-                />
+            <div class="Bar">
+                <Bar data={data} width={dimensions.width} height={dimensions.height} options={{ maintainAspectRatio: false }}/>
             </div>
         );
     }
+
+    render() {
+        const { dimensions } = this.state;
+        return (
+          <div class="Bar" ref={el => (this.container = el)}>
+                {dimensions && this.renderContent()}
+          </div>
+        );
+        }
 }
 
 export default Graph; 
