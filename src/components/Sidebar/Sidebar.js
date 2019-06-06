@@ -1,15 +1,18 @@
 import React from 'react';
+import { Compass } from 'react-feather';
 import './Sidebar.css';
 
 class Sidebar extends React.Component {
     render() {
         return (
             <div className="sbar">
-                <h2>psovea</h2>
-                <h4>Regions</h4>
-                <h4>Options</h4>
-                <h4>Iets</h4>
-                <h4>Nog iets</h4>
+                 <ul>
+                     <li><h2>psovea</h2></li>
+                     <li><a href="#">{<Compass />}Region</a></li>
+                     <li><a href="#">Options</a></li>
+                     <li><a href="#">Something</a></li>
+                     <li><a href="#">Something</a></li>
+                 </ul> 
             </div>
             
 
