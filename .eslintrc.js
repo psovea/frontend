@@ -15,10 +15,11 @@ module.exports = {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
+    "parser": "babel-eslint",
     "plugins": [
         "react"
     ],
     "rules": {
-      "no-unused-vars": ["warn"]
+        "no-unused-vars": ["warn"]
     }
 };
