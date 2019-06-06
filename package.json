@@ -41,6 +41,7 @@
     "chart.js": "^2.8.0",
     "chota": "^0.6.2",
     "react-chartjs-2": "^2.7.6",
+    "react-chartjs2": "^1.2.1",
     "react-grid-layout": "^0.16.6",
     "react-resizable": "^1.8.0"
   }
