@@ -1,3 +1,10 @@
 .pie { background-color: red; }
-.graph { background-color: blue; }
+.graph { background-color: white; }
 .stats { background-color: green; }
+
+.grid > div
+{
+    -webkit-box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5);
+    box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5); 
+}
