@@ -31,7 +31,7 @@ class DoughnutChart extends React.Component {
       dimensions: null,
 		};
   }
-	
+
 	componentDidMount() {
     this.setState({
       dimensions: {
@@ -44,7 +44,7 @@ class DoughnutChart extends React.Component {
 	renderContent() {
     const { dimensions } = this.state;
     return (
-      <div>
+      <div className="Doughnut">
 				<Doughnut data={data} width={dimensions.width} height={dimensions.height} options={{ maintainAspectRatio: false }}/>
       </div>
     );
@@ -58,7 +58,7 @@ class DoughnutChart extends React.Component {
       </div>
     );
 	}
-	
+
 }
 
-export default DoughnutChart; 
+export default DoughnutChart;
