@@ -5,6 +5,8 @@
  */
 
 :root {
-    --light-color: #f8f8ff;
-    --dark-color:  #5a5c51;
+    --light-color:  #f8f8ff;
+    --dark-color:   #22264b;
+    --graph-color1: #e6cf8b;
+    --graph-color2: #b56969;
 }
