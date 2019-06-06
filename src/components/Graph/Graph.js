@@ -25,7 +25,7 @@ class Graph extends React.Component {
           dimensions: null,
         };
       }
-        
+
     componentDidMount() {
         this.setState({
           dimensions: {
@@ -34,7 +34,7 @@ class Graph extends React.Component {
             },
         });
     }
-    
+
     renderContent() {
         const { dimensions } = this.state;
         return (
@@ -54,4 +54,4 @@ class Graph extends React.Component {
         }
 }
 
-export default Graph; 
+export default Graph;
