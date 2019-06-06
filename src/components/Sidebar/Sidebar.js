@@ -1,10 +1,18 @@
 import React from 'react';
-import './Sidebar.css'
+import './Sidebar.css';
 
 class Sidebar extends React.Component {
     render() {
         return (
-            <h3> hoi </h3>
+            <div className="sbar">
+                <h3>psovea</h3>
+                <h3>Regions</h3>
+                <h3>Options</h3>
+                <h3>Iets</h3>
+                <h3>Nog iets</h3>
+            </div>
+            
+
         );
     }
 }

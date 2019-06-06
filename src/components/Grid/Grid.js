@@ -17,7 +17,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 class Grid extends React.Component {
     render() {
         return (
-            <ResponsiveGridLayout
+            <ResponsiveGridLayout className="grid"
                 breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
                 cols={{ lg: 3, md: 3, sm: 2, xs: 2, xxs: 2 }}
             >
