@@ -10,22 +10,37 @@ class Maps extends React.Component {
             bounds: [[52.462449, 4.738163], [52.290331, 5.135141]],
             center: [52.3680, 4.9036],
             initZoom: 13,
-            markers: [[51.505, -0.09]]
+            data: []
         }
     };
 
-    // This function adds a marker to the map. Currently it supports an onClick
-    // action, but in the future we should change this to add a marker on
-    // arrival of data.
-    addMarker = (e) => {
-        const { markers } = this.state
-        markers.push(e.latlng)
-        this.setState({ markers })
+    createMarkers() {
+        let markers = []
+        let data = this.state.data
+        for (let i = 0; i < data.length; i++) {
+            let element = data[i][Object.keys(data[i])[0]]
+            let position = [element.lat, element.lon]
+            markers.push(
+                <Marker
+                    key={`marker-${i}`}
+                    position={position} >
+                    <Popup> {element.name} </Popup>
+                </Marker >
+            )
+        }
+        return markers
+    }
+
+    componentDidMount() {
+        fetch(`https://cors-anywhere.herokuapp.com/http://184.72.120.43:9800/getStops`)
+            .then(res => res.json())
+            .then(json => this.setState({ data: json }));
     }
 
     render() {
         return (
             <Map
+                ref={(ref) => { this.map = ref; }}
                 center={this.state.center}
                 zoom={this.state.initZoom}
                 bounds={this.state.bounds}
@@ -33,7 +48,7 @@ class Maps extends React.Component {
                 boundsOptions={{ padding: [50, 50] }}
                 maxZoom={15}
                 minZoom={11}
-                onClick={this.addMarker}
+            // onzoomend={(e) => { console.log(e); }}
             >
                 <HeatmapLayer
                     fitBoundsOnLoad
@@ -47,19 +62,7 @@ class Maps extends React.Component {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 />
-                {
-                    this.state.markers.map((position, idx) =>
-                        <Marker
-                            key={`marker-${idx}`}
-                            position={position}>
-                            <Popup>
-                                <span>
-                                    Transport data here
-                                </span>
-                            </Popup>
-                        </Marker>
-                    )
-                }
+                {this.createMarkers()}
             </Map >
         );
     }
