@@ -1,0 +1,17 @@
+.DataContainerHeader {
+    
+    background-color: var(--dark-color);
+    width: 100%;
+    height: 10%  - 1px;
+    border-radius: 5px;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+    
+}
+
+.DataContainerTitle {
+    color: white;
+    vertical-align: middle;
+    height: 100%;
+}
