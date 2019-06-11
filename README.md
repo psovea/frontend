@@ -7,11 +7,12 @@ example: git checkout master
 
 # Make a new branch.
 You can make new branches in github. Then use git checkout -b `<new branch>` in your terminal to go into that branch.
+The format of a new branch is: `issue/<issue-numer>-<description>`
 
 # Start local development server
 Open the terminal in the frontend folder.
-Use "npm install" to install the libraries from the framework.
-Use "npm start" to start the server. The server will automatically refresh if you make a change in the code.
+Use `npm install` to install the libraries from the framework.
+Use `npm start` to start the server. The server will automatically refresh if you make a change in the code.
 If you implement new libraries/packages you have to use "npm install" again.
 
 # File locations
