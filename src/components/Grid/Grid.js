@@ -12,7 +12,10 @@ import './Grid.css';
 import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
 
+import {store} from '../../redux/store.js'
+
 const ResponsiveGridLayout = WidthProvider(Responsive);
+console.log(store.getState())
 
 // This defines the grid; here we add other components (lets call
 // them widgets). Unfortunately we have to add div's directly into

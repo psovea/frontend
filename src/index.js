@@ -6,4 +6,3 @@ import "chota";
 import "./base.css";
 
 ReactDOM.render(<Application />, document.getElementById('root'));
-
