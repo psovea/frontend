@@ -2,9 +2,9 @@ import React from 'react';
 import { Compass, Truck, Search, Activity } from 'react-feather';
 import './Sidebar.css';
 
-var Checkbox_heatmap = () => {
-	this.setState({"chkbox": true})
-}
+// var Checkbox_heatmap = () => {
+// 	this.setState({"chkbox": true})
+// }
 
 class Sidebar extends React.Component {
 	constructor(props) {
@@ -71,7 +71,7 @@ class Sidebar extends React.Component {
 		    <div>
 		        <div className="row">
 			    <div className="col-8"><label>Show heatmap</label></div>
-                            <div className="col-4"> <input type="checkbox" id="hmap" name="heatmap" value="heatmap" checked={this.state.isChecked} onChange={this.toggleChange} /></div>
+                            <div className="col-4"> <input type="checkbox" id="hmap" name="heatmap" value="heatmap" defaultChecked={this.state.isChecked} onChange={this.toggleChange} /></div>
 		        </div>
 
 		        <div className="row">
