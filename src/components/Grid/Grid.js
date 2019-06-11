@@ -1,6 +1,6 @@
 import React from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import DataConTainerHeader from './DataContainerHeader.js'
+// import DataConTainerHeader from './DataContainerHeader.js'
 // Import the charts to show in the grid.
 import Maps from '../Maps/Maps.js'
 import BarChart from '../Graphs/BarChart.js';
@@ -27,16 +27,13 @@ class Grid extends React.Component {
             >
                 {/* x and y are the position of the block on the grid. w is the width and h the height of the block. */}
                 <div key="pie" className="pie" data-grid={{ x: 0, y: 0, w: 1, h: 2}}>
-                    <DataConTainerHeader title="Doughnut"/>
-                    <div className="DataContainer">
                         <DoughnutChart />
-                    </div>
                 </div>
-                {/* <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 2, static: true }} >
+                <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 2, static: true }} >
                     <Maps />
-                </div> */}
+                </div>
 
-                {/* <div key="stats" className="stats" data-grid={{ x: 0, y: 2, w: 2, h: 3 }}>Other amazing stats</div> */}
+                <div key="stats" className="stats" data-grid={{ x: 0, y: 2, w: 2, h: 3 }}>Other amazing stats</div>
                 <div key="bottle" className="stats" data-grid={{ x: 2, y: 2, w: 1, h: 3 }}>
                     <h1>Top 10 bottlenecks:</h1>
                     <ol>
