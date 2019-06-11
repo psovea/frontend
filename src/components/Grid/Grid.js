@@ -32,7 +32,7 @@ class Grid extends React.Component {
                 <div key="pie" className="pie" data-grid={{ x: 0, y: 0, w: 1, h: 2}}>
                         <DoughnutChart />
                 </div>
-                <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 2, static: true }} >
+                <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 6, static: true }} >
                     <Maps />
                 </div>
 

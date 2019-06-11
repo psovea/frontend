@@ -2,7 +2,22 @@ import React from 'react';
 import { Compass, Truck, Search, Activity } from 'react-feather';
 import './Sidebar.css';
 
+// var Checkbox_heatmap = () => {
+// 	this.setState({"chkbox": true})
+// }
+
 class Sidebar extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isChecked: true,
+		};
+	}
+	toggleChange = () => {
+		this.setState({
+			isChecked: !this.state.isChecked,
+		});
+	}
     render() {
         return (
 	    <div className="sbar">
@@ -56,18 +71,24 @@ class Sidebar extends React.Component {
 		    <div>
 		        <div className="row">
 			    <div className="col-8"><label>Show heatmap</label></div>
-                            <div className="col-4"><input type="checkbox" name="heatmap" value="heatmap" checked /></div>
+                            <div className="col-4"> <input type="checkbox" id="hmap" name="heatmap" value="heatmap" defaultChecked={this.state.isChecked} onChange={this.toggleChange} /></div>
 		        </div>
 
 		        <div className="row">
-			    <div className="col-8"><label>Show pie chart</label></div>
-			    <div className="col-4"><input type="checkbox" name="pie" value="pie" checked /></div>
+			    <div className="col-8"><label>Show doughnut chart</label></div>
+			   				<div className="col-4"> <input type="checkbox" id="doughnut" name="doughnut" value="doughnut"/></div>
 		        </div>
 		    
 		        <div className="row">
 			    <div className="col-8"><label>Show bar graph</label></div>
-                            <div className="col-4"><input type="checkbox" name="bar" value="bar" checked /></div>
+                			<div className="col-4"> <input type="checkbox" id="bgraph" name="bar" value="bar"/></div>
 		        </div>
+
+				<div className="row">
+			    <div className="col-8"><label>Show list</label></div>
+                            <div className="col-4"> <input type="checkbox" id="list" name="list" value="list"/></div>
+		        </div>
+				
 		    
 		    </div>
                 </div>
