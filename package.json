@@ -43,13 +43,17 @@
     "bundle": "^2.1.0",
     "chart.js": "^2.8.0",
     "chota": "^0.6.2",
+    "fs": "0.0.1-security",
     "leaflet": "^1.5.1",
+    "leaflet-ajax": "^2.1.0",
     "react-chartjs-2": "^2.7.6",
     "react-chartjs2": "^1.2.1",
     "react-grid-layout": "^0.16.6",
     "react-leaflet": "^2.3.0",
     "react-leaflet-heatmap-layer": "^2.0.0",
+    "react-leaflet-shapefile": "^2.0.0",
     "react-request": "^3.1.2",
-    "react-resizable": "^1.8.0"
+    "react-resizable": "^1.8.0",
+    "shapefile": "^0.6.6"
   }
 }
