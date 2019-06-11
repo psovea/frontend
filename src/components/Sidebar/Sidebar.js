@@ -2,20 +2,37 @@ import React from 'react';
 import { Compass, Truck, Search, Activity } from 'react-feather';
 import './Sidebar.css';
 
-// var Checkbox_heatmap = () => {
-// 	this.setState({"chkbox": true})
-// }
-
 class Sidebar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isChecked: true,
+			hmapChecked: true,
+			doughnutChecked: true,
+			barChecked: true,
+			listChecked: true,
 		};
+
+		// this.handleInputChange = this.toggleChange.bind(this);
 	}
-	toggleChange = () => {
+
+	hmapChange = () => {
 		this.setState({
-			isChecked: !this.state.isChecked,
+			hmapChecked: !this.state.hmapChecked,
+		});
+	}
+	doughnutChange = () => {
+		this.setState({
+			doughnutChecked: !this.state.doughnutChecked,
+		});
+	}
+	barChange = () => {
+		this.setState({
+			barChecked: !this.state.barChecked,
+		});
+	}
+	listChange = () => {
+		this.setState({
+			listChecked: !this.state.listChecked,
 		});
 	}
     render() {
@@ -47,7 +64,7 @@ class Sidebar extends React.Component {
 		    <div>
 		        <div className="row">
 			    <div className="col-8"><label>Train</label></div>
-                            <div className="col-4"><input type="checkbox" name="train" value="train" checked /></div>
+                            <div className="col-4"><input type="checkbox" name="train" value="train" defaultChecked /></div>
 		        </div>
 
 		        <div className="row">
@@ -57,7 +74,7 @@ class Sidebar extends React.Component {
 		    
 		        <div className="row">
 			    <div className="col-8"><label>Tram</label></div>
-                            <div className="col-4"><input type="checkbox" name="tram" value="tram" checked /></div>
+                            <div className="col-4"><input type="checkbox" name="tram" value="tram" defaultChecked /></div>
 		        </div>
 		    
 		    </div>
@@ -71,22 +88,22 @@ class Sidebar extends React.Component {
 		    <div>
 		        <div className="row">
 			    <div className="col-8"><label>Show heatmap</label></div>
-                            <div className="col-4"> <input type="checkbox" id="hmap" name="heatmap" value="heatmap" defaultChecked={this.state.isChecked} onChange={this.toggleChange} /></div>
+                            <div className="col-4"> <input type="checkbox" id="hmap" name="heatmap" value="heatmap" checked={this.state.hmapChecked} onChange={this.hmapChange} /></div>
 		        </div>
 
 		        <div className="row">
 			    <div className="col-8"><label>Show doughnut chart</label></div>
-			   				<div className="col-4"> <input type="checkbox" id="doughnut" name="doughnut" value="doughnut"/></div>
+			   				<div className="col-4"> <input type="checkbox" id="doughnut" name="doughnut" value="doughnut" checked={this.state.doughnutChecked} onChange={this.doughnutChange} /></div>
 		        </div>
 		    
 		        <div className="row">
 			    <div className="col-8"><label>Show bar graph</label></div>
-                			<div className="col-4"> <input type="checkbox" id="bgraph" name="bar" value="bar"/></div>
+                			<div className="col-4"> <input type="checkbox" id="bgraph" name="bar" value="bar" checked={this.state.barChecked} onChange={this.barChange}/></div>
 		        </div>
 
 				<div className="row">
 			    <div className="col-8"><label>Show list</label></div>
-                            <div className="col-4"> <input type="checkbox" id="list" name="list" value="list"/></div>
+                            <div className="col-4"> <input type="checkbox" id="list" name="list" value="list" checked={this.state.listChecked} onChange={this.listChange} /></div>
 		        </div>
 				
 		    
