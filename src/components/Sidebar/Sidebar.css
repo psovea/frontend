@@ -1,6 +1,7 @@
 .sbar
 {
-    padding:10px;
+    color: white;
+    padding: 1em;
     height: 100vh;
     background-color: var(--dark-color);
     position: sticky;
@@ -11,6 +12,28 @@
          box-shadow: 5px 2px 22px 0px rgba(0,0,0, .5);
 }
 
-.sbar > h1, h2, h3, h4, h5, h6, p {
+.sbar .brand {
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
     color: white;
+}
+
+.sbar .section-title {
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.sbar .section-title a {
+    margin: 1rem;
+    color: white;
+}
+
+.sbar .section-list div {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
 }

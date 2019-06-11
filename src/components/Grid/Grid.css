@@ -1,6 +1,6 @@
 .grid > div {
     background-color: var(--light-color);
-    padding: 1em;
+    /* padding: 1em; */
     border: solid 1px lightgrey;
     border-radius: 5px;
 
@@ -8,4 +8,8 @@
     -webkit-box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5);
     -moz-box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5);
          box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5); 
+}
+
+.DataContainer { 
+    height: 90%;
 }
