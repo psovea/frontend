@@ -56,18 +56,24 @@ class Sidebar extends React.Component {
 		    <div>
 		        <div className="row">
 			    <div className="col-8"><label>Show heatmap</label></div>
-                            <div className="col-4"><input type="checkbox" name="heatmap" value="heatmap" checked /></div>
+                            <div className="col-4"> <input type="checkbox" id="hmap" name="heatmap" value="heatmap"/></div>
 		        </div>
 
 		        <div className="row">
-			    <div className="col-8"><label>Show pie chart</label></div>
-			    <div className="col-4"><input type="checkbox" name="pie" value="pie" checked /></div>
+			    <div className="col-8"><label>Show doughnut chart</label></div>
+			   				<div className="col-4"> <input type="checkbox" id="doughnut" name="doughnut" value="doughnut"/></div>
 		        </div>
 		    
 		        <div className="row">
 			    <div className="col-8"><label>Show bar graph</label></div>
-                            <div className="col-4"><input type="checkbox" name="bar" value="bar" checked /></div>
+                			<div className="col-4"> <input type="checkbox" id="bgraph" name="bar" value="bar"/></div>
 		        </div>
+
+				<div className="row">
+			    <div className="col-8"><label>Show list</label></div>
+                            <div className="col-4"> <input type="checkbox" id="list" name="list" value="list"/></div>
+		        </div>
+				
 		    
 		    </div>
                 </div>
