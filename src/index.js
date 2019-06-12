@@ -6,17 +6,13 @@ import Application from "./components/Application/Application.js"
 import "chota";
 import "./base.css";
 
-import { stateHandler } from './redux/reducers.js'
-
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-
-const store = createStore(stateHandler);
+// import { Provider } from 'react-redux';
+// import {store} from './redux/store.js'
 
 const rootElement = document.getElementById('root');
 
 ReactDOM.render((
-    <Provider store={store}>
+    // <Provider store={store}>
         <Application />
-    </Provider>
+    // </Provider>
 ), rootElement);

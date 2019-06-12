@@ -2,6 +2,8 @@ import React from 'react';
 import { Compass, Truck, Search, Activity } from 'react-feather';
 import './Sidebar.css';
 
+// import toggleDoughnut from '../../redux/actions.js'
+
 class Sidebar extends React.Component {
 	constructor(props) {
 		super(props);
@@ -18,7 +20,7 @@ class Sidebar extends React.Component {
 	hmapChange = () => {
 		this.setState({
 			hmapChecked: !this.state.hmapChecked,
-		});
+        });
 	}
 	doughnutChange = () => {
 		this.setState({

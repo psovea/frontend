@@ -12,16 +12,26 @@ import './Grid.css';
 import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
 
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
+// console.log(store.getState())
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-// console.log(store.getState())
 
 // This defines the grid; here we add other components (lets call
 // them widgets). Unfortunately we have to add div's directly into
 // the ResponiveGridLayout, in these divs we can put our widgets.
 // I have not found a way to work around this yet.
 class Grid extends React.Component {
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            showDoughnut: 'true',
+            showBarChart: 'true',
+            showList: 'true'
+        };
+    }
+
     render() {
         return (
             <ResponsiveGridLayout className="grid"
@@ -30,13 +40,13 @@ class Grid extends React.Component {
             >
                 {/* x and y are the position of the block on the grid. w is the width and h the height of the block. */}
                 <div key="pie" className="pie" data-grid={{ x: 0, y: 0, w: 1, h: 2}}>
-                        <DoughnutChart />
+                    <DoughnutChart />
                 </div>
                 <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 6, static: true }} >
                     <Maps />
                 </div>
 
-                <div key="stats" className="stats" data-grid={{ x: 0, y: 2, w: 2, h: 3 }}>Other amazing stats</div>
+                <div key="stats" className="stats" data-grid={{ x: 0, y: 2, w: 2, h: 3 }}>{this.state.showBarChart}</div>
                 <div key="bottle" className="stats" data-grid={{ x: 2, y: 2, w: 1, h: 3 }}>
                     <h1>Top 10 bottlenecks:</h1>
                     <ol>
@@ -59,5 +69,13 @@ class Grid extends React.Component {
         )
     }
 }
+
+// const mapStateToProps = function(state) {
+//     return {
+//         showDoughnut: state.showDoughnut,
+//         showBarChart: state.showBarChart,
+//         showList: state.showList
+//         }
+//     }
 
 export default Grid;
