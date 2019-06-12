@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
-// import DataConTainerHeader from './DataContainerHeader.js'
+
 // Import the charts to show in the grid.
 import Maps from '../Maps/Maps.js'
 import BarChart from '../Graphs/BarChart.js';
 import DoughnutChart from '../Graphs/DoughnutChart.js'
-import './Grid.css';
 
 // We need these css imports, else the graphics will glitch
 // while moving components in our grid.
 import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
+import './Grid.css';
 
+// Imports for redux
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -24,73 +25,52 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 class Grid extends Component {
     
     constructor(props) {
-        console.log("constructor Grid called")
-        console.log(props)
         super(props);
         this.state = {
-            testValue: props.testValue
+            testValue: props.testValue,
+            field1Value: true
         };
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         nextState.testValue = nextProps.testValue;
+        nextState.field1Value = nextProps.field1Value;
         return true;
     }
 
     render() {
         return (
-            <div>{this.state.testValue}</div>
-            // <ResponsiveGridLayout className="grid"
-            //     breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-            //     cols={{ lg: 3, md: 3, sm: 2, xs: 2, xxs: 2 }}
-            // >
-            //     {/* x and y are the position of the block on the grid. w is the width and h the height of the block. */}
-            //     <div key="pie" className="pie" data-grid={{ x: 0, y: 0, w: 1, h: 2}}>
-            //         {/* <DoughnutChart /> */}
-            //         {this.state.testValue}
-            //     </div>
-            //     {/* <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 6, static: true }} >
-            //         <Maps />
-            //     </div>
-
-            //     <div key="stats" className="stats" data-grid={{ x: 0, y: 2, w: 2, h: 3 }}>{this.state.showBarChart}</div>
-            //     <div key="bottle" className="stats" data-grid={{ x: 2, y: 2, w: 1, h: 3 }}>
-            //         <h1>Top 10 bottlenecks:</h1>
-            //         <ol>
-            //             <li>Centraal - Muiderpoort</li>
-            //             <li>Nassaukade - Marnixplein</li>
-            //             <li>Weesperplein - Frederiksplein</li>
-            //             <li>Azartplein - Cornelis van Eesterenlaan</li>
-            //             <li>Leidseplein - Spiegelgracht</li>
-            //             <li>Marnixplein - Bloemgracht</li>
-            //             <li>Alexanderplein - Hoogte Kadijk</li>
-            //             <li>Sloterdijk - Centraal</li>
-            //             <li>Weteringscircuit - Spiegelgracht</li>
-            //             <li>Van Limburg Stirumstraat - De Wittenkade</li>
-            //         </ol>
-            //     </div>
-            //     <div key="chart" data-grid={{ x: 0, y: 5, w: 3, h: 2 }}>
-            //         <BarChart />
-            //     </div> */}
-            // </ResponsiveGridLayout>
+            <ResponsiveGridLayout className="grid"
+                breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+                cols={{ lg: 3, md: 3, sm: 2, xs: 2, xxs: 2 }}
+            >
+                {/* x and y are the position of the block on the grid. w is the width and h the height of the block. */}
+                <div key="1" className="pie" data-grid={{ x: 0, y: 0, w: 2, h: 2}}>
+                    {String(this.state.field1Value)}
+                </div>
+                <div key="2" className="pie" data-grid={{ x: 2, y: 0, w: 1, h: 2}}>
+                    <DoughnutChart />
+                </div>
+                <div key="3" className="pie" data-grid={{ x: 0, y: 2, w: 4, h: 3}}>
+                    <BarChart />
+                </div>
+            </ResponsiveGridLayout>
         )
     }
 }
 
 Grid.propTypes = {
-    testValue: PropTypes.string.isRequired
+    testValue: PropTypes.string.isRequired,
+    field1Value: PropTypes.bool
 };
 
 const mapStateToProps = state => {
-    console.log("Store state changed:")
+    console.log("new state")
     console.log(state)
-    console.log(state.testValue)
-    console.log("mapStateToProps called in Grid.js");
-    return { testValue: state.testValue }
+    return { 
+        testValue: state.testValue,
+        field1Value: state.check1Value
+    }
 }
-
-// const mapStateToProps = state => {
-//     return { message: state.message, speaker: state.speaker };
-// };
 
 export default connect(mapStateToProps, null)(Grid);

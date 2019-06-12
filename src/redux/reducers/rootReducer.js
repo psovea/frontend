@@ -1,7 +1,11 @@
-import { CHANGE_TEST_VALUE } from "../actions/actionTypes.js";
+import { 
+    CHANGE_TEST_VALUE, 
+    CHANGE_CHECK1,
+} from "../actions/actionTypes.js";
 
 const initialState = {
-    testValue: "initialState"
+    testValue: "initialState",
+    check1Value: true
 };
 
 function rootReducer(state = initialState, action) {
@@ -10,6 +14,10 @@ function rootReducer(state = initialState, action) {
             return {
                 testValue: action.value
             }
+        case CHANGE_CHECK1:
+            return Object.assign({}, state, {
+                check1Value: action.value
+            })
         default:
             return state;
     };
