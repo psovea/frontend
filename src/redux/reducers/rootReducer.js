@@ -7,7 +7,7 @@ const initialState = {
 function rootReducer(state = initialState, action) {
     switch (action.type) {
         case CHANGE_TEST_VALUE:
-            return  {
+            return {
                 testValue: action.value
             }
         default:
