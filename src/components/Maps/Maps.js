@@ -2,6 +2,8 @@ import React from 'react'
 import { Map, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet'
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import { addressPoints } from './DummyHeatmap'
+import MarkerClusterGroup from 'react-leaflet-markercluster'
+import 'react-leaflet-markercluster/dist/styles.min.css';
 
 class Maps extends React.Component {
     constructor() {
@@ -11,39 +13,45 @@ class Maps extends React.Component {
             center: [52.3680, 4.9036],
             zoom: 13,
             stops: [],
-            districts: []
+            districts: [],
         }
     };
 
     createMarkers() {
-        let markers = []
-        let stops = this.state.stops
-        for (let i = 0; i < stops.length; i++) {
-            let element = stops[i][Object.keys(stops[i])[0]]
-            let position = [element.lat, element.lon]
-            markers.push(
-                <Marker
-                    key={`marker-${i}`}
-                    position={position} >
-                    <Popup> {element.name} </Popup>
-                </Marker >
-            )
-        }
-        return markers
+        return this.state.stops.map((stop, i) => {
+            return <Marker
+                key={`marker-${i}`}
+                position={[stop.lat, stop.lon]} >
+                <Popup> {[stop.name]} </Popup>
+            </Marker >
+        })
+    }
+
+    fetchJSON(url, value) {
+        console.log(url, value)
+        let jsonVar = {}
+        fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then(res => {
+                return res.json();
+            })
+            .then(json => {
+                jsonVar[value] = json;
+                console.log(jsonVar);
+                this.setState(jsonVar);
+            })
     }
 
     componentDidMount() {
-        fetch(`https://cors-anywhere.herokuapp.com/http://184.72.120.43:9800/getStops`)
-            .then(res => res.json())
-            .then(json => this.setState({ stops: json }))
-        fetch(`https://cors-anywhere.herokuapp.com/http://145.109.9.102:5000/get-districts`)
-            .then(res => res.json())
-            .then(json => this.setState({ districts: json }))
+        this.fetchJSON(`https://cors-anywhere.herokuapp.com/http://18.216.203.6:5000/get-stops`, "stops")
+        this.fetchJSON(`https://cors-anywhere.herokuapp.com/http://184.72.120.43:3000/districts`, "districts")
     }
 
     render() {
-        console.log(this.state.stops)
-        console.log(this.state.districts)
         return (
             <Map
                 ref={(ref) => { this.map = ref; }}
@@ -52,24 +60,32 @@ class Maps extends React.Component {
                 bounds={this.state.bounds}
                 maxBounds={this.state.bounds}
                 boundsOptions={{ padding: [50, 50] }}
-                maxZoom={15}
+                maxZoom={16}
                 minZoom={11}
             >
-                <HeatmapLayer
+                {/* <HeatmapLayer
                     fitBoundsOnLoad
                     fitBoundsOnUpdate
                     points={addressPoints}
                     longitudeExtractor={m => m[1]}
                     latitudeExtractor={m => m[0]}
                     intensityExtractor={m => parseFloat(m[2])}
-                />
+                /> */}
                 <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 />
-                {this.createMarkers()}
-                <GeoJSON data={this.state.districts} />
-                </Map >
+                <MarkerClusterGroup
+                    spiderLegPolylineOptions={{
+                        weight: 0,
+                        opacity: 0,
+                    }}>
+                    {this.createMarkers()}
+                </MarkerClusterGroup>
+                {/* <GeoJSON
+                    data={this.state.districts}
+                /> */}
+            </Map >
         );
     }
 }
