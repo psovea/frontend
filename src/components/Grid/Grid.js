@@ -12,8 +12,8 @@ import './Grid.css';
 import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
 
-// import { connect } from 'react-redux'
-// console.log(store.getState())
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -24,11 +24,11 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 class Grid extends React.Component {
     
     constructor(props) {
+        console.log("constructor Grid called")
+        console.log(props)
         super(props);
         this.state = {
-            showDoughnut: 'true',
-            showBarChart: 'true',
-            showList: 'true'
+            testValue: props.testValue
         };
     }
 
@@ -40,9 +40,10 @@ class Grid extends React.Component {
             >
                 {/* x and y are the position of the block on the grid. w is the width and h the height of the block. */}
                 <div key="pie" className="pie" data-grid={{ x: 0, y: 0, w: 1, h: 2}}>
-                    <DoughnutChart />
+                    {/* <DoughnutChart /> */}
+                    {this.state.testValue}
                 </div>
-                <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 6, static: true }} >
+                {/* <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 6, static: true }} >
                     <Maps />
                 </div>
 
@@ -64,18 +65,21 @@ class Grid extends React.Component {
                 </div>
                 <div key="chart" data-grid={{ x: 0, y: 5, w: 3, h: 2 }}>
                     <BarChart />
-                </div>
+                </div> */}
             </ResponsiveGridLayout>
         )
     }
 }
 
-// const mapStateToProps = function(state) {
-//     return {
-//         showDoughnut: state.showDoughnut,
-//         showBarChart: state.showBarChart,
-//         showList: state.showList
-//         }
-//     }
+Grid.propTypes = {
+    testValue: PropTypes.string
+};
 
-export default Grid;
+function mapStateToProps(state, ownProps) {
+    console.log("Store state changed:")
+    console.log(state)
+    console.log("mapStateToProps called in Grid.js")
+    return { testValue: state.testValue }
+}
+
+export default connect(mapStateToProps, null)(Grid);

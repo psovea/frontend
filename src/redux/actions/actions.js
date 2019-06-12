@@ -1,4 +1,4 @@
-import { CHANGE_TEST_VALUE } from "./action-types.js";
+import { CHANGE_TEST_VALUE } from "./actionTypes.js";
 
 /*
  * action creators
