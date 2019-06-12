@@ -1,5 +1,9 @@
-import { ADD_ARTICLE } from "./action-types";
+import { CHANGE_TEST_VALUE } from "./action-types.js";
 
-export function addArticle(payload) {
-    return { type: ADD_ARTICLE, payload };
+/*
+ * action creators
+ */
+
+export function changeTestValue(text) {
+    return { type: CHANGE_TEST_VALUE, value: text }
 }

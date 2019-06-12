@@ -1,1 +1,4 @@
-export const ADD_ARTICLE = "ADD_ARTICLE";
+/*
+ * action types
+ */
+export const CHANGE_TEST_VALUE = "CHANGE_TEST_VALUE";
