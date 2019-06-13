@@ -48,7 +48,7 @@ class Grid extends Component {
         var shouldRender = <div></div>;
         if (this.state.field1Value === true) {
             shouldRender = 
-                <div key="1" className="pie" data-grid={{ x: 2, y: 0, w: 2, h: 4}}>
+                <div key="1" className="pie" data-grid={{ x: 2, y: 0, w: 2, h: 4, static: true}}>
                     <Maps />
                 </div>;
         }
@@ -59,7 +59,7 @@ class Grid extends Component {
         var shouldRender = <div></div>;
         if (this.state.field2Value === true) {
             shouldRender = 
-                <div key="2" className="pie" data-grid={{ x: 0, y: 0, w: 2, h: 2}}>
+                <div key="2" className="pie" data-grid={{ x: 0, y: 0, w: 2, h: 4}}>
                     <DoughnutChart />
                 </div>
         }
@@ -100,8 +100,6 @@ Grid.propTypes = {
 };
 
 const mapStateToProps = state => {
-    console.log("new state")
-    console.log(state)
     return { 
         field1Value: state.check1Value,
         field2Value: state.check2Value,
