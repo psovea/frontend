@@ -1,13 +1,12 @@
 import React from 'react';
 import Delay from './Delay';
 import PropTypes from 'prop-types';
-import openSocket from 'socket.io-client';
 
-// const socket = openSocket()
 
 import './Feed.css'
 
 class Delays extends React.Component {
+
   render = () => {
     // var content = this.props.delays.map((delay) => {
     //   return (
