@@ -1,6 +1,7 @@
 import React from 'react';
-import { Compass, Truck, Search } from 'react-feather';
+import { Truck } from 'react-feather';
 import SidebarDataCheckboxes from './SidebarDataCheckboxes.js';
+import SidebarRegionFilters from './SidebarRegionFilters.js';
 import './Sidebar.css';
 
 class Sidebar extends React.Component {
@@ -15,21 +16,7 @@ class Sidebar extends React.Component {
         return (
             <div className="sbar">
                 <a className="brand" href="#">psovea</a>
-
-                <div>
-                    <div className="section-title">
-                        <Compass />
-                        <a href="#">Region</a>
-                    </div>
-
-                    <div className="section-title">
-                        <div className="col-9"><input type="text" name="region" /></div>
-                                <div className="col-3">
-                            <button className="button icon-only"><Search /></button>
-                        </div>
-                    </div>
-                </div> 
-            
+                <SidebarRegionFilters />
                 <div>
                     <div className="section-title">
                         <Truck />

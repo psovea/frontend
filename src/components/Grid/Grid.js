@@ -59,7 +59,7 @@ class Grid extends Component {
         var shouldRender = <div></div>;
         if (this.state.field2Value === true) {
             shouldRender = 
-                <div key="2" className="pie" data-grid={{ x: 0, y: 0, w: 2, h: 2}}>
+                <div key="2" className="pie" data-grid={{ x: 0, y: 0, w: 2, h: 4}}>
                     <DoughnutChart />
                 </div>
         }
