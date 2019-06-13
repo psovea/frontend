@@ -1,23 +1,17 @@
-import React from 'react';
-import Delays from './Delays';
-import Loader from './Loader';
-import NotificationBar from './NotificationBar'
-import { Rewind } from 'react-feather';
+import React from 'react'
+import Delays from './Delays'
 import PropTypes from 'prop-types'
 
 import './Feed.css'
 
 class Feed extends React.Component {
-
-  render() {
+  render () {
     return (
-      <div className="feed">
-        <Delays/>
-        <Loader/>
+      <div className='feed'>
+        <Delays />
       </div>
     )
   }
 }
 
-
-export default Feed;
+export default Feed

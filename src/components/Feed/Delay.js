@@ -20,7 +20,7 @@ class Delay extends React.Component {
 
     Promise.all([reqStop, reqLine]).then(data => {
       var obj = {...data[1][0], ...data[0][0]}
-    
+
       this.setState(prevState => {
         let newDelay = {
           publicLine: obj.public_id,
@@ -54,10 +54,10 @@ class Delay extends React.Component {
       delays.map(item => {
         return <li key={item} className={"delay"}>
           <p className={"delay-header"}>Lijn {item.publicLine}: {item.name}</p>
-          <p>Halte: {item.stopName}</p>
+          <p>Stop: {item.stopName}</p>
           <p>Transport type: {item.transportType}</p>
-          <p>Vervoerder: {item.operator}</p>
-          <p>Vertraging: {item.punctuality} seconden</p>
+          <p>Operator: {item.operator}</p>
+          <p>Delay: {item.punctuality} seconden</p>
         </li>
       })
     )
