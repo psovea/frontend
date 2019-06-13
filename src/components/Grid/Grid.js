@@ -23,18 +23,11 @@ class Grid extends React.Component {
         return (
             <ResponsiveGridLayout className="grid"
                 breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-                cols={{ lg: 3, md: 3, sm: 2, xs: 2, xxs: 2 }}
+                // The grid is 4x4 or 2x2 when the resolution is small.
+                cols={{ lg: 4, md: 4, sm: 2, xs: 2, xxs: 2 }}
             >
                 {/* x and y are the position of the block on the grid. w is the width and h the height of the block. */}
-                <div key="pie" className="pie" data-grid={{ x: 0, y: 0, w: 1, h: 2}}>
-                        <DoughnutChart />
-                </div>
-                <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 2, static: true }} >
-                    <Maps />
-                </div>
-
-                <div key="stats" className="stats" data-grid={{ x: 0, y: 2, w: 2, h: 3 }}>Other amazing stats</div>
-                <div key="bottle" className="stats" data-grid={{ x: 2, y: 2, w: 1, h: 3 }}>
+                <div key="bottle" className="stats" data-grid={{ x: 0, y: 0, w: 1, h: 3 }}>
                     <h1>Top 10 bottlenecks:</h1>
                     <ol>
                         <li>Centraal - Muiderpoort</li>
@@ -49,7 +42,16 @@ class Grid extends React.Component {
                         <li>Van Limburg Stirumstraat - De Wittenkade</li>
                     </ol>
                 </div>
-                <div key="chart" data-grid={{ x: 0, y: 5, w: 3, h: 2 }}>
+                <div key="pie" className="pie" data-grid={{ x: 1, y: 0, w: 1, h: 3}}>
+                        <DoughnutChart />
+                </div>
+                <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 4, static: true }} >
+                    <Maps />
+                </div>
+
+                <div key="stats" className="stats" data-grid={{ x: 0, y: 3, w: 1, h: 3 }}>Other amazing stats</div>
+                
+                <div key="chart" data-grid={{ x: 1, y: 4, w: 3, h: 2 }}>
                     <BarChart />
                 </div>
             </ResponsiveGridLayout>
