@@ -5,6 +5,10 @@ import { addressPoints } from './DummyHeatmap'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css';
 
+// Imports for redux
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 class Maps extends React.Component {
     constructor() {
         super();
@@ -16,6 +20,14 @@ class Maps extends React.Component {
             districts: [],
         }
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("in componentShoudlUpdate")
+        nextState.districts = nextProps.districts;
+        console.log("new state in maps")
+        console.log(nextState.districts)
+        return true;
+    }
 
     createMarkers() {
         return this.state.stops.map((stop, i) => {
@@ -48,7 +60,7 @@ class Maps extends React.Component {
 
     componentDidMount() {
         this.fetchJSON(`https://cors-anywhere.herokuapp.com/http://18.216.203.6:5000/get-stops`, "stops")
-        this.fetchJSON(`https://cors-anywhere.herokuapp.com/http://184.72.120.43:3000/districts`, "districts")
+        // this.fetchJSON(`https://cors-anywhere.herokuapp.com/http://184.72.120.43:3000/districts`, "districts")
     }
 
     render() {
@@ -89,4 +101,17 @@ class Maps extends React.Component {
         );
     }
 }
-export default Maps;
+
+Maps.propTypes = {
+    districts: PropTypes.array,
+};
+
+const mapStateToProps = state => {
+    console.log("noticed store changed")
+    console.log(state.districts)
+    return { 
+        districts: state.districts
+    }
+}
+
+export default connect(mapStateToProps, null)(Maps);

@@ -9,6 +9,7 @@ import {
 } from '../../redux/actions/actions.js';
 
 class SidebarRegionFilters extends Component {
+    
     constructor(props) {
 		super(props);
 		this.state = {
@@ -22,19 +23,51 @@ class SidebarRegionFilters extends Component {
             zuidoostChecked: true,
 		};
 
-        this.onchange = this.centrumChange.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.editState = this.editState.bind(this);
     }
 
-    onchange(event, key) {
+    editState(districtChecked, districtName) {
+        console.log(districtChecked)
+        console.log(districtName)
+        // this.setState({
+        //     districtChecked: this.state.districtChecked
+        // });
+        if (this.state.districtChecked === true) {
+            this.setState({
+                districtChecked: false
+            });
+        } else {
+            this.setState({
+                districtChecked: true
+            });
+        }
+        this.props.toggleDistrict(districtName);
     }
 
-    // handleChange(e, key) {
-    //     // If you are using babel, you can use ES 6 dictionary syntax
-    //     // let change = { [e.target.name] = e.target.value }
-    //     let change = {}
-    //     change[e.target.name] = e.target.value
-    //     this.setState(change)
-    //   }
+    onChange(e) {
+        this.editState(e.target.id + "Checked", e.target.id)
+        // switch (e.target.id) {
+        //     case "centrum":
+        //         this.editState("centrumChecked", "centrum")
+        //     case "new-west":
+        //         this.editState("centrumChecked", "centrum")
+        //     case "noord":
+        //         this.editState("centrumChecked", "centrum")
+        //     case "oost":
+        //         this.editState("centrumChecked", "centrum")
+        //     case "west":
+        //         this.editState("centrumChecked", "centrum")
+        //     case "westpoort":
+        //         this.editState("centrumChecked", "centrum")
+        //     case "zuid":
+        //         this.editState("centrumChecked", "centrum")
+        //     case "zuidoost":
+        //         this.editState("centrumChecked", "centrum")    
+        // }
+    }
+
+    
 
     render() {
         return (
@@ -172,13 +205,12 @@ class SidebarRegionFilters extends Component {
                         />
                     </div>
                 </div>
-
             </div> 
         );
     }
 }
 
-SidebarDataCheckboxes.propTypes = {
+SidebarRegionFilters.propTypes = {
     toggleDistrict: PropTypes.func.isRequired,
 };
 

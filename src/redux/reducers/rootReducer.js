@@ -31,7 +31,7 @@ function rootReducer(state = initialState, action) {
             if (state.districts.includes(action.value)) {
                 districtsChanged = state.districts.filter(e => e !== action.value)
             } else {
-                districtsChanged = districtsChanged.push(action.value);
+                districtsChanged.push(action.value);
             }
             return Object.assign({}, state, {
                 districts: districtsChanged
