@@ -1,7 +1,6 @@
 import React from 'react'
-import { Map, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet'
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
-import { addressPoints } from './DummyHeatmap'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css';
 
@@ -13,13 +12,16 @@ class Maps extends React.Component {
     constructor() {
         super();
         this.state = {
-            bounds: [[52.462449, 4.738163], [52.290331, 5.135141]],
+            bounds: [
+                [52.218546, 4.589539],
+                [52.471907, 5.178680]
+            ],
             center: [52.3680, 4.9036],
             zoom: 13,
             stops: [],
-            districts: {
-
-            },
+            districts: [],
+            delays: [],
+            heatmapdata: []
         }
     };
 
@@ -42,27 +44,40 @@ class Maps extends React.Component {
     }
 
     fetchJSON(url, value) {
-        console.log(url, value)
+        url = 'https://cors-anywhere.herokuapp.com/' + url
         let jsonVar = {}
         fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
+        }).then(res => {
+            return res.json();
+        }).then(json => {
+            jsonVar[value] = json;
+            this.setState(jsonVar);
         })
-            .then(res => {
-                return res.json();
-            })
-            .then(json => {
-                jsonVar[value] = json;
-                console.log(jsonVar);
-                this.setState(jsonVar);
-            })
     }
 
     componentDidMount() {
-        this.fetchJSON(`https://cors-anywhere.herokuapp.com/http://18.216.203.6:5000/get-stops`, "stops")
-        this.fetchJSON(`https://cors-anywhere.herokuapp.com/http://184.72.120.43:3000/districts`, "districts")
+        // Stop data
+        this.fetchJSON(`http://18.216.203.6:5000/get-stops`, "stops")
+        // District data
+        this.fetchJSON(`http://184.72.120.43:3000/districts`, "districts")
+        // Heatmap data
+        this.fetchJSON('http://18.216.203.6:5000/get-heatmap-info', 'heatmapdata')
+        // Delay data
+        // this.fetchJSON(`http://myurl.url`, "delays")
+    }
+
+    createMarkers() {
+        return this.state.stops.map((stop, i) => {
+            return <Marker
+                key={`marker-${i}`}
+                position={[stop.lat, stop.lon]} >
+                <Popup> {[stop.name]} </Popup>
+            </Marker >
+        })
     }
 
     render() {
@@ -77,16 +92,16 @@ class Maps extends React.Component {
                 maxZoom={16}
                 minZoom={11}
             >
-                {/* <HeatmapLayer
+                <HeatmapLayer
                     fitBoundsOnLoad
                     fitBoundsOnUpdate
-                    points={addressPoints}
+                    points={this.state.heatmapdata}
                     longitudeExtractor={m => m[1]}
                     latitudeExtractor={m => m[0]}
                     intensityExtractor={m => parseFloat(m[2])}
-                /> */}
+                />
                 <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    attribution='&copy; PSOVEA'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 />
                 <MarkerClusterGroup
