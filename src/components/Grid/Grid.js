@@ -84,7 +84,8 @@ class Grid extends Component {
         return (
             <ResponsiveGridLayout className="grid"
                 breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-                cols={{ lg: 3, md: 3, sm: 2, xs: 2, xxs: 2 }}
+                // The grid is 4x4 or 2x2 when the resolution is small.
+                cols={{ lg: 4, md: 4, sm: 2, xs: 2, xxs: 2 }}
             >
                 {this.shouldData1Render()}
                 {this.shouldData2Render()}
