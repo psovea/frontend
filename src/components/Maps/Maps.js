@@ -1,9 +1,12 @@
 import React from 'react'
-import { Map, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet'
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
-import { addressPoints } from './DummyHeatmap'
 import 'react-leaflet-markercluster/dist/styles.min.css';
+
+// Imports for redux
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Maps extends React.Component {
     constructor() {
@@ -21,6 +24,24 @@ class Maps extends React.Component {
             heatmapdata: []
         }
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("in componentShouldUpdate")
+        nextState.districts = nextProps.districts;
+        console.log("new state in maps")
+        console.log(nextState.districts)
+        return true;
+    }
+
+    createMarkers() {
+        return this.state.stops.map((stop, i) => {
+            return <Marker
+                key={`marker-${i}`}
+                position={[stop.lat, stop.lon]} >
+                <Popup> {[stop.name]} </Popup>
+            </Marker >
+        })
+    }
 
     fetchJSON(url, value) {
         url = 'https://cors-anywhere.herokuapp.com/' + url
@@ -97,4 +118,16 @@ class Maps extends React.Component {
         );
     }
 }
-export default Maps;
+
+Maps.propTypes = {
+    districts: PropTypes.array,
+};
+
+const mapStateToProps = state => {
+    console.log("mappingStateToProps")
+    return { 
+        districts: state.districts
+    }
+}
+
+export default connect(mapStateToProps, null)(Maps);
