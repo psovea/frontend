@@ -48,7 +48,7 @@ class Grid extends Component {
         var shouldRender = <div></div>;
         if (this.state.field1Value === true) {
             shouldRender = 
-                <div key="1" className="pie" data-grid={{ x: 2, y: 0, w: 2, h: 4}}>
+                <div key="1" className="pie" data-grid={{ x: 2, y: 0, w: 2, h: 4, static: true}}>
                     <Maps />
                 </div>;
         }
