@@ -43,13 +43,21 @@
     "chart.js": "^2.8.0",
     "chota": "^0.6.2",
     "clarity-react": "^1.1.0",
+    "getstream": "^4.2.2",
     "leaflet": "^1.5.1",
+    "prop-types": "^15.7.2",
+    "react-activity-feed": "^0.9.14",
     "react-chartjs-2": "^2.7.6",
     "react-chartjs2": "^1.2.1",
     "react-feather": "^1.1.6",
     "react-grid-layout": "^0.16.6",
     "react-leaflet": "^2.3.0",
     "react-leaflet-heatmap-layer": "^2.0.0",
-    "react-resizable": "^1.8.0"
+    "react-redux": "^7.1.0",
+    "react-resizable": "^1.8.0",
+    "redux": "^4.0.1",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
+    "standard": "^12.0.1"
   }
 }
