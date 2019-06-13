@@ -13,14 +13,14 @@ class SidebarRegionFilters extends Component {
 
                 <div className="row">
                     <div className="col-8">
-                        <label>Show 1</label>
+                        <label>Oost</label>
                     </div>
                     <div className="col-4"> 
                         <input 
                             type="checkbox" 
-                            id="check1" 
-                            name="check1" 
-                            value="check1" 
+                            id="oost" 
+                            name="oost" 
+                            value="oost" 
                             // checked={this.state.check1Checked}
                             // onChange={this.check1Change}
                         />
@@ -29,14 +29,14 @@ class SidebarRegionFilters extends Component {
 
                 <div className="row">
                     <div className="col-8">
-                        <label>Show 1</label>
+                        <label>Zuid-oost</label>
                     </div>
                     <div className="col-4"> 
                         <input 
                             type="checkbox" 
-                            id="check1" 
-                            name="check1" 
-                            value="check1" 
+                            id="zuid-oost" 
+                            name="zuid-oost" 
+                            value="zuid-oost" 
                             // checked={this.state.check1Checked}
                             // onChange={this.check1Change}
                         />
@@ -45,14 +45,14 @@ class SidebarRegionFilters extends Component {
 
                 <div className="row">
                     <div className="col-8">
-                        <label>Show 1</label>
+                        <label>Noord</label>
                     </div>
                     <div className="col-4"> 
                         <input 
                             type="checkbox" 
-                            id="check1" 
-                            name="check1" 
-                            value="check1" 
+                            id="noord" 
+                            name="noord" 
+                            value="noord" 
                             // checked={this.state.check1Checked}
                             // onChange={this.check1Change}
                         />
@@ -61,14 +61,14 @@ class SidebarRegionFilters extends Component {
 
                 <div className="row">
                     <div className="col-8">
-                        <label>Show 1</label>
+                        <label>West-poort</label>
                     </div>
                     <div className="col-4"> 
                         <input 
                             type="checkbox" 
-                            id="check1" 
-                            name="check1" 
-                            value="check1" 
+                            id="west-poort" 
+                            name="west-poort" 
+                            value="west-poort" 
                             // checked={this.state.check1Checked}
                             // onChange={this.check1Change}
                         />
@@ -77,14 +77,14 @@ class SidebarRegionFilters extends Component {
 
                 <div className="row">
                     <div className="col-8">
-                        <label>Show 1</label>
+                        <label>West</label>
                     </div>
                     <div className="col-4"> 
                         <input 
                             type="checkbox" 
-                            id="check1" 
-                            name="check1" 
-                            value="check1" 
+                            id="west" 
+                            name="west" 
+                            value="west" 
                             // checked={this.state.check1Checked}
                             // onChange={this.check1Change}
                         />
@@ -93,14 +93,14 @@ class SidebarRegionFilters extends Component {
 
                 <div className="row">
                     <div className="col-8">
-                        <label>Show 1</label>
+                        <label>Centrum</label>
                     </div>
                     <div className="col-4"> 
                         <input 
                             type="checkbox" 
-                            id="check1" 
-                            name="check1" 
-                            value="check1" 
+                            id="centrum" 
+                            name="centrum" 
+                            value="centrum" 
                             // checked={this.state.check1Checked}
                             // onChange={this.check1Change}
                         />
@@ -109,14 +109,29 @@ class SidebarRegionFilters extends Component {
 
                 <div className="row">
                     <div className="col-8">
-                        <label>Show 1</label>
+                        <label>New-west</label>
                     </div>
                     <div className="col-4"> 
                         <input 
                             type="checkbox" 
-                            id="check1" 
-                            name="check1" 
-                            value="check1" 
+                            id="new-west" 
+                            name="new-west" 
+                            value="new-west" 
+                            // checked={this.state.check1Checked}
+                            // onChange={this.check1Change}
+                        />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-8">
+                        <label>Zuid</label>
+                    </div>
+                    <div className="col-4"> 
+                        <input 
+                            type="checkbox" 
+                            id="zuid" 
+                            name="zuid" 
+                            value="zuid" 
                             // checked={this.state.check1Checked}
                             // onChange={this.check1Change}
                         />
