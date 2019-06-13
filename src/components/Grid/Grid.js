@@ -122,7 +122,7 @@ const mapStateToProps = state => {
     field1Value: state.check1Value,
     field2Value: state.check2Value,
     field3Value: state.check3Value,
-    field4Value: state.check4Value
+    // field4Value: state.check4Value
   }
 }
 
