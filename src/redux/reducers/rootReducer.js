@@ -9,7 +9,7 @@ const initialState = {
     check1Value: true,
     check2Value: true,
     check3Value: true,
-    districts: [],
+    districts: ['centrum', 'new-west', 'noord', 'oost', 'west', 'westpoort', 'zuid', 'zuidoost'],
 };
 
 function rootReducer(state = initialState, action) {
