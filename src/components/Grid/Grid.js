@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 
 // Import the charts to show in the grid.
-// import Maps from '../Maps/Maps.js'
+import Maps from '../Maps/Maps.js'
 import BarChart from '../Graphs/BarChart.js';
 import DoughnutChart from '../Graphs/DoughnutChart.js'
 
@@ -48,10 +48,8 @@ class Grid extends Component {
         var shouldRender = <div></div>;
         if (this.state.field1Value === true) {
             shouldRender = 
-                <div key="1" className="pie" data-grid={{ x: 0, y: 0, w: 2, h: 2}}>
-                    {String(this.state.field1Value)}<br/>
-                    {String(this.state.field2Value)}<br/>
-                    {String(this.state.field3Value)}<br/>
+                <div key="1" className="pie" data-grid={{ x: 2, y: 0, w: 2, h: 4}}>
+                    <Maps />
                 </div>;
         }
         return shouldRender;
@@ -61,7 +59,7 @@ class Grid extends Component {
         var shouldRender = <div></div>;
         if (this.state.field2Value === true) {
             shouldRender = 
-                <div key="2" className="pie" data-grid={{ x: 2, y: 0, w: 1, h: 2}}>
+                <div key="2" className="pie" data-grid={{ x: 0, y: 0, w: 2, h: 2}}>
                     <DoughnutChart />
                 </div>
         }
@@ -72,7 +70,7 @@ class Grid extends Component {
         var shouldRender = <div></div>;
         if (this.state.field3Value === true) {
             shouldRender = 
-                <div key="3" className="pie" data-grid={{ x: 0, y: 2, w: 4, h: 3}}>
+                <div key="3" className="pie" data-grid={{ x: 0, y: 4, w: 4, h: 3}}>
                     <BarChart />
                 </div>
         }
