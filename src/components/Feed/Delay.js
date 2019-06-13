@@ -1,81 +1,65 @@
 import React from 'react';
+import socketIOClient from "socket.io-client";
 
 class Delay extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      publicLine: '0',
-      name: '-',
-      transportType: '-',
-      operator: '-',
-      stopName: '-',
-      punctuality: 0,
-      timestamp: 0
+      delays: []
     }
   }
 
   getTravelInfo(info) {
-    var newState = {
-      publicLine: '0',
-      name: '-',
-      transportType: '-',
-      operator: info.dataownercode,
-      stopName: '-',
-      punctuality: info.punctuality,
-      timestamp: info.timestamp
-    }
-
-    fetch("https://cors-anywhere.herokuapp.com/" + `http://18.216.203.6:5000/get-stops?stop_code=300${info.userstopcode}`)
+    let reqLine = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.216.203.6:5000/get-lines?operator=${info.dataownercode}&internal_id=${info.lineplanningnumber}`)
     .then(res => res.json())
-    .then(res => {
-      console.log(res[0].name)
-      this.setState({stopName: res[0].name});
-    })
 
-    fetch("https://cors-anywhere.herokuapp.com/" + `http://18.216.203.6:5000/get-lines?operator=${info.dataownercode}&internal_id=${info.lineplanningnumber}`)
+    var reqStop = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.216.203.6:5000/get-stops?stop_code=300${info.userstopcode}`)
     .then(res => res.json())
-    .then(res => {
-      this.setState({
-        publicLine: res[0].public_id,
-        transportType: res[0].transport_type,
-        name: res[0].name,
-        operator: res[0].operator
+
+
+    Promise.all([reqStop, reqLine]).then(data => {
+      var obj = {...data[1][0], ...data[0][0]}
+    
+      this.setState(prevState => {
+        let newDelay = {
+          publicLine: obj.public_id,
+          transportType: obj.transport_type,
+          stopName: obj.name,
+          operator: obj.operator,
+          publicLine: obj.public_id,
+          punctuality: info.punctuality
+        }
+
+        return { delays: [newDelay, ...prevState.delays] }
       })
     })
-
-    console.log(newState);
   }
 
   componentDidMount() {
-    var info = {
-      dataownercode: 'GVB',
-      lineplanningnumber: '66',
-      operatingday: '2019-06-13',
-      journeynumber: '303',
-      reinforcementnumber: '0',
-      userstopcode: '08299',
-      passagesequencenumber: '0',
-      timestamp: '2019-06-13T17:21:16.4937073+02:00',
-      source: 'SERVER',
-      vehiclenumber: '1130',
-      punctuality: '96'
-    }
+    const { endpoint } = this.state;
+    const socket = socketIOClient('http://127.0.0.1:3500');
+    socket.on("message", data => {
+      let info = JSON.parse(data)
+      console.log(info['ARRIVAL']['punctuality'])
+      this.getTravelInfo(info['ARRIVAL']);
+    });
 
-    this.getTravelInfo(info);
   }
 
   render = () => {
     console.log(this.state);
+    const {delays} = this.state
     return (
-      <li className={"delay"}>
-        <p className={"delay-header"}>Lijn {this.state.publicLine}: {this.state.stopName}</p>
-        <p>Halte: {this.state.stopName}</p>
-        <p>Transport type: {this.state.transportType}</p>
-        <p>Vervoerder: {this.state.operator}</p>
-        <p>Vertraging: {this.state.punctuality} seconden</p>
-
-      </li>
+      delays.map(item => {
+        return <li key={item} className={"delay"}>
+          <p className={"delay-header"}>Lijn {item.publicLine}: {item.name}</p>
+          <p>Halte: {item.stopName}</p>
+          <p>Transport type: {item.transportType}</p>
+          <p>Vervoerder: {item.operator}</p>
+          <p>Vertraging: {item.punctuality} seconden</p>
+        </li>
+      })
     )
   }
 }

@@ -12,9 +12,6 @@ class Delays extends React.Component {
     return (
       <ul className="delays">
         <Delay />
-        <Delay />
-        <Delay />
-        <Delay />
       </ul>
     )
   }
