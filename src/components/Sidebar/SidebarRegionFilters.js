@@ -13,58 +13,39 @@ class SidebarRegionFilters extends Component {
     constructor(props) {
 		super(props);
 		this.state = {
-            centrumChecked: true,
-            newwestChecked: true,
-            noordChecked: true,
-            oostChecked: true,
-            westChecked: true,
-            westpoortChecked: true,
-            zuidChecked: true,
-            zuidoostChecked: true,
+            centrum: true,
+            newWest: true,
+            noord: true,
+            oost: true,
+            west: true,
+            westpoort: true,
+            zuid: true,
+            zuidoost: true,
 		};
 
         this.onChange = this.onChange.bind(this);
         this.editState = this.editState.bind(this);
     }
 
-    editState(districtChecked, districtName) {
-        console.log(districtChecked)
-        console.log(districtName)
-        // this.setState({
-        //     districtChecked: this.state.districtChecked
-        // });
-        if (this.state.districtChecked === true) {
+    editState(districtChecked) {
+        var updatedState = this.state;
+        if (this.state[districtChecked] === true) {
             this.setState({
-                districtChecked: false
+                [districtChecked]: false
             });
+            updatedState[districtChecked] = false;
+            this.props.toggleDistrict(updatedState);
         } else {
             this.setState({
-                districtChecked: true
+                [districtChecked]: true
             });
+            updatedState[districtChecked] = true;
+            this.props.toggleDistrict(updatedState);
         }
-        this.props.toggleDistrict(districtName);
     }
 
     onChange(e) {
-        this.editState(e.target.id + "Checked", e.target.id)
-        // switch (e.target.id) {
-        //     case "centrum":
-        //         this.editState("centrumChecked", "centrum")
-        //     case "new-west":
-        //         this.editState("centrumChecked", "centrum")
-        //     case "noord":
-        //         this.editState("centrumChecked", "centrum")
-        //     case "oost":
-        //         this.editState("centrumChecked", "centrum")
-        //     case "west":
-        //         this.editState("centrumChecked", "centrum")
-        //     case "westpoort":
-        //         this.editState("centrumChecked", "centrum")
-        //     case "zuid":
-        //         this.editState("centrumChecked", "centrum")
-        //     case "zuidoost":
-        //         this.editState("centrumChecked", "centrum")    
-        // }
+        this.editState(e.target.id);
     }
 
     
@@ -88,7 +69,7 @@ class SidebarRegionFilters extends Component {
                             id="centrum" 
                             name="centrum" 
                             value="centrum" 
-                            checked={this.state.centrumChecked}
+                            checked={this.state.centrum}
                             onChange={this.onChange}
                         />
                     </div>
@@ -101,10 +82,10 @@ class SidebarRegionFilters extends Component {
                     <div className="col-4"> 
                         <input 
                             type="checkbox" 
-                            id="new-west" 
-                            name="new-west" 
-                            value="new-west" 
-                            checked={this.state.newwestChecked}
+                            id="newWest" 
+                            name="newWest" 
+                            value="newWest" 
+                            checked={this.state.newWest}
                             onChange={this.onChange}
                         />
                     </div>
@@ -120,7 +101,7 @@ class SidebarRegionFilters extends Component {
                             id="noord" 
                             name="noord" 
                             value="noord" 
-                            checked={this.state.noordChecked}
+                            checked={this.state.noord}
                             onChange={this.onChange}
                         />
                     </div>
@@ -136,7 +117,7 @@ class SidebarRegionFilters extends Component {
                             id="oost" 
                             name="oost" 
                             value="oost" 
-                            checked={this.state.oostChecked}
+                            checked={this.state.oost}
                             onChange={this.onChange}
                         />
                     </div>
@@ -152,7 +133,7 @@ class SidebarRegionFilters extends Component {
                             id="west" 
                             name="west" 
                             value="west" 
-                            checked={this.state.westChecked}
+                            checked={this.state.west}
                             onChange={this.onChange}
                         />
                     </div>
@@ -168,7 +149,7 @@ class SidebarRegionFilters extends Component {
                             id="westpoort" 
                             name="westpoort" 
                             value="westpoort" 
-                            checked={this.state.westpoortChecked}
+                            checked={this.state.westpoort}
                             onChange={this.onChange}
                         />
                     </div>
@@ -184,7 +165,7 @@ class SidebarRegionFilters extends Component {
                             id="zuid" 
                             name="zuid" 
                             value="zuid" 
-                            checked={this.state.zuidChecked}
+                            checked={this.state.zuid}
                             onChange={this.onChange}
                         />
                     </div>
@@ -200,7 +181,7 @@ class SidebarRegionFilters extends Component {
                             id="zuidoost" 
                             name="zuidoost" 
                             value="zuidoost" 
-                            checked={this.state.zuidoostChecked}
+                            checked={this.state.zuidoost}
                             onChange={this.onChange}
                         />
                     </div>

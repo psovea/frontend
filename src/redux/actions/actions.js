@@ -21,6 +21,6 @@ export function changeCheck3Value(checkValue) {
     return { type: CHANGE_CHECK3, value: checkValue }
 }
 
-export function toggleDistrict(district) {
-    return { type: TOGGLE_DISTRICT, value: district }
+export function toggleDistrict(districts) {
+    return { type: TOGGLE_DISTRICT, value: districts }
 }

@@ -17,12 +17,14 @@ class Maps extends React.Component {
             center: [52.3680, 4.9036],
             zoom: 13,
             stops: [],
-            districts: [],
+            districts: {
+
+            },
         }
     };
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log("in componentShoudlUpdate")
+        console.log("in componentShouldUpdate")
         nextState.districts = nextProps.districts;
         console.log("new state in maps")
         console.log(nextState.districts)
@@ -60,7 +62,7 @@ class Maps extends React.Component {
 
     componentDidMount() {
         this.fetchJSON(`https://cors-anywhere.herokuapp.com/http://18.216.203.6:5000/get-stops`, "stops")
-        // this.fetchJSON(`https://cors-anywhere.herokuapp.com/http://184.72.120.43:3000/districts`, "districts")
+        this.fetchJSON(`https://cors-anywhere.herokuapp.com/http://184.72.120.43:3000/districts`, "districts")
     }
 
     render() {
@@ -107,8 +109,7 @@ Maps.propTypes = {
 };
 
 const mapStateToProps = state => {
-    console.log("noticed store changed")
-    console.log(state.districts)
+    console.log("mappingStateToProps")
     return { 
         districts: state.districts
     }

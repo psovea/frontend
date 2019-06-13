@@ -9,7 +9,17 @@ const initialState = {
     check1Value: true,
     check2Value: true,
     check3Value: true,
-    districts: ['centrum', 'new-west', 'noord', 'oost', 'west', 'westpoort', 'zuid', 'zuidoost'],
+    // districts: ['centrum', 'new-west', 'noord', 'oost', 'west', 'westpoort', 'zuid', 'zuidoost'],
+    districts: {
+        centrum: true,
+        newWest: true,
+        noords: true,
+        oost: true,
+        west: true,
+        westpoort: true,
+        zuid: true,
+        zuidoost: true,
+    }
 };
 
 function rootReducer(state = initialState, action) {
@@ -27,14 +37,14 @@ function rootReducer(state = initialState, action) {
                 check3Value: action.value
         })
         case TOGGLE_DISTRICT:
-            var districtsChanged = state.districts;
-            if (state.districts.includes(action.value)) {
-                districtsChanged = state.districts.filter(e => e !== action.value)
-            } else {
-                districtsChanged.push(action.value);
-            }
+            // var districtsChanged = state.districts;
+            // if (state.districts.includes(action.value)) {
+            //     districtsChanged = state.districts.filter(e => e !== action.value)
+            // } else {
+            //     districtsChanged.push(action.value);
+            // }
             return Object.assign({}, state, {
-                districts: districtsChanged
+                districts: action.value
         })
         default:
             return state;

@@ -100,8 +100,6 @@ Grid.propTypes = {
 };
 
 const mapStateToProps = state => {
-    console.log("new state")
-    console.log(state)
     return { 
         field1Value: state.check1Value,
         field2Value: state.check2Value,
