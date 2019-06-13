@@ -26,8 +26,15 @@ class SidebarRegionFilters extends Component {
     }
 
     onchange(event, key) {
-
     }
+
+    // handleChange(e, key) {
+    //     // If you are using babel, you can use ES 6 dictionary syntax
+    //     // let change = { [e.target.name] = e.target.value }
+    //     let change = {}
+    //     change[e.target.name] = e.target.value
+    //     this.setState(change)
+    //   }
 
     render() {
         return (
@@ -48,8 +55,8 @@ class SidebarRegionFilters extends Component {
                             id="centrum" 
                             name="centrum" 
                             value="centrum" 
-                            checked={this.state.check1Checked}
-                            // onChange={this.check1Change}
+                            checked={this.state.centrumChecked}
+                            onChange={this.onChange}
                         />
                     </div>
                 </div>
@@ -64,8 +71,8 @@ class SidebarRegionFilters extends Component {
                             id="new-west" 
                             name="new-west" 
                             value="new-west" 
-                            checked={this.state.check1Checked}
-                            // onChange={this.check1Change}
+                            checked={this.state.newwestChecked}
+                            onChange={this.onChange}
                         />
                     </div>
                 </div>
@@ -80,8 +87,8 @@ class SidebarRegionFilters extends Component {
                             id="noord" 
                             name="noord" 
                             value="noord" 
-                            checked={this.state.check1Checked}
-                            // onChange={this.check1Change}
+                            checked={this.state.noordChecked}
+                            onChange={this.onChange}
                         />
                     </div>
                 </div>
@@ -96,8 +103,8 @@ class SidebarRegionFilters extends Component {
                             id="oost" 
                             name="oost" 
                             value="oost" 
-                            checked={this.state.check1Checked}
-                            // onChange={this.check1Change}
+                            checked={this.state.oostChecked}
+                            onChange={this.onChange}
                         />
                     </div>
                 </div>
@@ -112,8 +119,8 @@ class SidebarRegionFilters extends Component {
                             id="west" 
                             name="west" 
                             value="west" 
-                            checked={this.state.check1Checked}
-                            // onChange={this.check1Change}
+                            checked={this.state.westChecked}
+                            onChange={this.onChange}
                         />
                     </div>
                 </div>
@@ -128,8 +135,8 @@ class SidebarRegionFilters extends Component {
                             id="westpoort" 
                             name="westpoort" 
                             value="westpoort" 
-                            checked={this.state.check1Checked}
-                            // onChange={this.check1Change}
+                            checked={this.state.westpoortChecked}
+                            onChange={this.onChange}
                         />
                     </div>
                 </div>
@@ -144,8 +151,8 @@ class SidebarRegionFilters extends Component {
                             id="zuid" 
                             name="zuid" 
                             value="zuid" 
-                            checked={this.state.check1Checked}
-                            // onChange={this.check1Change}
+                            checked={this.state.zuidChecked}
+                            onChange={this.onChange}
                         />
                     </div>
                 </div>
@@ -160,8 +167,8 @@ class SidebarRegionFilters extends Component {
                             id="zuidoost" 
                             name="zuidoost" 
                             value="zuidoost" 
-                            checked={this.state.check1Checked}
-                            // onChange={this.check1Change}
+                            checked={this.state.zuidoostChecked}
+                            onChange={this.onChange}
                         />
                     </div>
                 </div>
