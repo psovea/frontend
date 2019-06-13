@@ -29,24 +29,31 @@
 }
 
 .delays {
-    /* border: 1px solid red; Temporary!!!! */
     margin-left: 2%;
     margin-right: 2%;
-    height: calc(100% - 85px);
+    height: calc(100% - 50px);
     overflow-x: auto;
 }
 
 ul {
     bottom: 0;
-    /* right: -2; */
-    /* width: 100%; */
     list-style-type: none;
     padding-left: 0%;
-    /* padding-right: -2%; */
 }
 
 .delay {
-    border: 1px solid blue;
+    background-color: var(--blue-color);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    padding-left: 30px;
+}
+
+.delay-header {
+    color: whitesmoke;
+    font-size: 25px;
 }
 
 .loader {
