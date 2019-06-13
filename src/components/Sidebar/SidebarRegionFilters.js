@@ -3,6 +3,29 @@ import { Compass } from 'react-feather';
 
 
 class SidebarRegionFilters extends Component {
+    constructor(props) {
+		super(props);
+		this.state = {
+            centrumChecked: true,
+            newwestChecked: true,
+            noordChecked: true,
+            oostChecked: true,
+            westChecked: true,
+            westpoortChecked: true,
+            zuidChecked: true,
+            zuidoostChecked: true,
+		};
+
+        this.centrumChange = this.centrumChange.bind(this);
+        this.newwestChange = this.newwestChange.bind(this);
+        this.noordChange = this.noordChange.bind(this);
+        this.oostChange = this.oostChange.bind(this);
+        this.westChange = this.westChange.bind(this);
+        this.westpoortChange = this.westpoortChange.bind(this);
+        this.zuidChange = this.zuidChange.bind(this);
+        this.zuidoostChange = this.zuidoostChange.bind(this);
+    }
+
     render() {
         return (
             <div>
@@ -30,7 +53,7 @@ class SidebarRegionFilters extends Component {
 
                 <div className="row">
                     <div className="col-8">
-                        <label>New-west</label>
+                        <label>New-West</label>
                     </div>
                     <div className="col-4"> 
                         <input 
@@ -94,14 +117,14 @@ class SidebarRegionFilters extends Component {
 
                 <div className="row">
                     <div className="col-8">
-                        <label>West-poort</label>
+                        <label>Westpoort</label>
                     </div>
                     <div className="col-4"> 
                         <input 
                             type="checkbox" 
-                            id="west-poort" 
-                            name="west-poort" 
-                            value="west-poort" 
+                            id="westpoort" 
+                            name="westpoort" 
+                            value="westpoort" 
                             // checked={this.state.check1Checked}
                             // onChange={this.check1Change}
                         />
@@ -126,14 +149,14 @@ class SidebarRegionFilters extends Component {
 
                 <div className="row">
                     <div className="col-8">
-                        <label>Zuid-oost</label>
+                        <label>Zuidoost</label>
                     </div>
                     <div className="col-4"> 
                         <input 
                             type="checkbox" 
-                            id="zuid-oost" 
-                            name="zuid-oost" 
-                            value="zuid-oost" 
+                            id="zuidoost" 
+                            name="zuidoost" 
+                            value="zuidoost" 
                             // checked={this.state.check1Checked}
                             // onChange={this.check1Change}
                         />
