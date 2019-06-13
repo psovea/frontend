@@ -2,6 +2,7 @@ import {
     CHANGE_CHECK1,
     CHANGE_CHECK2,
     CHANGE_CHECK3,
+    TOGGLE_DISTRICT,
 } from "./actionTypes.js";
 
 /*
@@ -18,4 +19,8 @@ export function changeCheck2Value(checkValue) {
 
 export function changeCheck3Value(checkValue) {
     return { type: CHANGE_CHECK3, value: checkValue }
+}
+
+export function toggleDistrict(district) {
+    return { type: TOGGLE_DISTRICT, value: district }
 }

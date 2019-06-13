@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { Compass } from 'react-feather';
 
+// Redux imports
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { 
+    toggleDistrict,
+} from '../../redux/actions/actions.js';
 
 class SidebarRegionFilters extends Component {
     render() {
@@ -145,4 +151,8 @@ class SidebarRegionFilters extends Component {
     }
 }
 
-export default SidebarRegionFilters;
+SidebarDataCheckboxes.propTypes = {
+    toggleDistrict: PropTypes.func.isRequired,
+};
+
+export default connect( null, { toggleDistrict })(SidebarRegionFilters);
