@@ -30,7 +30,6 @@ class SidebarDataCheckboxes extends Component {
     }
 
     check1Change() {
-        console.log(this.state.check1Checked)
         if (this.state.check1Checked === true) {
             this.setState({
                 check1Checked: false
@@ -45,7 +44,6 @@ class SidebarDataCheckboxes extends Component {
     }
 
     check2Change() {
-        console.log(this.state.check2Checked)
         if (this.state.check2Checked === true) {
             this.setState({
                 check2Checked: false
@@ -60,7 +58,6 @@ class SidebarDataCheckboxes extends Component {
     }
 
     check3Change() {
-        console.log(this.state.check3Checked)
         if (this.state.check3Checked === true) {
             this.setState({
                 check3Checked: false

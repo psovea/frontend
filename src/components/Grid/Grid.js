@@ -9,16 +9,17 @@ import '../../../node_modules/react-resizable/css/styles.css';
 import './Grid.css';
 import Maps from '../Maps/Maps';
 
-const ResponsiveGridLayout = WidthProvider(Responsive);
+
+const ResponsiveGridLayout = WidthProvider(Responsive)
 
 // This defines the grid; here we add other components (lets call
 // them widgets). Unfortunately we have to add div's directly into
 // the ResponiveGridLayout, in these divs we can put our widgets.
 // I have not found a way to work around this yet.
 class Grid extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor (props) {
+    super(props)
+  }
 
     render() {
         return (
@@ -34,7 +35,6 @@ class Grid extends Component {
             </ResponsiveGridLayout>
             </div>
         )
-    }
-}
+
 
 export default Grid;
