@@ -24,6 +24,7 @@
 .dashboard-widget-content {
     padding: 15px;
     box-sizing: border-box;
+    overflow: scroll;
 }
 
 .dashboard-widget-content#map {

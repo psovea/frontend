@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import BarChart from '../Graphs/BarChart'
+import Delays from '../Feed/Delays'
 
 // We need these css imports, else the graphics will glitch
 // while moving components in our grid.
@@ -32,9 +33,9 @@ class Grid extends Component {
             >
                 <div key="barchart" data-grid={{ x: 0, y: 0, w: 2, h: 2}}><BarChart/></div>
                 <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 3}}><Maps/></div>
+                <div key="feed" data-grid={{ x: 0, y: 2, w: 2, h: 3}}><Delays/></div>
             </ResponsiveGridLayout>
             </div>
-        )
-
-
+        )}
+}
 export default Grid;

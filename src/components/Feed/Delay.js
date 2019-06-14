@@ -1,5 +1,8 @@
 import React from 'react';
 import socketIOClient from "socket.io-client";
+import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
+import GVBIcon from '../Icons/GVBIcon'
+import 'react-vertical-timeline-component/style.min.css';
 
 class Delay extends React.Component {
   constructor(props) {
@@ -47,18 +50,43 @@ class Delay extends React.Component {
 
   }
 
+  getDate() {
+    var today = new Date();
+    var dd = today.getDate();
+
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    var h = today.getHours();
+    var m = today.getMinutes();
+
+    return `${dd}-${mm}-${yyyy} ${h}:${m}`
+  }
+
   render = () => {
     console.log(this.state);
     const {delays} = this.state
     return (
       delays.map(item => {
-        return <li key={item} className={"delay"}>
-          <p className={"delay-header"}>Lijn {item.publicLine}: {item.name}</p>
-          <p>Stop: {item.stopName}</p>
-          <p>Transport type: {item.transportType}</p>
-          <p>Operator: {item.operator}</p>
-          <p>Delay: {item.punctuality} seconden</p>
-        </li>
+        return <VerticalTimelineElement
+          key={item}
+          className="vertical-timeline-element--work"
+          date={this.getDate()}
+          icon={<GVBIcon />}
+          iconStyle={{ background: 'white' }}
+        >
+          <h3 className="vertical-timeline-element-title">Lijn {item.publicLine}</h3>
+          <h4 className="vertical-timeline-element-subtitle">{item.punctuality} seconden vertraagd</h4>
+          <p>
+            Halte: {item.stopName}
+          </p>
+        </VerticalTimelineElement>
+        // return <li key={item} className={"delay"}>
+        //   <p>Transport type: {item.transportType}</p>
+        //   <p className={"delay-header"}></p>
+        //   <p>Stop: {item.stopName}</p>
+        //   <p>Operator: {item.operator}</p>
+        //   <p>Delay: {item.punctuality} seconden</p>
+        // </li>
       })
     )
   }

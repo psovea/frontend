@@ -5,9 +5,7 @@ import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css';
 
-// Imports for redux
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 class Maps extends React.Component {
     constructor() {
@@ -131,11 +129,4 @@ Maps.propTypes = {
     districts: PropTypes.array,
 };
 
-const mapStateToProps = state => {
-    console.log("mappingStateToProps")
-    return { 
-        districts: state.districts
-    }
-}
-
-export default connect(mapStateToProps, null)(Maps);
+export default Maps;
