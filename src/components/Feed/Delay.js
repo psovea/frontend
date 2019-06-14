@@ -47,7 +47,6 @@ class Delay extends React.Component {
       console.log(info['ARRIVAL']['punctuality'])
       this.getTravelInfo(info['ARRIVAL']);
     });
-
   }
 
   getDate() {
@@ -66,27 +65,38 @@ class Delay extends React.Component {
     console.log(this.state);
     const {delays} = this.state
     return (
-      delays.map(item => {
-        return <VerticalTimelineElement
-          key={item}
-          className="vertical-timeline-element--work"
-          date={this.getDate()}
-          icon={<GVBIcon />}
-          iconStyle={{ background: 'white' }}
-        >
-          <h3 className="vertical-timeline-element-title">Lijn {item.publicLine}</h3>
-          <h4 className="vertical-timeline-element-subtitle">{item.punctuality} seconden vertraagd</h4>
-          <p>
-            Halte: {item.stopName}
-          </p>
-        </VerticalTimelineElement>
-        // return <li key={item} className={"delay"}>
-        //   <p>Transport type: {item.transportType}</p>
-        //   <p className={"delay-header"}></p>
-        //   <p>Stop: {item.stopName}</p>
-        //   <p>Operator: {item.operator}</p>
-        //   <p>Delay: {item.punctuality} seconden</p>
-        // </li>
+      delays.map((item, index) => {
+        return <div key={item} className="delay-stream-item" id={index == 0 ? "stream-animate" : "stream"}>
+          <div className="delay-stream-item-header row">
+            <div className="delay-stream-item-header-line col-3">
+              <p className="delay-stream-item-header-line-title">Lijn</p>
+            </div>
+            <div className="delay-stream-item-header-line col-3">
+              <p className="delay-stream-item-header-line-title">Vertraging</p>
+            </div>
+            <div className="delay-stream-item-header-line col-3">
+              <p className="delay-stream-item-header-line-title">Halte</p>
+            </div>
+            <div className="delay-stream-item-header-line col-3">
+              <p className="delay-stream-item-header-line-title">Vervoerder</p>
+            </div>
+          </div>
+          
+          <div className="delay-stream-item-header row">
+            <div className="delay-stream-item-header-line col-3">
+              <p className="delay-stream-item-header-line-value">{item.publicLine}</p>
+            </div>
+            <div className="delay-stream-item-header-line col-3">
+              <p className="delay-stream-item-header-line-value delay-stream-delay-value">{item.punctuality} seconden</p>
+            </div>
+            <div className="delay-stream-item-header-line col-3">
+              <p className="delay-stream-item-header-line-value">{item.stopName}</p>
+            </div>
+            <div className="delay-stream-item-header-line col-3">
+              <p className="delay-stream-item-header-line-image"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/BSicon_LOGO_GVB.svg/500px-BSicon_LOGO_GVB.svg.png"></img></p>
+            </div>
+          </div>
+        </div>
       })
     )
   }

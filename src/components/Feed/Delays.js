@@ -14,13 +14,19 @@ class Delays extends React.Component {
     return (
       // <ul className="delays">
       <div className="dashboard-widget">
-        <div className="dashboard-widget-header">
-            <p className="dashboard-widget-header-title">Kaart</p>
+        <div className="dashboard-widget-header row">
+          <div className="dashboard-widget-header-title-wrapper col-8">
+              <p className="dashboard-widget-header-title">Binnenkomende Vetragingen</p>
+          </div>
+
+          <div className="dashboard-widget-header-settings-wrapper col-4">
+              <i className="fa fa-sliders dashboard-widget-header-settings-wrapper-icon" aria-hidden="true"></i>
+          </div>
         </div>
         <div className="dashboard-widget-content" id="map">
-          <VerticalTimeline layout={'one-column'}>
+          <div className="delay-stream">
             <Delay />
-          </VerticalTimeline>
+          </div>
         </div>
       </div>
     )
