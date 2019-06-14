@@ -1,15 +1,35 @@
-.grid > div {
-    background-color: var(--light-color);
-    /* padding: 1em; */
-    border: solid 1px lightgrey;
-    border-radius: 5px;
+.dashboard-container {
+    width: 100%;
 
-    /* Shadows */
-    -webkit-box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5);
-    -moz-box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5);
-         box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5); 
 }
 
-.DataContainer { 
+.dashboard-widget {
+    background-color: var(--light-color);
+    border: solid 1px lightgrey;
+    /* border-radius: 5px; */
+    width: 100%;
+    height: 100%;
+}
+
+.dashboard-widget-header {
+    padding:5px 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid lightgray;
+}
+
+.dashboard-widget-header-title {
+    margin-bottom: 0px;
+}
+
+.dashboard-widget-content {
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.dashboard-widget-content#map {
     height: 90%;
+}
+
+.dashboard-widget-content#bar {
+    height: 85%;
 }

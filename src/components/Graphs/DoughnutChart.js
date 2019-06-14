@@ -47,9 +47,7 @@ class DoughnutChart extends React.Component {
 	renderContent() {
         const { dimensions } = this.state;
         return (
-            <div className="DataContainer">
-                <Doughnut data={data} width={dimensions.width} height={dimensions.height} options={{ maintainAspectRatio: false }}/>
-            </div>
+            <Doughnut data={data} width={dimensions.width} height={dimensions.height} options={{ maintainAspectRatio: false }}/>
         );
     }
 

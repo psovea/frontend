@@ -18,7 +18,6 @@ const data = {
 };
 
 class BarChart extends React.Component {
-
     // We store the dimensions of the dataContainer div.
     constructor(props) {
         super(props);
@@ -27,34 +26,19 @@ class BarChart extends React.Component {
         };
     }
 
-    // When the component is mounted we retrieve the dimensions.
-    componentDidMount() {
-        this.setState({
-            dimensions: {
-                width: this.container.offsetWidth,
-                height: this.container.offsetHeight,
-            },
-        });
-    }
-
-    // We rerender and create a BarChart with the dimensions.
-    renderContent() {
-        const { dimensions } = this.state;
-        return (
-            <div className="DataContainer">
-                <Bar data={data} width={dimensions.width} height={dimensions.height} options={{ maintainAspectRatio: false }}/>
-            </div>
-        );
-    }
-
     // The first render we call the actual render after storing the dimensions.
     render() {
         const { dimensions } = this.state;
         return (
-            <div className="DataContainer" ref={el => (this.container = el)}>
-                {dimensions && this.renderContent()}
+            <div className="dashboard-widget">
+                <div className="dashboard-widget-header">
+                    <p className="dashboard-widget-header-title">Aantal vertragingen afgelopen maanden</p>
+                </div>
+                <div className="dashboard-widget-content" id="bar">
+                    <Bar data={data} options={{ responsive:true, maintainAspectRatio: false }}/>
+                </div>
             </div>
-        );
+        )
     }
 }
 
