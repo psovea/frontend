@@ -12,11 +12,17 @@
     --pink-color: #FF6384;
     --blue-color: #36A2EB;
     --green-color: #FFCE56;
+    --fuzzywuzzy: #CF6766;
+    --spacecadet: #22264B;
+    --richblack: #031424;
+    --pewterblue: #8EAEBD;
+    --isabelline: #F9EDED;
+    --background-color: #f2f4f6;
 }
 
 /* Remove horizontal scrollbar. */
 html, body {
     max-width: 100%;
     overflow-x: hidden;
-    background-color: #f7f7f7;
+    background-color: var(--background-color);
 }
