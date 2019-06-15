@@ -41,6 +41,7 @@
     font-size: 20px;
     display: block;
     float: right;
+    transition: all 0.15s, 0.25s;
 }
 
 .dashboard-widget-settings-buttonbar {
@@ -54,19 +55,17 @@
     color: gray;
     margin-right: 8px;
     font-size: 20px;
+    transition: all 0.15s, 0.25s;
 }
 
-.dashboard-widget-settings-button:hover {
-    display: inline-block;
+.dashboard-widget-settings-button:hover, .dashboard-widget-settings-button:focus {
     color: black;
-    margin-right: 8px;
+    cursor: pointer;
 }
 
 .dashboard-widget-header-settings-wrapper-icon:hover {
     color: black;
-    font-size: 21px;
-    display: block;
-    float: right;
+    cursor: pointer;
 }
 
 .dashboard-widget-content#map {
