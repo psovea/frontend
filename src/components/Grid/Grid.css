@@ -43,6 +43,13 @@
     float: right;
 }
 
+.dashboard-widget-header-settings-wrapper-icon:hover {
+    color: black;
+    font-size: 21px;
+    display: block;
+    float: right;
+}
+
 .dashboard-widget-content#map {
     height: 92%;
 }

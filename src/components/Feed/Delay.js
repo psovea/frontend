@@ -1,7 +1,7 @@
 import React from 'react';
 import socketIOClient from "socket.io-client";
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
-import GVBIcon from '../Icons/GVBIcon'
+// import GVBIcon from '../Icons/GVBIcon'
 import 'react-vertical-timeline-component/style.min.css';
 
 class Delay extends React.Component {
