@@ -43,6 +43,25 @@
     float: right;
 }
 
+.dashboard-widget-settings-buttonbar {
+    position: absolute;
+    bottom: 6px;
+    right: 16px;
+}
+
+.dashboard-widget-settings-button {
+    display: inline-block;
+    color: gray;
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+.dashboard-widget-settings-button:hover {
+    display: inline-block;
+    color: black;
+    margin-right: 8px;
+}
+
 .dashboard-widget-header-settings-wrapper-icon:hover {
     color: black;
     font-size: 21px;

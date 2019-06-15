@@ -28,8 +28,10 @@ const content = <div className="dashboard-widget-content" id="bar">
                 </div>;
 
 const settings = <div className="dashboard-widget-content" id="bar">
-                    {/* <Doughnut data={data} options={{ responsive:true, maintainAspectRatio: false }}/> */}
-                    TODO:SETTINGS
+                    <div className="dashboard-widget-settings-buttonbar">
+                        <i className="dashboard-widget-settings-button fa fa-undo"></i>
+                        <i className="dashboard-widget-settings-button fa fa-check"></i>
+                    </div>
                 </div>;
 
 class DoughnutChart extends React.Component {
