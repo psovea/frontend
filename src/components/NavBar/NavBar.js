@@ -11,7 +11,7 @@ class NavBar extends Component {
     render() {
         return (
             <div className="navbar">
-
+                <h1 className="navbar-title">psovea</h1>
             </div>
         )
     }

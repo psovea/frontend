@@ -59,12 +59,12 @@
 }
 
 .dashboard-widget-settings-button:hover, .dashboard-widget-settings-button:focus {
-    color: black;
+    color: var(--richblack);
     cursor: pointer;
 }
 
 .dashboard-widget-header-settings-wrapper-icon:hover {
-    color: black;
+    color: var(--richblack);
     cursor: pointer;
 }
 
