@@ -51,6 +51,9 @@ class DoughnutChart extends React.Component {
 
 
 	render() {
+        const settingsIcon = <i className="dashboard-widget-header-settings-wrapper-icon fa fa-sliders" aria-hidden="true"/>
+        const backIcon = <i className="dashboard-widget-header-settings-wrapper-icon fa fa-reply" aria-hidden="true"/>
+
         return (
             <div className="dashboard-widget">
                 <div className="dashboard-widget-header row">
@@ -58,10 +61,8 @@ class DoughnutChart extends React.Component {
                         <p className="dashboard-widget-header-title">Aantal vertragingen afgelopen maanden</p>
                     </div>
 
-                    <div className="dashboard-widget-header-settings-wrapper col-2">
-                        <i className="dashboard-widget-header-settings-wrapper-icon fa fa-sliders" 
-                           aria-hidden="true"
-                           onClick={this.settingsClicked}></i>
+                    <div className="dashboard-widget-header-settings-wrapper col-2" onClick={this.settingsClicked}>
+                        {this.state.showing == content ? settingsIcon : backIcon}
                     </div>
                 </div>
                 {this.state.showing}
