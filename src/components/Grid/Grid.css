@@ -1,15 +1,138 @@
-.grid > div {
+.dashboard-container {
+    width: 100%;
+}
+
+.dashboard-widget {
     background-color: var(--light-color);
-    /* padding: 1em; */
-    border: solid 1px lightgrey;
+    /* border: solid 1px lightgrey; */
     border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
 
-    /* Shadows */
-    -webkit-box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5);
-    -moz-box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5);
-         box-shadow: 6px 10px 11px -3px rgba(0,0,0,0.5); 
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(179,179,179,1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(179,179,179,1);
+    box-shadow: 0px 0px 5px 0px rgba(179,179,179,1);
 }
 
-.DataContainer { 
-    height: 90%;
+.dashboard-widget-header {
+    padding: 10px 15px 5px 15px;
+    height: 40px;
+    box-sizing: border-box;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1px solid lightgray;
 }
+
+.dashboard-widget-header-title {
+    margin-bottom: 0px;
+    font-size: 12px;
+    color: var(--richblack);
+}
+
+.dashboard-widget-content {
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+
+.dashboard-widget-header-settings-wrapper-icon {
+    color: gray;
+    font-size: 20px;
+    display: block;
+    float: right;
+}
+
+.dashboard-widget-header-settings-wrapper-icon:hover {
+    color: black;
+    font-size: 21px;
+    display: block;
+    float: right;
+}
+
+.dashboard-widget-content#map {
+    height: 92%;
+}
+
+.dashboard-widget-content#bar {
+    height: 85%;
+}
+
+.dashboard-widget-content#table {
+    padding: 0;
+}
+
+.delay-stream-item {
+    padding:10px;
+    box-sizing: border-box;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.delay-stream-item#stream-animate {
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1.5s; /* Firefox < 16 */
+     -ms-animation: fadein 1.5s; /* Internet Explorer */
+      -o-animation: fadein 1.5s; /* Opera < 12.1 */
+         animation: fadein 1.5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.delay-stream-item-header-line-title {
+    text-align: center;
+    font-size: 14px;
+    margin: 0px;
+    color: gray;
+}
+
+.delay-stream-item-header-line-value {
+    text-align: center;
+    font-size: 14px;
+    margin: 0px;
+    /* color: gray; */
+}
+
+.delay-stream-delay-value {
+    color: #cf6766;
+}
+
+.delay-stream-item-header-line-image {
+    width: 25px;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* .delay-stream-item-header-line- > p {
+    
+} */

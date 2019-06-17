@@ -1,12 +1,11 @@
 import React from 'react'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css';
 
-// Imports for redux
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 class Maps extends React.Component {
     constructor() {
@@ -82,39 +81,52 @@ class Maps extends React.Component {
 
     render() {
         return (
-            <Map
-                ref={(ref) => { this.map = ref; }}
-                center={this.state.center}
-                zoom={this.state.zoom}
-                bounds={this.state.bounds}
-                maxBounds={this.state.bounds}
-                boundsOptions={{ padding: [50, 50] }}
-                maxZoom={16}
-                minZoom={11}
-            >
-                <HeatmapLayer
-                    fitBoundsOnLoad
-                    fitBoundsOnUpdate
-                    points={this.state.heatmapdata}
-                    longitudeExtractor={m => m[1]}
-                    latitudeExtractor={m => m[0]}
-                    intensityExtractor={m => parseFloat(m[2])}
-                />
-                <TileLayer
-                    attribution='&copy; PSOVEA'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                />
-                <MarkerClusterGroup
-                    spiderLegPolylineOptions={{
-                        weight: 0,
-                        opacity: 0,
-                    }}>
-                    {this.createMarkers()}
-                </MarkerClusterGroup>
-                {/* <GeoJSON
-                    data={this.state.districts}
-                /> */}
-            </Map >
+            <div className="dashboard-widget">
+                <div className="dashboard-widget-header row">
+                    <div className="dashboard-widget-header-title-wrapper col-8">
+                        <p className="dashboard-widget-header-title">Kaart</p>
+                    </div>
+
+                    <div className="dashboard-widget-header-settings-wrapper col-4">
+                        <i className="fa fa-sliders dashboard-widget-header-settings-wrapper-icon" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div className="dashboard-widget-content" id="map">
+                        <Map
+                        ref={(ref) => { this.map = ref; }}
+                        center={this.state.center}
+                        zoom={this.state.zoom}
+                        bounds={this.state.bounds}
+                        maxBounds={this.state.bounds}
+                        boundsOptions={{ padding: [50, 50] }}
+                        maxZoom={16}
+                        minZoom={11}
+                    >
+                        <HeatmapLayer
+                            fitBoundsOnLoad
+                            fitBoundsOnUpdate
+                            points={this.state.heatmapdata}
+                            longitudeExtractor={m => m[1]}
+                            latitudeExtractor={m => m[0]}
+                            intensityExtractor={m => parseFloat(m[2])}
+                        />
+                        <TileLayer
+                            attribution='&copy; PSOVEA'
+                            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                        />
+                        <MarkerClusterGroup
+                            spiderLegPolylineOptions={{
+                                weight: 0,
+                                opacity: 0,
+                            }}>
+                            {this.createMarkers()}
+                        </MarkerClusterGroup>
+                        {/* <GeoJSON
+                            data={this.state.districts}
+                        /> */}
+                    </Map >
+                </div>
+            </div>
         );
     }
 }
@@ -123,11 +135,4 @@ Maps.propTypes = {
     districts: PropTypes.array,
 };
 
-const mapStateToProps = state => {
-    console.log("mappingStateToProps")
-    return { 
-        districts: state.districts
-    }
-}
-
-export default connect(mapStateToProps, null)(Maps);
+export default Maps;

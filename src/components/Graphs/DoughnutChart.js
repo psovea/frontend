@@ -23,42 +23,45 @@ const data = {
 	}]
 };
 
+const content = <div className="dashboard-widget-content" id="bar">
+                    <Doughnut data={data} options={{ responsive:true, maintainAspectRatio: false }}/>
+                </div>;
+
+const settings = <div className="dashboard-widget-content" id="bar">
+                    TODO:SETTINGS
+                </div>;
+
 class DoughnutChart extends React.Component {
 
-    // We store the dimensions of the dataContainer div.
 	constructor(props) {
         super(props);
         this.state = {
-            dimensions: null,
-        };
-    }
-    
-    // When the component is mounted we retrieve the dimensions.
-	componentDidMount() {
-        this.setState({
-            dimensions: {
-                width: this.container.offsetWidth,
-                height: this.container.offsetHeight,
-            },
-        });
-	}
+            showing: content,
+        }
 
-    // We rerender and create a BarChart with the dimensions.
-	renderContent() {
-        const { dimensions } = this.state;
-        return (
-            <div className="DataContainer">
-                <Doughnut data={data} width={dimensions.width} height={dimensions.height} options={{ maintainAspectRatio: false }}/>
-            </div>
-        );
+        this.settingsClicked = this.settingsClicked.bind(this);
     }
 
-    // The first render we call the actual render after storing the dimensions.
+    settingsClicked() {
+        this.state.showing == content ? this.setState({showing: settings}) : this.setState({showing : content})
+    }
+
+
 	render() {
-        const { dimensions } = this.state;
         return (
-            <div className="DataContainer" ref={el => (this.container = el)}>
-                {dimensions && this.renderContent()}
+            <div className="dashboard-widget">
+                <div className="dashboard-widget-header row">
+                    <div className="dashboard-widget-header-title-wrapper col-10">
+                        <p className="dashboard-widget-header-title">Aantal vertragingen afgelopen maanden</p>
+                    </div>
+
+                    <div className="dashboard-widget-header-settings-wrapper col-2">
+                        <i className="dashboard-widget-header-settings-wrapper-icon fa fa-sliders" 
+                           aria-hidden="true"
+                           onClick={this.settingsClicked}></i>
+                    </div>
+                </div>
+                {this.state.showing}
             </div>
         );
 	}
