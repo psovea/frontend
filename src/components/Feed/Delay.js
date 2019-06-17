@@ -66,7 +66,7 @@ class Delay extends React.Component {
     const {delays} = this.state
     return (
       delays.map((item, index) => {
-        return <div key={item} className="delay-stream-item" id={index == 0 ? "stream-animate" : "stream"}>
+        return <div key={index} className="delay-stream-item" id={index == 0 ? "stream-animate" : "stream"}>
           <div className="delay-stream-item-header row">
             <div className="delay-stream-item-header-line col-3">
               <p className="delay-stream-item-header-line-title">Lijn</p>
