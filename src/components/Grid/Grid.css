@@ -76,6 +76,13 @@
     height: 85%;
 }
 
+<<<<<<< HEAD
+=======
+.dashboard-widget-content#table {
+    padding: 0;
+}
+
+>>>>>>> master
 .delay-stream-item {
     padding:10px;
     box-sizing: border-box;
@@ -96,6 +103,7 @@
     from { opacity: 0; }
     to   { opacity: 1; }
 }
+<<<<<<< HEAD
 
 /* Firefox < 16 */
 @-moz-keyframes fadein {
@@ -111,10 +119,30 @@
 
 /* Internet Explorer */
 @-ms-keyframes fadein {
+=======
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+>>>>>>> master
     from { opacity: 0; }
     to   { opacity: 1; }
 }
 
+<<<<<<< HEAD
+=======
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+>>>>>>> master
 /* Opera < 12.1 */
 @-o-keyframes fadein {
     from { opacity: 0; }

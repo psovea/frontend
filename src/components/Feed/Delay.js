@@ -41,7 +41,6 @@ class Delay extends React.Component {
     const socket = socketIOClient('http://127.0.0.1:3500');
     socket.on("message", data => {
       let info = JSON.parse(data)
-      console.log(info['ARRIVAL']['punctuality'])
       this.getTravelInfo(info['ARRIVAL']);
     });
   }
@@ -49,12 +48,21 @@ class Delay extends React.Component {
   getDate() {
     var today = new Date();
     var dd = today.getDate();
+<<<<<<< HEAD
 
     var mm = today.getMonth()+1; 
     var yyyy = today.getFullYear();
     var h = today.getHours();
     var m = today.getMinutes();
 
+=======
+
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+    var h = today.getHours();
+    var m = today.getMinutes();
+
+>>>>>>> master
     return `${dd}-${mm}-${yyyy} ${h}:${m}`
   }
 
@@ -63,7 +71,11 @@ class Delay extends React.Component {
     const {delays} = this.state
     return (
       delays.map((item, index) => {
+<<<<<<< HEAD
         return <div key={item} className="delay-stream-item" id={index == 0 ? "stream-animate" : "stream"}>
+=======
+        return <div key={index} className="delay-stream-item" id={index == 0 ? "stream-animate" : "stream"}>
+>>>>>>> master
           <div className="delay-stream-item-header row">
             <div className="delay-stream-item-header-line col-3">
               <p className="delay-stream-item-header-line-title">Lijn</p>
@@ -78,7 +90,11 @@ class Delay extends React.Component {
               <p className="delay-stream-item-header-line-title">Vervoerder</p>
             </div>
           </div>
+<<<<<<< HEAD
           
+=======
+
+>>>>>>> master
           <div className="delay-stream-item-header row">
             <div className="delay-stream-item-header-line col-3">
               <p className="delay-stream-item-header-line-value">{item.publicLine}</p>

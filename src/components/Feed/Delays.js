@@ -8,7 +8,6 @@ class Delays extends React.Component {
   render = () => {
 
     return (
-      // <ul className="delays">
       <div className="dashboard-widget">
         <div className="dashboard-widget-header row">
           <div className="dashboard-widget-header-title-wrapper col-8">
