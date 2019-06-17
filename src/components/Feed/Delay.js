@@ -1,8 +1,5 @@
 import React from 'react';
 import socketIOClient from "socket.io-client";
-import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
-// import GVBIcon from '../Icons/GVBIcon'
-import 'react-vertical-timeline-component/style.min.css';
 
 class Delay extends React.Component {
   constructor(props) {
@@ -44,7 +41,6 @@ class Delay extends React.Component {
     const socket = socketIOClient('http://127.0.0.1:3500');
     socket.on("message", data => {
       let info = JSON.parse(data)
-      console.log(info['ARRIVAL']['punctuality'])
       this.getTravelInfo(info['ARRIVAL']);
     });
   }
@@ -53,7 +49,7 @@ class Delay extends React.Component {
     var today = new Date();
     var dd = today.getDate();
 
-    var mm = today.getMonth()+1; 
+    var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
     var h = today.getHours();
     var m = today.getMinutes();
@@ -81,7 +77,7 @@ class Delay extends React.Component {
               <p className="delay-stream-item-header-line-title">Vervoerder</p>
             </div>
           </div>
-          
+
           <div className="delay-stream-item-header row">
             <div className="delay-stream-item-header-line col-3">
               <p className="delay-stream-item-header-line-value">{item.publicLine}</p>

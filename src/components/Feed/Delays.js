@@ -1,9 +1,6 @@
 import React from 'react';
 import Delay from './Delay';
 import PropTypes from 'prop-types';
-import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
-
-
 
 import './Feed.css'
 
@@ -12,7 +9,6 @@ class Delays extends React.Component {
   render = () => {
 
     return (
-      // <ul className="delays">
       <div className="dashboard-widget">
         <div className="dashboard-widget-header row">
           <div className="dashboard-widget-header-title-wrapper col-8">

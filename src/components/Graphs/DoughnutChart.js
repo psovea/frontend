@@ -28,7 +28,6 @@ const content = <div className="dashboard-widget-content" id="bar">
                 </div>;
 
 const settings = <div className="dashboard-widget-content" id="bar">
-                    {/* <Doughnut data={data} options={{ responsive:true, maintainAspectRatio: false }}/> */}
                     TODO:SETTINGS
                 </div>;
 
