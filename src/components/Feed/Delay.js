@@ -1,6 +1,5 @@
 import React from 'react';
 import socketIOClient from "socket.io-client";
-import 'react-vertical-timeline-component/style.min.css';
 
 class Delay extends React.Component {
   constructor(props) {
