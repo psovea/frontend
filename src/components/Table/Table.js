@@ -15,7 +15,7 @@ const DataTable = props => {
                 <i className="dashboard-widget-header-settings-wrapper-icon fa fa-sliders" aria-hidden="true"></i>
             </div>
         </div>
-        <div className="dashboard-widget-content" id="bar">
+        <div className="dashboard-widget-content" id="table">
             <table className="striped">
                 <tbody>
                     <tr className="table-header-row">
