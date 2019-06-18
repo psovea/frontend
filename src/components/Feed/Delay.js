@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import socketIOClient from "socket.io-client";
 
-class Delay extends React.Component {
+class Delay extends Component {
   constructor(props) {
     super(props);
 
@@ -38,7 +38,7 @@ class Delay extends React.Component {
 
   componentDidMount() {
     const { endpoint } = this.state;
-    const socket = socketIOClient('http://127.0.0.1:3500');
+    const socket = socketIOClient('https://cors-anywhere.herokuapp.com/http://127.0.0.1:3500');
     socket.on("message", data => {
       let info = JSON.parse(data)
       this.getTravelInfo(info['ARRIVAL']);

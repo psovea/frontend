@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Delay from './Delay';
 import PropTypes from 'prop-types';
 
 import './Feed.css'
 
-class Delays extends React.Component {
+class Delays extends Component {
 
   render = () => {
 

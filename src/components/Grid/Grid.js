@@ -12,6 +12,9 @@ import './Grid.css';
 import Maps from '../Maps/Maps';
 import { Doughnut } from 'react-chartjs-2';
 import DataTable from '../Table/Table';
+import SearchBar from '../Searchbar/Searchbar';
+
+import getStopNames from '../../utils/travelInfo'
 
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
@@ -21,11 +24,12 @@ const ResponsiveGridLayout = WidthProvider(Responsive)
 // the ResponiveGridLayout, in these divs we can put our widgets.
 // I have not found a way to work around this yet.
 class Grid extends Component {
-  constructor (props) {
-    super(props)
-  }
+    constructor (props) {
+        super(props)
+    }
 
     render() {
+        getStopNames("Amsterdam")
         return (
             <div className="dashboard-container">
             <ResponsiveGridLayout className="grid"
@@ -34,10 +38,18 @@ class Grid extends Component {
                 isDraggable={false}
                 isResizable={false}
             >
-                <div key="barchart-1" data-grid={{ x: 0, y: 0, w: 1, h: 2}}><BarChart/></div>
+                <div key="searchbar" data-grid={{ x: 0, y: 0, w: 1, h: 2}}>
+                    <div className="dashboard-widget">
+                        <SearchBar options={[
+                            {value: "Yo", label: "Yo"},
+                            {value: "Nee", label: "Nee"}
+                        ]}
+                        />
+                    </div>
+                </div>
                 <div key="barchart-2" data-grid={{ x: 2, y: 3, w: 1, h: 2}}><DoughnutChart/></div>
                 <div key="barchart-3" data-grid={{ x: 1, y: 0, w: 1, h: 2}}>
-                  <DataTable headers={["Lijn", "Halte", "Vervoerder"]} values={[["22", "Centraal Station", "GVB"], ["23", "Centraal Station", "GVB"], ["24", "Centraal Station", "GVB"], ["25", "Centraal Station", "GVB"], ["26", "Centraal Station", "GVB"]]}/>
+                    <DataTable headers={["Lijn", "Halte", "Vervoerder"]} values={[["22", "Centraal Station", "GVB"], ["23", "Centraal Station", "GVB"], ["24", "Centraal Station", "GVB"], ["25", "Centraal Station", "GVB"], ["26", "Centraal Station", "GVB"]]}/>
                 </div>
                 <div key="barchart-4" data-grid={{ x: 3, y: 3, w: 1, h: 2}}><BarChart/></div>
                 <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 3}}><Maps/></div>
@@ -46,4 +58,5 @@ class Grid extends Component {
             </div>
         )}
 }
+
 export default Grid;
