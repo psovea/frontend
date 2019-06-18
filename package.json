@@ -61,6 +61,7 @@
     "react-leaflet-heatmap-layer": "^2.0.0",
     "react-leaflet-markercluster": "^2.0.0-rc3",
     "react-leaflet-shapefile": "^2.0.0",
+    "react-proptypes": "^1.0.0",
     "react-request": "^3.1.2",
     "react-resizable": "^1.8.0",
     "react-socket-io": "^0.2.5",
