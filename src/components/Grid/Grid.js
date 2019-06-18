@@ -75,7 +75,7 @@ class Grid extends Component {
                                     ["26", "Centraal Station", "GVB"]
                                 ]} />}
                             title="Top 5 vertragingen"
-                            componentId="bar"
+                            componentId="table"
                             settings={[<Slider min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
                         />
                     </div>
