@@ -25,7 +25,7 @@ class Delay extends React.Component {
         let newDelay = {
           publicLine: obj.public_id,
           transportType: obj.transport_type,
-          stopName: obj.name,
+          stopName: obj.stop_name,
           operator: obj.operator,
           publicLine: obj.public_id,
           punctuality: info.punctuality
