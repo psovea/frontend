@@ -11,21 +11,25 @@ class Delay extends React.Component {
   }
 
   getTravelInfo(info) {
-    let reqLine = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.216.203.6:5000/get-lines?operator=${info.dataownercode}&internal_id=${info.lineplanningnumber}`)
+    let reqLine = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.224.29.151:5000/get-lines?operator=${info.dataownercode}&internal_id=${info.lineplanningnumber}`)
     .then(res => res.json())
 
-    var reqStop = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.216.203.6:5000/get-stops?stop_code=300${info.userstopcode}`)
+    var reqStop = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.224.29.151:5000/get-stops?stop_code=300${info.userstopcode}`)
     .then(res => res.json())
 
 
     Promise.all([reqStop, reqLine]).then(data => {
       var obj = {...data[1][0], ...data[0][0]}
+      console.log(data[1][0])
+      console.log(data[0][0])
+
+      console.log(obj)
 
       this.setState(prevState => {
         let newDelay = {
           publicLine: obj.public_id,
           transportType: obj.transport_type,
-          stopName: obj.stop_name,
+          stopName: obj.name,
           operator: obj.operator,
           publicLine: obj.public_id,
           punctuality: info.punctuality
