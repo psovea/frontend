@@ -1,3 +1,10 @@
+/* Grid.js:
+ * Discription: This file contains the main body. The body contains of a 4x4 grid.
+ *              Grid box containers can be made here. Data graphs are shown in these boxes.
+ *              Each box has there own x,y position in the grid.
+ *              In this file you can change the width and height of these boxes.
+ */
+
 import React, { Component } from "react"
 import { Responsive, WidthProvider } from "react-grid-layout"
 import BarChart from "../Graphs/BarChart"
