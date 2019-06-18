@@ -10,8 +10,7 @@ class Settings extends React.Component {
     }
 
     settingsClicked() {
-        console.log('hello! world!')
-        this.setState({ show: !this.state.show })
+        this.setState({ settings: !this.state.settings })
     }
 
     static get propTypes() {
