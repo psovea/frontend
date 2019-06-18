@@ -10,7 +10,6 @@ import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
 import './Grid.css';
 import Maps from '../Maps/Maps';
-import { Doughnut } from 'react-chartjs-2';
 import DataTable from '../Table/Table';
 
 
