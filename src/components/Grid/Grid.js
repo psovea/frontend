@@ -50,7 +50,8 @@ class Grid extends Component {
                             component={<BarChart />}
                             title="Vertraging per dag"
                             componentId="bar"
-                            settings={[<Slider min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            names={{0: "dagen"}}
                         />
                     </div>
 
@@ -59,7 +60,8 @@ class Grid extends Component {
                             component={<DoughnutChart />}
                             title="Vertraging per vervoersmiddel"
                             componentId="bar"
-                            settings={[<Slider min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            names={{0: "dagen"}}
                         />
                     </div>
 
@@ -76,7 +78,8 @@ class Grid extends Component {
                                 ]} />}
                             title="Top 5 vertragingen"
                             componentId="table"
-                            settings={[<Slider min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            names={{0: "dagen"}}
                         />
                     </div>
 
@@ -85,7 +88,8 @@ class Grid extends Component {
                             component={<BarChart />}
                             title="Vertraging per maand"
                             componentId="bar"
-                            settings={[<Slider min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            names={{0: "dagen"}}
                         />
                         
                     </div>
@@ -94,7 +98,8 @@ class Grid extends Component {
                             component={<Maps />}
                             title="Vertraging in regio Amsterdam"
                             componentId="bar"
-                            settings={[<Slider min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            names={{0: "dagen"}}
                         />
                     </div>
 
@@ -103,7 +108,8 @@ class Grid extends Component {
                             component={<Delays />}
                             title="Live vertraging"
                             componentId="bar"
-                            settings={[<Slider min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
+                            names={{0: "dagen"}}
                         />
                     </div>
 

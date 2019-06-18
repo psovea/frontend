@@ -8,24 +8,33 @@ class Widget extends React.Component {
         this.state = {
             showSettings: false
         }
+
+        this.handleSettingsChange = this.handleSettingsChange.bind(this);
     }
 
     static get propTypes() { 
-        return { 
+        return {
             component: PropTypes.any, 
             settings: PropTypes.any,
             componentId: PropTypes.any,
-            title: PropTypes.any 
+            title: PropTypes.any,
+            names: PropTypes.any 
         }
     }
 
-    makeSettings = (visibility) => {
+    handleSettingsChange(i, v) {
+        var name = this.props.names[i];
+        this.setState({newSettings: {[name]: v}}, () => console.log(this.state))
+        // console.log(this.state)
+    }
+
+    makeSettings = () => {
         return this.props.settings.map((setting, i) => {
             return (
             <div className="dashboard-widget-content-settings-container-content" key={`setting-${i}`}>
                 <p className="dashboard-widget-content-settings-container-content-title">title</p>
                 <hr />
-                {setting}
+                {setting((v) => this.handleSettingsChange(i, v))}
             </div>
             )
         })
