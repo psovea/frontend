@@ -1,11 +1,9 @@
 import React from 'react'
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
 
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css';
-
-import PropTypes from 'prop-types';
 
 class Maps extends React.Component {
     constructor() {
@@ -23,24 +21,6 @@ class Maps extends React.Component {
             heatmapdata: []
         }
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log("in componentShouldUpdate")
-        nextState.districts = nextProps.districts;
-        console.log("new state in maps")
-        console.log(nextState.districts)
-        return true;
-    }
-
-    createMarkers() {
-        return this.state.stops.map((stop, i) => {
-            return <Marker
-                key={`marker-${i}`}
-                position={[stop.lat, stop.lon]} >
-                <Popup> {[stop.name]} </Popup>
-            </Marker >
-        })
-    }
 
     fetchJSON(url, value) {
         url = 'https://cors-anywhere.herokuapp.com/' + url
@@ -71,11 +51,15 @@ class Maps extends React.Component {
 
     createMarkers() {
         return this.state.stops.map((stop, i) => {
-            return <Marker
-                key={`marker-${i}`}
-                position={[stop.lat, stop.lon]} >
-                <Popup> {[stop.name]} </Popup>
-            </Marker>
+            return (
+                <Marker
+                    key={`marker-${i}`}
+                    position={[stop.lat, stop.lon]} >
+                    <Tooltip>
+                        {[stop.name]}
+                    </Tooltip>
+                </Marker >
+            )
         })
     }
 
@@ -113,10 +97,6 @@ class Maps extends React.Component {
             </Map>
         )
     }
-}
-
-Maps.propTypes = {
-    districts: PropTypes.array,
 }
 
 export default Maps;
