@@ -1,3 +1,8 @@
+/* DoughnutChart.js:
+ * Discription: This is the component of a DoughnutChart. This is used to be shown in a grid box.
+ *              Data is obtained from an API.
+ */
+
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import Tooltip from 'rc-tooltip';

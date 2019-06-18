@@ -1,3 +1,10 @@
+/* Grid.js:
+ * Discription: This file contains the main body. The body contains of a 4x4 grid.
+ *              Grid box containers can be made here. Data graphs are shown in these boxes.
+ *              Each box has there own x,y position in the grid.
+ *              In this file you can change the width and height of these boxes.
+ */
+
 import React, { Component } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import BarChart from '../Graphs/BarChart'
@@ -29,11 +36,13 @@ class Grid extends Component {
         return (
             <div className="dashboard-container">
             <ResponsiveGridLayout className="grid"
+                /* Breakpoints determines the resolution of large, medium, small etc. screens. */
                 breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
                 cols={{ lg: 4, md: 4, sm: 2, xs: 1, xxs: 1 }}
+                /* Change these booleans if you want to drag or resize the boxes in the grid. */
                 isDraggable={false}
                 isResizable={false}
-            >
+            >   
                 <div key="barchart-1" data-grid={{ x: 0, y: 0, w: 1, h: 2}}><LineChart/></div>
                 <div key="barchart-2" data-grid={{ x: 2, y: 3, w: 1, h: 2}}><DoughnutChart/></div>
                 <div key="barchart-3" data-grid={{ x: 1, y: 0, w: 1, h: 2}}>

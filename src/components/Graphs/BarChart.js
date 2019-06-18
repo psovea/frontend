@@ -1,3 +1,8 @@
+/* BarChart.js:
+ * Discription: This is the component of a Barchart. This is used to be shown in a grid box.
+ *              Data is obtained from an API.
+ */
+
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import './Graphs.css';

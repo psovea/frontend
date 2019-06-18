@@ -1,3 +1,8 @@
+/* MapMarker.js:
+ * Discription: This file places markers on stop locations in the Map. 
+ *              The coordinates of these stops uses latitudes and longtitudes.
+ */
+
 import React from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import axios from 'axios';
