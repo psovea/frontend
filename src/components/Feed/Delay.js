@@ -1,5 +1,6 @@
 import React from 'react';
 import socketIOClient from "socket.io-client";
+import 'react-vertical-timeline-component/style.min.css';
 
 class Delay extends React.Component {
   constructor(props) {
@@ -37,7 +38,6 @@ class Delay extends React.Component {
   }
 
   componentDidMount() {
-    const { endpoint } = this.state;
     const socket = socketIOClient('http://127.0.0.1:3500');
     socket.on("message", data => {
       let info = JSON.parse(data)
@@ -77,7 +77,6 @@ class Delay extends React.Component {
               <p className="delay-stream-item-header-line-title">Vervoerder</p>
             </div>
           </div>
-
           <div className="delay-stream-item-header row">
             <div className="delay-stream-item-header-line col-3">
               <p className="delay-stream-item-header-line-value">{item.publicLine}</p>
