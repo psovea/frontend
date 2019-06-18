@@ -16,7 +16,7 @@ const DataTable = props => {
             </div>
         </div>
         <div className="dashboard-widget-content" id="bar">
-            <table>
+            <table className="striped">
                 <tbody>
                     <tr className="table-header-row">
                         {props.headers.map(col => <th key={col} className="table-header-row-value">{col}</th>)}

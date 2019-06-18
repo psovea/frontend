@@ -146,7 +146,84 @@
     margin: 0 auto;
 }
 
+.dashboard-widget-content-settings {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
 
-/* .delay-stream-item-header-line- > p {
-    
+.dashboard-widget-content-settings.show {
+    height: 85%;
+    width: 100%;
+    top: 40px;
+    position: absolute;
+    background-color: white;
+    transition: all 0.15s ease-in;
+}
+
+.dashboard-widget-content-settings.show > * {
+    display: block;
+}
+
+.dashboard-widget-content-settings.hide {
+    height: 0;
+    width: 100%;
+    top: 40px;
+    position: absolute;
+    background-color: white;
+    transition: all 0.15s ease-out;
+}
+
+.dashboard-widget-content-settings.hide > * {
+    display: none;
+}
+
+.dashboard-widget-content-settings-container {
+    height: 80%;
+    overflow: scroll;
+    padding: 15px 25px;
+    box-sizing: border-box;
+}
+
+.dashboard-widget-content-settings-container-content {
+    margin-bottom: 30px;
+}
+
+.dashboard-widget-content-settings-container-content-title {
+    color: gray;
+}
+
+.dashboard-widget-content-settings-buttons-container {
+    width: 250px;
+    margin: 0 auto;
+    margin-top: 12px;
+}
+
+.rc-slider-handle {
+    border: 2px solid #d83120;
+}
+
+.rc-slider-handle:hover {
+    border: 2px solid #d83120;
+}
+
+.rc-slider-handle:focus {
+    border: 2px solid #d83120;
+    box-shadow: 0 0 0 3px #d83120;
+}
+
+.rc-slider-dot-active {
+    border-color: #d83120;
+}
+
+.rc-slider-track {
+    background-color: #d83120;
+}
+
+/* .dashboard-widget-settings-button-icon {
+    color: white;
 } */
