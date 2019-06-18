@@ -20,10 +20,6 @@ class Delay extends React.Component {
 
     Promise.all([reqStop, reqLine]).then(data => {
       var obj = {...data[1][0], ...data[0][0]}
-      console.log(data[1][0])
-      console.log(data[0][0])
-
-      console.log(obj)
 
       this.setState(prevState => {
         let newDelay = {
