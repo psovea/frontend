@@ -40,11 +40,11 @@ class Maps extends React.Component {
 
     componentDidMount() {
         // Stop data
-        this.fetchJSON(`http://18.216.203.6:5000/get-stops`, "stops")
+        this.fetchJSON(`http://18.224.29.151:5000/get-stops`, "stops")
         // District data
         this.fetchJSON(`http://184.72.120.43:3000/districts`, "districts")
         // Heatmap data
-        this.fetchJSON('http://18.216.203.6:5000/get-heatmap-info', 'heatmapdata')
+        this.fetchJSON('http://18.224.29.151:5000/get-heatmap-info?district=Noord', 'heatmapdata')
         // Delay data
         // this.fetchJSON(`http://myurl.url`, "delays")
     }
@@ -66,14 +66,14 @@ class Maps extends React.Component {
     render() {
         return (
             <Map
-            ref={(ref) => { this.map = ref; }}
-            center={this.state.center}
-            zoom={this.state.zoom}
-            bounds={this.state.bounds}
-            maxBounds={this.state.bounds}
-            boundsOptions={{ padding: [50, 50] }}
-            maxZoom={16}
-            minZoom={11}
+                ref={(ref) => { this.map = ref; }}
+                center={this.state.center}
+                zoom={this.state.zoom}
+                bounds={this.state.bounds}
+                maxBounds={this.state.bounds}
+                boundsOptions={{ padding: [50, 50] }}
+                maxZoom={16}
+                minZoom={11}
             >
                 <HeatmapLayer
                     fitBoundsOnLoad
