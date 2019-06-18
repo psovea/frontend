@@ -56,7 +56,7 @@ class Widget extends React.Component {
                     <div className="dashboard-widget-content-settings-container">
                         {this.makeSettings()}
                     </div> 
-                    {/* {this.showSettings ? this.makeSettings() : this.props.component} */}
+
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">
                             <button className="dashboard-widget-content-settings-buttons-button button outline primary"><i className="dashboard-widget-settings-button-icon fa fa-check"></i> apply</button>

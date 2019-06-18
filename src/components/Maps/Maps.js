@@ -75,64 +75,48 @@ class Maps extends React.Component {
                 key={`marker-${i}`}
                 position={[stop.lat, stop.lon]} >
                 <Popup> {[stop.name]} </Popup>
-            </Marker >
+            </Marker>
         })
     }
 
     render() {
         return (
-            <div className="dashboard-widget">
-                <div className="dashboard-widget-header row">
-                    <div className="dashboard-widget-header-title-wrapper col-8">
-                        <p className="dashboard-widget-header-title">Kaart</p>
-                    </div>
-
-                    <div className="dashboard-widget-header-settings-wrapper col-4">
-                        <i className="fa fa-sliders dashboard-widget-header-settings-wrapper-icon" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div className="dashboard-widget-content" id="map">
-                        <Map
-                        ref={(ref) => { this.map = ref; }}
-                        center={this.state.center}
-                        zoom={this.state.zoom}
-                        bounds={this.state.bounds}
-                        maxBounds={this.state.bounds}
-                        boundsOptions={{ padding: [50, 50] }}
-                        maxZoom={16}
-                        minZoom={11}
-                    >
-                        <HeatmapLayer
-                            fitBoundsOnLoad
-                            fitBoundsOnUpdate
-                            points={this.state.heatmapdata}
-                            longitudeExtractor={m => m[1]}
-                            latitudeExtractor={m => m[0]}
-                            intensityExtractor={m => parseFloat(m[2])}
-                        />
-                        <TileLayer
-                            attribution='&copy; PSOVEA'
-                            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                        />
-                        <MarkerClusterGroup
-                            spiderLegPolylineOptions={{
-                                weight: 0,
-                                opacity: 0,
-                            }}>
-                            {this.createMarkers()}
-                        </MarkerClusterGroup>
-                        {/* <GeoJSON
-                            data={this.state.districts}
-                        /> */}
-                    </Map >
-                </div>
-            </div>
-        );
+            <Map
+            ref={(ref) => { this.map = ref; }}
+            center={this.state.center}
+            zoom={this.state.zoom}
+            bounds={this.state.bounds}
+            maxBounds={this.state.bounds}
+            boundsOptions={{ padding: [50, 50] }}
+            maxZoom={16}
+            minZoom={11}
+            >
+                <HeatmapLayer
+                    fitBoundsOnLoad
+                    fitBoundsOnUpdate
+                    points={this.state.heatmapdata}
+                    longitudeExtractor={m => m[1]}
+                    latitudeExtractor={m => m[0]}
+                    intensityExtractor={m => parseFloat(m[2])}
+                />
+                <TileLayer
+                    attribution='&copy; PSOVEA'
+                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                />
+                <MarkerClusterGroup
+                    spiderLegPolylineOptions={{
+                        weight: 0,
+                        opacity: 0,
+                    }}>
+                    {this.createMarkers()}
+                </MarkerClusterGroup>
+            </Map>
+        )
     }
 }
 
 Maps.propTypes = {
     districts: PropTypes.array,
-};
+}
 
 export default Maps;
