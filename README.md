@@ -1,7 +1,7 @@
 # Frontend
 Frontend for the OVerzicht application.
 
-![test](https://i.imgur.com/1PsHtWE.jpg)
+![test](https://i.imgur.com/a2n2Njt.jpg)
 
 ## Contributing
 
