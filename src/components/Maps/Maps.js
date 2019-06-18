@@ -1,5 +1,7 @@
 /* Map.js:
- * Discription: TODO reeeeeeck.
+ * Discription: This file uses react-leaflet to show a map of Amsterdam (The Netherlands).
+ *              Bounderies of the map can be changed here.
+ *              The map also uses an API to show a Heatmap of traffic delay.
  */
 
 import React from 'react'
