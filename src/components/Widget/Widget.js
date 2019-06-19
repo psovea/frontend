@@ -2,14 +2,19 @@ import React from 'react'
 import PropTypes from 'react-proptypes'
 
 class Widget extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {
-            showSettings: false
+            showSettings: false,
+            defaultSettings: props.defaultSettings
         }
 
+        this.compRef = React.createRef()
+        this.component = props.component
+
         this.handleSettingsChange = this.handleSettingsChange.bind(this);
+        this.applySettings = this.applySettings.bind(this);
     }
 
     static get propTypes() { 
@@ -18,13 +23,18 @@ class Widget extends React.Component {
             settings: PropTypes.any,
             componentId: PropTypes.any,
             title: PropTypes.any,
-            names: PropTypes.any 
+            names: PropTypes.any,
+            defaultSettings: PropTypes.any
         }
+    }
+
+    componentDidMount() {
+        this.setState({currentSettings: this.state.defaultSettings}, () => console.log(this.state))
     }
 
     handleSettingsChange(i, v) {
         var name = this.props.names[i];
-        this.setState({newSettings: {[name]: v}}, () => console.log(this.state))
+        this.setState({newSettings: {...this.state.newSettings, [name]: v}}, () => console.log(this.state))
     }
 
     makeSettings = () => {
@@ -39,10 +49,24 @@ class Widget extends React.Component {
         })
     }
 
+    applySettings = () => {
+        this.setState({currentSettings: this.state.newSettings, showSettings: false}, () => {
+            console.log(this.state.currentSettings)
+            this.compRef.current.update(this.state.currentSettings)
+        })
+    }
+
+    getCurrentSettings = () => this.state.currentSettings
+
+    defaultSettings = () => {
+        this.setState({currentSettings: this.state.defaultSettings}, () => console.log(this.state))
+    }
+
     makeComponent = () => {
+        console.log("currentSettings: " + JSON.stringify(this.state.currentSettings))
         return (
             <div className="dashboard-widget-content" id={this.props.componentId}>
-                {this.props.component}
+                { React.cloneElement(this.component, {ref: this.compRef})}
             </div>
         )
     }
@@ -66,8 +90,8 @@ class Widget extends React.Component {
                     </div> 
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">
-                            <button className="dashboard-widget-content-settings-buttons-button button outline primary"><i className="dashboard-widget-settings-button-icon fa fa-check"></i> apply</button>
-                            <button className="dashboard-widget-content-settings-buttons-button button outline secondary"><i className="dashboard-widget-settings-button-icon fa fa-refresh"></i> reset</button>
+                            <button onClick={this.applySettings} className="dashboard-widget-content-settings-buttons-button button outline primary"><i className="dashboard-widget-settings-button-icon fa fa-check"></i> apply</button>
+                            <button onClick={this.defaultSettings} className="dashboard-widget-content-settings-buttons-button button outline secondary"><i className="dashboard-widget-settings-button-icon fa fa-refresh"></i> reset</button>
                         </div>
                     </div>
                 </div>

@@ -62,8 +62,14 @@ class Grid extends Component {
                             componentId="bar"
                             settings={[
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>,
+<<<<<<< HEAD
                             ]}
                             names={{0: "days"}}
+=======
+                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 week", 40: "3 weken", 60: "5 week", 100: "10 weken" }} step={null} key='slider1'/>
+                            ]}
+                            names={{0: "dagen", 1: "weken"}}
+>>>>>>> master
                         />
                     </div>
 
@@ -77,11 +83,14 @@ class Grid extends Component {
                                     ["24", "Centraal Station", "GVB"],
                                     ["25", "Centraal Station", "GVB"],
                                     ["26", "Centraal Station", "GVB"]
-                                ]} />}
+                                ]}
+                                numShow={0}
+                                />}
                             title="Top 5 vertragingen"
                             componentId="table"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
-                            names={{0: "dagen"}}
+                            settings={[(f) => <Slider onChange={f} min={1} defaultValue={1} marks={{ 1: "1", 2: "2", 3: "3", 4: "4" }} step={null} key='slider'/>]}
+                            defaultSettings={{numShow: 0}}
+                            names={{0: "numShow"}}
                         />
                     </div>
 
@@ -91,7 +100,7 @@ class Grid extends Component {
                             title="Vertraging per maand"
                             componentId="bar"
                             settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
-                            names={{0: "days"}}
+                            names={{0: "dagen", 1: "weken"}}
                         />
                         
                     </div>
