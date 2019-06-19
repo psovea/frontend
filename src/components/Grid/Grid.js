@@ -45,14 +45,14 @@ class Grid extends Component {
                     isDraggable={false}
                     isResizable={false}
                 >
-                    {/* <div key="barchart-1" data-grid={{ x: 0, y: 0, w: 1, h: 2 }}>
+                    <div key="barchart-1" data-grid={{ x: 0, y: 0, w: 1, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[<Slider min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
                         />
-                    </div> */}
+                    </div>
 
                     <div key="barchart-2" data-grid={{ x: 2, y: 3, w: 1, h: 2 }}>
                         <Widget
@@ -63,7 +63,7 @@ class Grid extends Component {
                         />
                     </div>
 
-                    {/* <div key="barchart-3" data-grid={{ x: 1, y: 0, w: 1, h: 2 }}>
+                    <div key="barchart-3" data-grid={{ x: 1, y: 0, w: 1, h: 2 }}>
                         <Widget
                             component={<DataTable
                                 headers={["Lijn", "Halte", "Vervoerder"]}
@@ -105,7 +105,7 @@ class Grid extends Component {
                             componentId="bar"
                             settings={[<Slider min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
                         />
-                    </div> */}
+                    </div>
 
                 </ResponsiveGridLayout>
             </div>

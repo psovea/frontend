@@ -23,15 +23,55 @@ const data = {
 };
 
 class BarChart extends React.Component {
-    // We store the dimensions of the dataContainer div.
     constructor(props) {
         super(props);
+        this.state = {
+            delays: [],
+        }
     }
 
-    // The first render we call the actual render after storing the dimensions.
+    fetchJSON(url, value) {
+        url = 'https://cors-anywhere.herokuapp.com/' + url
+        let jsonVar = {}
+        fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(res => {
+            return res.json();
+        }).then(json => {
+            this.setState({delays: json});
+        })
+    }
+
+    componentDidMount() {
+        this.fetchJSON('http://18.224.29.151:5000/get-district-delays', "delays")
+    }
+
+    makeData() {
+        var labelArray = []
+        var dataArray = []
+        this.state.delays.forEach(item => labelArray.push(Object.keys(item)[0]));
+        this.state.delays.forEach(item => dataArray.push(Object.values(item)[0]));
+        let data = {
+            labels: labelArray,
+            datasets: [{
+                data: dataArray,
+                label: 'Vertraging',
+                backgroundColor: 'rgba(255,99,132,0.2)',
+                borderColor: 'rgba(255,99,132,1)',
+                borderWidth: 1,
+                hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                hoverBorderColor: 'rgba(255,99,132,1)',
+            }]
+        }
+        return data
+    }
+    
     render() {
         return (
-            <Bar data={data} options={{ responsive:true, maintainAspectRatio: false }}/>
+            <Bar data={this.makeData()} options={{ responsive:true, maintainAspectRatio: false }}/>
         )
     }
 }

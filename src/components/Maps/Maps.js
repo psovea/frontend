@@ -46,7 +46,7 @@ class Maps extends React.Component {
 
     componentDidMount() {
         // Stop data
-        this.fetchJSON(`http://18.224.29.151:5000/get-stops`, "stops")
+        this.fetchJSON(`http://18.224.29.151:5000/get-stops?town=amsterdam`, "stops")
         // District data
         this.fetchJSON(`http://184.72.120.43:3000/districts`, "districts")
         // Heatmap data

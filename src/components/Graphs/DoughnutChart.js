@@ -8,27 +8,6 @@ import { Doughnut } from 'react-chartjs-2';
 import 'rc-slider/assets/index.css';
 import './Graphs.css';
 
-// const data = {
-//     labels: [
-//         'Red',
-//         'Green',
-//         'Yellow'
-//     ],
-//     datasets: [{
-//         data: [300, 50, 100],
-//         backgroundColor: [
-//             '#FF6384',
-//             '#36A2EB',
-//             '#FFCE56'
-//         ],
-//         hoverBackgroundColor: [
-//             '#FF6384',
-//             '#36A2EB',
-//             '#FFCE56'
-//         ]
-//     }]
-// };
-
 class DoughnutChart extends React.Component {
 
     constructor(props) {
@@ -66,6 +45,28 @@ class DoughnutChart extends React.Component {
             labels: labelArray,
             datasets: [{
                 data: dataArray,
+                backgroundColor: [
+                    '#ff8080',
+                    '#ff6666',
+                    '#ff4d4d',
+                    '#ff3333',
+                    '#ff1a1a',
+                    '#ff0000',
+                    '#e60000',
+                    '#cc0000',
+                    '#b30000'
+                ],
+                hoverBackgroundColor: [
+                    '#ff8080',
+                    '#ff6666',
+                    '#ff4d4d',
+                    '#ff3333',
+                    '#ff1a1a',
+                    '#ff0000',
+                    '#e60000',
+                    '#cc0000',
+                    '#b30000'
+                ]
             }]
         }
         return data
