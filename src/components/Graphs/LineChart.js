@@ -67,6 +67,10 @@ class LineChart extends React.Component {
         this.setState({settings: !this.state.settings})
     }
 
+    update(newState) {
+        this.setState(newState)
+    }
+
 	render() {
         const settingsIcon = <i className="dashboard-widget-header-settings-wrapper-icon fa fa-sliders" aria-hidden="true"/>
         const backIcon = <i className="dashboard-widget-header-settings-wrapper-icon fa fa-reply" aria-hidden="true"/>

@@ -69,6 +69,10 @@ class Maps extends React.Component {
         })
     }
 
+    update(newState) {
+        this.setState(newState)
+    }
+
     render() {
         return (
             <Map
