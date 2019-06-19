@@ -57,7 +57,6 @@ class Delay extends Component {
   }
 
   render = () => {
-    console.log(this.state);
     const {delays} = this.state
     return (
       delays.map((item, index) => {

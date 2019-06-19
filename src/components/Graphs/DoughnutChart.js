@@ -29,6 +29,19 @@ const data = {
     }]
 };
 
-const DoughnutChart = () => <Doughnut data={data} options={{ responsive: true, maintainAspectRatio: false }} />
+class DoughnutChart extends React.Component {
+    // We store the dimensions of the dataContainer div.
+    constructor(props) {
+        super(props);
+    }
+
+    update(newState) {
+        this.setState(newState)
+    }
+    
+    render = () => (
+        <Doughnut data={data} options={{ responsive: true, maintainAspectRatio: false }} />
+    )
+}
 
 export default DoughnutChart; 
