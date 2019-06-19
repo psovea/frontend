@@ -51,9 +51,8 @@ class DoughnutChart extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("Constructor")
         this.state = {
-            data: []
+            delays: []
         }
     }
 
@@ -68,23 +67,19 @@ class DoughnutChart extends React.Component {
         }).then(res => {
             return res.json();
         }).then(json => {
+            console.log({ value: json })
             jsonVar[value] = json;
             this.setState(jsonVar);
         })
-        console.log(jsonVar)
-        // this.state[data] = jsonVar
-        // this.state.data.setState(jsonVar)
     }
-        
     componentDidMount() {
-        this.fetchJSON(`http://18.224.29.151:5000/get-district-delays`, 'data')
-        
+        this.fetchJSON('http://18.224.29.151:5000/get-district-delays', "delays")
     }
 
     render() {
-        console.log("render")
+        console.log(this.state.delays)
         return (
-            <Doughnut data={data} options={{ responsive: true, maintainAspectRatio: false }} />
+            <Doughnut data={this.state.delays} options={{ responsive: true, maintainAspectRatio: false }} />
         );
     }
 
