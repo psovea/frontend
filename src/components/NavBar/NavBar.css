@@ -16,6 +16,7 @@
     padding: 15px;
     margin-left: 20px;
     margin-right: 20px;
+    
 }
 
 .logoleft img {
@@ -41,13 +42,12 @@
     padding: 15px;
     margin-left: 20px;
     margin-right: 20px;
-    /* border: 1px solid blue; */
+    
 }
 
 .logoright img {
     float: right;
     height: inherit;
-    /* rotate: 90; */
 }
 
 .logoright span {
@@ -60,4 +60,12 @@
     font-size: 25px;
     font-weight: 500;
     color: #ec0000;
+}
+
+.center-vertical {
+    /* Center text horizontaly and vertically. */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
 }

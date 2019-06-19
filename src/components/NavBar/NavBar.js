@@ -19,10 +19,10 @@ class NavBar extends Component {
             <div className="navbar">
                 <div className="logoleft">
                     <img src={logo}/>
-                    <span>PSOVEA</span>
+                    <span className="center-vertical">OVerzicht</span>
                 </div>
                 <div className="logoright">
-                    <span>Amsterdam</span>
+                    <span className="center-vertical">Amsterdam</span>
                     <img src={andreas}/>
                 </div>
             </div>
