@@ -11,20 +11,38 @@ import './Graphs.css';
 const data = {
     labels: [
         'Red',
-        'Green',
-        'Yellow'
+        'Red',
+        'Red',
+        'Red',
+        'Red',
+        'Red',
+        'Red',
+        'Red',
+        'Red'
     ],
     datasets: [{
-        data: [300, 50, 100],
+        data: [300, 50, 100, 230, 200, 100, 100, 100, 100],
         backgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56'
+            '#ff8080',
+            '#ff6666',
+            '#ff4d4d',
+            '#ff3333',
+            '#ff1a1a',
+            '#ff0000',
+            '#e60000',
+            '#cc0000',
+            '#b30000'
         ],
         hoverBackgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56'
+            '#ff8080',
+            '#ff6666',
+            '#ff4d4d',
+            '#ff3333',
+            '#ff1a1a',
+            '#ff0000',
+            '#e60000',
+            '#cc0000',
+            '#b30000'
         ]
     }]
 };
@@ -35,26 +53,32 @@ class DoughnutChart extends React.Component {
         super(props);
         console.log("Constructor")
         this.state = {
+            data: []
         }
     }
 
-    fetchJSON() {
-        console.log("Fetching")
-        // url = 'http://18.224.29.151:5000/get-district-delays'
-        // let jsonVar = {}
-        // fetch(url, {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json'
-        //     }
-        // }).then(res => {
-        //     // return res.json();
-        //     console.log(res.json());
-        // }).then(json => {
-        //     console.log(json)
-        //     // jsonVar[value] = json;
-        //     // this.setState(jsonVar);
-        // })
+    fetchJSON(url, value) {
+        url = 'https://cors-anywhere.herokuapp.com/' + url
+        let jsonVar = {}
+        fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(res => {
+            return res.json();
+        }).then(json => {
+            jsonVar[value] = json;
+            this.setState(jsonVar);
+        })
+        console.log(jsonVar)
+        // this.state[data] = jsonVar
+        // this.state.data.setState(jsonVar)
+    }
+        
+    componentDidMount() {
+        this.fetchJSON(`http://18.224.29.151:5000/get-district-delays`, 'data')
+        
     }
 
     render() {
@@ -63,11 +87,7 @@ class DoughnutChart extends React.Component {
             <Doughnut data={data} options={{ responsive: true, maintainAspectRatio: false }} />
         );
     }
-    
-    componentDidMount() {
-        console.log("ccomponentDidMount")
-        this.fetchJSON()
-    }
+
 }
 
 export default DoughnutChart; 
