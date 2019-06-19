@@ -62,14 +62,9 @@ class Grid extends Component {
                             componentId="bar"
                             settings={[
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>,
-<<<<<<< HEAD
-                            ]}
-                            names={{0: "days"}}
-=======
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 week", 40: "3 weken", 60: "5 week", 100: "10 weken" }} step={null} key='slider1'/>
                             ]}
                             names={{0: "dagen", 1: "weken"}}
->>>>>>> master
                         />
                     </div>
 
