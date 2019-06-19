@@ -1,11 +1,15 @@
+/* Map.js:
+ * Discription: This file uses react-leaflet to show a map of Amsterdam (The Netherlands).
+ *              Bounderies of the map can be changed here.
+ *              The map also uses an API to show a Heatmap of traffic delay.
+ */
+
 import React from 'react'
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
 
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css';
-
-import PropTypes from 'prop-types';
 
 class Maps extends React.Component {
     constructor() {
@@ -23,24 +27,6 @@ class Maps extends React.Component {
             heatmapdata: []
         }
     };
-
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log("in componentShouldUpdate")
-        nextState.districts = nextProps.districts;
-        console.log("new state in maps")
-        console.log(nextState.districts)
-        return true;
-    }
-
-    createMarkers() {
-        return this.state.stops.map((stop, i) => {
-            return <Marker
-                key={`marker-${i}`}
-                position={[stop.lat, stop.lon]} >
-                <Popup> {[stop.name]} </Popup>
-            </Marker >
-        })
-    }
 
     fetchJSON(url, value) {
         url = 'https://cors-anywhere.herokuapp.com/' + url
@@ -60,79 +46,63 @@ class Maps extends React.Component {
 
     componentDidMount() {
         // Stop data
-        this.fetchJSON(`http://18.216.203.6:5000/get-stops`, "stops")
+        this.fetchJSON(`http://18.224.29.151:5000/get-stops?town=amsterdam`, "stops")
         // District data
         this.fetchJSON(`http://184.72.120.43:3000/districts`, "districts")
         // Heatmap data
-        this.fetchJSON('http://18.216.203.6:5000/get-heatmap-info', 'heatmapdata')
+        this.fetchJSON('http://18.224.29.151:5000/get-heatmap-info', 'heatmapdata')
         // Delay data
         // this.fetchJSON(`http://myurl.url`, "delays")
     }
 
     createMarkers() {
         return this.state.stops.map((stop, i) => {
-            return <Marker
-                key={`marker-${i}`}
-                position={[stop.lat, stop.lon]} >
-                <Popup> {[stop.name]} </Popup>
-            </Marker >
+            return (
+                <Marker
+                    key={`marker-${i}`}
+                    position={[stop.lat, stop.lon]} >
+                    <Tooltip>
+                        {[stop.name]}
+                    </Tooltip>
+                </Marker >
+            )
         })
     }
 
     render() {
         return (
-            <div className="dashboard-widget">
-                <div className="dashboard-widget-header row">
-                    <div className="dashboard-widget-header-title-wrapper col-8">
-                        <p className="dashboard-widget-header-title">Kaart</p>
-                    </div>
-
-                    <div className="dashboard-widget-header-settings-wrapper col-4">
-                        <i className="fa fa-sliders dashboard-widget-header-settings-wrapper-icon" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div className="dashboard-widget-content" id="map">
-                        <Map
-                        ref={(ref) => { this.map = ref; }}
-                        center={this.state.center}
-                        zoom={this.state.zoom}
-                        bounds={this.state.bounds}
-                        maxBounds={this.state.bounds}
-                        boundsOptions={{ padding: [50, 50] }}
-                        maxZoom={16}
-                        minZoom={11}
-                    >
-                        <HeatmapLayer
-                            fitBoundsOnLoad
-                            fitBoundsOnUpdate
-                            points={this.state.heatmapdata}
-                            longitudeExtractor={m => m[1]}
-                            latitudeExtractor={m => m[0]}
-                            intensityExtractor={m => parseFloat(m[2])}
-                        />
-                        <TileLayer
-                            attribution='&copy; PSOVEA'
-                            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                        />
-                        <MarkerClusterGroup
-                            spiderLegPolylineOptions={{
-                                weight: 0,
-                                opacity: 0,
-                            }}>
-                            {this.createMarkers()}
-                        </MarkerClusterGroup>
-                        {/* <GeoJSON
-                            data={this.state.districts}
-                        /> */}
-                    </Map >
-                </div>
-            </div>
-        );
+            <Map
+                ref={(ref) => { this.map = ref; }}
+                center={this.state.center}
+                zoom={this.state.zoom}
+                bounds={this.state.bounds}
+                maxBounds={this.state.bounds}
+                boundsOptions={{ padding: [50, 50] }}
+                maxZoom={16}
+                minZoom={11}
+            >
+                <HeatmapLayer
+                    fitBoundsOnLoad
+                    fitBoundsOnUpdate
+                    points={this.state.heatmapdata}
+                    longitudeExtractor={m => m[1]}
+                    latitudeExtractor={m => m[0]}
+                    intensityExtractor={m => parseFloat(m[2])}
+                />
+                <TileLayer
+                    attribution='&copy; PSOVEA'
+                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                />
+                <MarkerClusterGroup
+                    spiderLegPolylineOptions={{
+                        weight: 0,
+                        opacity: 0,
+                    }}>
+                    {this.createMarkers()}
+                </MarkerClusterGroup>
+            </Map>
+        )
     }
 }
-
-Maps.propTypes = {
-    districts: PropTypes.array,
-};
 
 export default Maps;

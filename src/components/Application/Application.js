@@ -1,3 +1,8 @@
+/* Application.js:
+ * Discription: This file calls the Grid and NavBar components.
+ *              All the data and graphs are shown in the grid componennt.
+ */
+
 import React from 'react';
 import Grid from '../Grid/Grid.js';
 import './Application.css';

@@ -11,10 +11,10 @@ class Delay extends Component {
   }
 
   getTravelInfo(info) {
-    let reqLine = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.216.203.6:5000/get-lines?operator=${info.dataownercode}&internal_id=${info.lineplanningnumber}`)
+    let reqLine = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.224.29.151:5000/get-lines?operator=${info.dataownercode}&internal_id=${info.lineplanningnumber}`)
     .then(res => res.json())
 
-    var reqStop = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.216.203.6:5000/get-stops?stop_code=300${info.userstopcode}`)
+    var reqStop = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.224.29.151:5000/get-stops?stop_code=300${info.userstopcode}`)
     .then(res => res.json())
 
 
@@ -37,7 +37,6 @@ class Delay extends Component {
   }
 
   componentDidMount() {
-    const { endpoint } = this.state;
     const socket = socketIOClient('http://127.0.0.1:3500');
     socket.on("message", data => {
       let info = JSON.parse(data)
@@ -77,7 +76,6 @@ class Delay extends Component {
               <p className="delay-stream-item-header-line-title">Vervoerder</p>
             </div>
           </div>
-
           <div className="delay-stream-item-header row">
             <div className="delay-stream-item-header-line col-3">
               <p className="delay-stream-item-header-line-value">{item.publicLine}</p>

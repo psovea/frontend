@@ -1,9 +1,63 @@
 .navbar {
     height: 80px;
     width: 100%;
-    background-color: white;
     margin-bottom: 10px;
+    position: relative;
+
     -webkit-box-shadow: 0px 2px 5px 0px rgba(199,199,199,1);
     -moz-box-shadow: 0px 2px 5px 0px rgba(199,199,199,1);
     box-shadow: 0px 2px 5px 0px rgba(199,199,199,1);
+    background-color: #ffffff;
+}
+
+.logoleft {
+    float: left;
+    height: 100%;
+    padding: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.logoleft img {
+    float: left;
+    height: inherit;
+}
+
+.logoleft span {
+    float: right;
+    height: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 35px;
+    font-weight: 500;
+    color: #ec0000;
+}
+
+.logoright {
+    float: right;
+    height: 100%;
+    padding: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+    /* border: 1px solid blue; */
+}
+
+.logoright img {
+    float: right;
+    height: inherit;
+    /* rotate: 90; */
+}
+
+.logoright span {
+    float: left;
+    height: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    color: #ec0000;
 }
