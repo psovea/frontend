@@ -33,41 +33,37 @@ class DoughnutChart extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("Constructor")
         this.state = {
+            data: []
         }
     }
 
-    fetchJSON() {
-        console.log("Fetching")
-        // url = 'http://18.224.29.151:5000/get-district-delays'
-        // let jsonVar = {}
-        // fetch(url, {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json'
-        //     }
-        // }).then(res => {
-        //     // return res.json();
-        //     console.log(res.json());
-        // }).then(json => {
-        //     console.log(json)
-        //     // jsonVar[value] = json;
-        //     // this.setState(jsonVar);
-        // })
+    fetchJSON(url, value) {
+        url = 'https://cors-anywhere.herokuapp.com/' + url
+        let jsonVar = {}
+        fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(res => {
+            return res.json();
+        }).then(json => {
+            jsonVar[value] = json;
+            this.setState(jsonVar);
+        })
+    }
+    componentDidMount() {
+        this.fetchJSON('http://18.224.29.151:5000/get-district-delays', data)
     }
 
     render() {
-        console.log("render")
+        console.log(this.state.data)
         return (
             <Doughnut data={data} options={{ responsive: true, maintainAspectRatio: false }} />
         );
     }
     
-    componentDidMount() {
-        console.log("ccomponentDidMount")
-        this.fetchJSON()
-    }
 }
 
 export default DoughnutChart; 
