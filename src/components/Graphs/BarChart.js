@@ -28,6 +28,10 @@ class BarChart extends React.Component {
         super(props);
     }
 
+    update(newState) {
+        this.setState(newState)
+    }
+
     // The first render we call the actual render after storing the dimensions.
     render() {
         return (
