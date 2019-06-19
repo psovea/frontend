@@ -37,10 +37,8 @@ class DoughnutChart extends React.Component {
     }
 
     makeData() {
-        var labelArray = []
-        var dataArray = []
-        this.state.delays.forEach(item => labelArray.push(Object.keys(item)[0]));
-        this.state.delays.forEach(item => dataArray.push(Object.values(item)[0]));
+        var labelArray = this.state.delays.map(item => Object.keys(item)[0]);
+        var dataArray = this.state.delays.map(item => Object.values(item)[0]);
         let data = {
             labels: labelArray,
             datasets: [{
