@@ -46,14 +46,17 @@ class Delay extends React.Component {
 
   getDate() {
     var today = new Date();
-    var dd = today.getDate();
-
-    var mm = today.getMonth()+1;
-    var yyyy = today.getFullYear();
     var h = today.getHours();
     var m = today.getMinutes();
 
-    return `${dd}-${mm}-${yyyy} ${h}:${m}`
+    return `${h}:${m}`
+  }
+
+  formatDelay(item) {
+    let minutes = Math.floor(item.punctuality / 60).toString()
+    let seconds = (item.punctuality % 60).toString()
+
+    return (minutes >= 1 ? minutes + " minuten en " : "") + seconds +  " seconden"
   }
 
   render = () => {
@@ -62,7 +65,10 @@ class Delay extends React.Component {
       delays.map((item, index) => {
         return <div key={index} className="delay-stream-item" id={index == 0 ? "stream-animate" : "stream"}>
           <div className="delay-stream-item-header row">
-            <div className="delay-stream-item-header-line col-3">
+            <div className="delay-stream-item-header-line col-2">
+              <p className="delay-stream-item-header-line-title">Tijd</p>
+            </div>
+            <div className="delay-stream-item-header-line col-2">
               <p className="delay-stream-item-header-line-title">Lijn</p>
             </div>
             <div className="delay-stream-item-header-line col-3">
@@ -71,21 +77,24 @@ class Delay extends React.Component {
             <div className="delay-stream-item-header-line col-3">
               <p className="delay-stream-item-header-line-title">Halte</p>
             </div>
-            <div className="delay-stream-item-header-line col-3">
+            <div className="delay-stream-item-header-line col-2">
               <p className="delay-stream-item-header-line-title">Vervoerder</p>
             </div>
           </div>
           <div className="delay-stream-item-header row">
-            <div className="delay-stream-item-header-line col-3">
+            <div className="delay-stream-item-header-line col-2">
+              <p className="delay-stream-item-header-line-value">{this.getDate()}</p>
+            </div>
+            <div className="delay-stream-item-header-line col-2">
               <p className="delay-stream-item-header-line-value">{item.publicLine}</p>
             </div>
             <div className="delay-stream-item-header-line col-3">
-              <p className="delay-stream-item-header-line-value delay-stream-delay-value">{item.punctuality} seconden</p>
+              <p className="delay-stream-item-header-line-value delay-stream-delay-value">{this.formatDelay(item)}</p>
             </div>
             <div className="delay-stream-item-header-line col-3">
-              <p className="delay-stream-item-header-line-value">{item.stopName}</p>
+              <p className="delay-stream-item-header-line-value">{item.stopName ? item.stopName : "N/A"}</p>
             </div>
-            <div className="delay-stream-item-header-line col-3">
+            <div className="delay-stream-item-header-line col-2">
               <p className="delay-stream-item-header-line-image"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/BSicon_LOGO_GVB.svg/500px-BSicon_LOGO_GVB.svg.png"></img></p>
             </div>
           </div>
