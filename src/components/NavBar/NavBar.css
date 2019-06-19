@@ -61,3 +61,11 @@
     font-weight: 500;
     color: #ec0000;
 }
+
+.center-vertical {
+    /* Center text horizontaly and vertically. */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
