@@ -38,7 +38,7 @@ class Delay extends Component {
 
   componentDidMount() {
     const { endpoint } = this.state;
-    const socket = socketIOClient('https://cors-anywhere.herokuapp.com/http://127.0.0.1:3500');
+    const socket = socketIOClient('http://127.0.0.1:3500');
     socket.on("message", data => {
       let info = JSON.parse(data)
       this.getTravelInfo(info['ARRIVAL']);
