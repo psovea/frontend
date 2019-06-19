@@ -60,8 +60,10 @@ class Grid extends Component {
                             component={<DoughnutChart />}
                             title="Vertraging per vervoersmiddel"
                             componentId="bar"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
-                            names={{0: "dagen"}}
+                            settings={[
+                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>,
+                            ]}
+                            names={{0: "days"}}
                         />
                     </div>
 
@@ -89,7 +91,7 @@ class Grid extends Component {
                             title="Vertraging per maand"
                             componentId="bar"
                             settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
-                            names={{0: "dagen"}}
+                            names={{0: "days"}}
                         />
                         
                     </div>

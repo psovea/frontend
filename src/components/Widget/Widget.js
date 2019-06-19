@@ -25,7 +25,6 @@ class Widget extends React.Component {
     handleSettingsChange(i, v) {
         var name = this.props.names[i];
         this.setState({newSettings: {[name]: v}}, () => console.log(this.state))
-        // console.log(this.state)
     }
 
     makeSettings = () => {
@@ -65,7 +64,6 @@ class Widget extends React.Component {
                     <div className="dashboard-widget-content-settings-container">
                         {this.makeSettings()}
                     </div> 
-
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">
                             <button className="dashboard-widget-content-settings-buttons-button button outline primary"><i className="dashboard-widget-settings-button-icon fa fa-check"></i> apply</button>
