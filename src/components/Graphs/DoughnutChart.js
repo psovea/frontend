@@ -17,6 +17,8 @@ class DoughnutChart extends React.Component {
         }
     }
 
+    update = (newState) => this.setState(newState)
+
     fetchJSON(url, value) {
         url = 'https://cors-anywhere.herokuapp.com/' + url
         let jsonVar = {}

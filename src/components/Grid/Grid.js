@@ -50,8 +50,8 @@ class Grid extends Component {
                             component={<BarChart />}
                             title="Vertraging per dag"
                             componentId="bar"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider2' />]}
-                            names={{ 0: "dagen" }}
+                            settings={[(f) => <Slider onChange={f} min={0} defaultValue={40} marks={{ 0: "Dag", 33: "Week", 67: "Maand", 100: "Jaar" }} step={null} key='slider1' />]}
+                            names={{ 0: "Periode" }}
                         />
                     </div>
 
@@ -64,7 +64,7 @@ class Grid extends Component {
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "Dag", 40: "Week", 60: "Maand", 100: "Jaar" }} step={null} key='slider'/>,
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 week", 40: "3 weken", 60: "5 week", 100: "10 weken" }} step={null} key='slider1'/>
                             ]}
-                            names={{0: "Periode", 1: "weken", 2: "bananen"}}
+                            names={{ 0: "Periode 1", 1: "Periode 2" }} // Slechts ter illustratie hoe componenten met meerdere settings werken.
                         />
                     </div>
 
