@@ -15,6 +15,10 @@
     box-shadow: 0px 0px 5px 0px rgba(179,179,179,1);
 }
 
+.dashboard-widget {
+    overflow: scroll;
+}
+
 .dashboard-widget-header {
     padding: 10px 15px 5px 15px;
     height: 40px;
@@ -34,6 +38,10 @@
     padding: 15px;
     box-sizing: border-box;
     overflow: scroll;
+}
+
+.dashboard-widget-content#map.hide {
+    display: none;
 }
 
 .dashboard-widget-header-settings-wrapper-icon {
@@ -78,6 +86,11 @@
 
 .dashboard-widget-content#table {
     padding: 0;
+    overflow: scroll;
+}
+
+.dashboard-widget-content#feed {
+    overflow: scroll;
 }
 
 .delay-stream-item {

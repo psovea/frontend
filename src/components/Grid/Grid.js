@@ -80,31 +80,29 @@ class Grid extends Component {
                             title="Vertraging per vervoersmiddel"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>,
-                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 week", 40: "3 weken", 60: "5 week", 100: "10 weken" }} step={null} key='slider1'/>
+                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />,
+                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 week", 40: "3 weken", 60: "5 week", 100: "10 weken" }} step={null} key='slider1' />
                             ]}
-                            names={{0: "dagen", 1: "weken"}}
+                            names={{ 0: "dagen", 1: "weken" }}
                         />
                     </div>
 
                     <div key="barchart-3" data-grid={{ x: 1, y: 0, w: 1, h: 2 }}>
                         <Widget
                             component={<DataTable
-                                headers={["Lijn", "Halte", "Vervoerder"]}
-                                values={[
-                                    ["22", "Centraal Station", "GVB"],
-                                    ["23", "Centraal Station", "GVB"],
-                                    ["24", "Centraal Station", "GVB"],
-                                    ["25", "Centraal Station", "GVB"],
-                                    ["26", "Centraal Station", "GVB"]
-                                ]}
-                                numShow={0}
-                                />}
+                                headers={["nr", "vervoerstype", "stadsdeel", "vertraging"]}
+                                values={[]}
+                                top={10}
+                            />}
                             title="Top 5 vertragingen"
                             componentId="table"
-                            settings={[(f) => <Slider onChange={f} min={1} defaultValue={1} marks={{ 1: "1", 2: "2", 3: "3", 4: "4" }} step={null} key='slider'/>]}
-                            defaultSettings={{numShow: 0}}
-                            names={{0: "numShow"}}
+                            settings={[(f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />]}
+                            defaultSettings={{
+                                "return_filter[]": ["district", "stop_end", "transport_type"],
+                                "transport_type[]": "",
+                                "period": "86400s",
+                                "top": 25}}
+                            names={{ 0: "top" }}
                         />
                     </div>
 
@@ -113,8 +111,8 @@ class Grid extends Component {
                             component={<BarChart />}
                             title="Vertraging per maand"
                             componentId="bar"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
-                            names={{0: "dagen", 1: "weken"}}
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider4' />]}
+                            names={{ 0: "dagen", 1: "weken" }}
                         />
 
                     </div>
@@ -122,9 +120,22 @@ class Grid extends Component {
                         <Widget
                             component={<Maps />}
                             title="Vertraging in regio Amsterdam"
-                            componentId="bar"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
-                            names={{0: "dagen"}}
+                            componentId="map"
+                            settings={[
+                                (f) => <Slider
+                                    onChange={f}
+                                    min={20}
+                                    defaultValue={20}
+                                    marks={{
+                                        25: "Afgelopen Uur",
+                                        50: "Afgelopen Dag",
+                                        75: "Afgelopen Week",
+                                        100: "Afgelopen Maand"
+                                    }}
+                                    step={null}
+                                    key='slider5' />
+                            ]}
+                            names={{ 0: "slider" }}
                         />
                     </div>
 
@@ -132,9 +143,9 @@ class Grid extends Component {
                         <Widget
                             component={<Delays />}
                             title="Live vertraging"
-                            componentId="bar"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
-                            names={{0: "dagen"}}
+                            componentId="feed"
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />]}
+                            names={{ 0: "dagen" }}
                         />
                     </div>
 

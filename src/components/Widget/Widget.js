@@ -10,6 +10,8 @@ class Widget extends React.Component {
             defaultSettings: props.defaultSettings
         }
 
+        this.url="18.224.29.151:5000/get_delays"
+
         this.compRef = React.createRef()
         this.component = props.component
 
@@ -30,7 +32,7 @@ class Widget extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({currentSettings: this.state.defaultSettings})
+        this.setState({currentSettings: this.state.defaultSettings}, this.fetchData)
     }
 
     handleSettingsChange(i, v) {
@@ -54,9 +56,8 @@ class Widget extends React.Component {
     }
 
     applySettings = () => {
-        this.setState({currentSettings: this.state.newSettings, showSettings: false}, () => {
-            // console.log(this.state.currentSettings)
-            this.compRef.current.update(this.state.currentSettings)
+        this.setState({currentSettings: {...this.state.currentSettings, ...this.state.newSettings}, showSettings: false}, () => {
+            this.fetchData()
         })
     }
 
@@ -66,13 +67,45 @@ class Widget extends React.Component {
         this.setState({currentSettings: this.state.defaultSettings})
     }
 
-    makeComponent = () => {
-        // console.log("currentSettings: " + JSON.stringify(this.state.currentSettings))
+    makeComponent = (visibility, id) => {
         return (
-            <div className="dashboard-widget-content" id={this.props.componentId}>
-                { React.cloneElement(this.component, {ref: this.compRef})}
+            <div className={"dashboard-widget-content " + visibility} id={id}>
+                { React.cloneElement(this.component, {ref: this.compRef}) }
             </div>
         )
+    }
+
+    createUriFromSettings = () => {
+        if (!this.state.currentSettings) { return "" }
+        let keys = Object.keys(this.state.currentSettings)
+        let vals = Object.values(this.state.currentSettings)
+
+        let zipWith = (f, xs, ys) => xs.map((n,i) => {
+            if (n == "return_filter[]") {
+                return ys[i].map(x => n + "=" + x).join("&")
+            }
+
+            return f(n, ys[i])
+        })
+
+        return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
+    }
+
+    fetchData = () => {
+        let uri = this.createUriFromSettings()
+
+        if (uri == "") { return }
+
+        let url = 'https://cors-anywhere.herokuapp.com/' + this.url + uri
+
+        fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(res => { return res.json()})
+          .then(json => this.compRef.current.update(json))
+          .catch(e => console.log(e))
     }
 
     render() {
@@ -87,11 +120,11 @@ class Widget extends React.Component {
                         <i className="dashboard-widget-header-settings-wrapper-icon fa fa-sliders" aria-hidden="true" />
                     </div>
                 </div>
-                {this.makeComponent()}
-                <div className={"dashboard-widget-content-settings " + (this.state.showSettings ? "show" : "hide")} id="bar">
+                {this.makeComponent((this.state.showSettings ? "hide" : "show"), this.props.componentId)}
+                <div className={"dashboard-widget-content-settings " + (this.state.showSettings ? "show" : "hide")} id={this.props.componentId}>
                     <div className="dashboard-widget-content-settings-container">
                         {this.makeSettings()}
-                    </div>
+                    </div> 
 
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">
