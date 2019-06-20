@@ -22,7 +22,6 @@ class Maps extends React.Component {
             center: [52.3680, 4.9036],
             zoom: 13,
             stops: [],
-            districts: [],
             delays: [],
             heatmapdata: []
 
@@ -58,12 +57,8 @@ class Maps extends React.Component {
     componentDidMount() {
         // Stop data
         this.fetchJSON(`http://18.224.29.151:5000/get-stops?town=amsterdam`, "stops")
-        // District data
-        this.fetchJSON(`http://184.72.120.43:3000/districts`, "districts")
         // Heatmap data
-        this.fetchJSON('http://18.224.29.151:5000/get-heatmap-info', 'heatmapdata')
-        // Delay data
-        // this.fetchJSON(`http://myurl.url`, "delays")
+        this.fetchJSON('http://18.224.29.151:5000/get_delays?period=1d&return_filter[]=stop_end&format=heatmap&district[]=Centrum&district[]=Nieuw-West&district[]=Zuidoost&district[]=Noord&district[]=Oost&district[]=West&district[]=Westpoort&district[]=Zuid', 'heatmapdata')
     }
 
     createMarkers() {
