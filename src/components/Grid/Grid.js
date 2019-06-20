@@ -50,7 +50,7 @@ class Grid extends Component {
                             component={<BarChart />}
                             title="Vertraging per dag"
                             componentId="bar"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />]}
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider2' />]}
                             names={{ 0: "dagen" }}
                         />
                     </div>
@@ -83,7 +83,7 @@ class Grid extends Component {
                             />}
                             title="Top 5 vertragingen"
                             componentId="table"
-                            settings={[(f) => <Slider onChange={f} min={1} defaultValue={1} marks={{ 1: "1", 2: "2", 3: "3", 4: "4" }} step={null} key='slider' />]}
+                            settings={[(f) => <Slider onChange={f} min={1} defaultValue={1} marks={{ 1: "1", 2: "2", 3: "3", 4: "4" }} step={null} key='slider3' />]}
                             defaultSettings={{ numShow: 0 }}
                             names={{ 0: "numShow" }}
                         />
@@ -94,7 +94,7 @@ class Grid extends Component {
                             component={<BarChart />}
                             title="Vertraging per maand"
                             componentId="bar"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />]}
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider4' />]}
                             names={{ 0: "dagen", 1: "weken" }}
                         />
 
@@ -103,7 +103,7 @@ class Grid extends Component {
                         <Widget
                             component={<Maps />}
                             title="Vertraging in regio Amsterdam"
-                            componentId="bar"
+                            componentId="map"
                             settings={[
                                 (f) => <Slider
                                     onChange={f}
@@ -116,7 +116,7 @@ class Grid extends Component {
                                         100: "Afgelopen Maand"
                                     }}
                                     step={null}
-                                    key='slider' />
+                                    key='slider5' />
                             ]}
                             names={{ 0: "slider" }}
                         />
@@ -126,7 +126,7 @@ class Grid extends Component {
                         <Widget
                             component={<Delays />}
                             title="Live vertraging"
-                            componentId="bar"
+                            componentId="feed"
                             settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />]}
                             names={{ 0: "dagen" }}
                         />
