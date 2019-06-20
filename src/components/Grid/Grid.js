@@ -108,6 +108,28 @@ class Grid extends Component {
                         />
                     </div>
 
+
+                    <div key="barchart-10" data-grid={{ x: 5, y: 6, w: 1, h: 2 }}>
+                        <Widget
+                            component={<DataTable
+                                headers={["nr", "stadsdeel", "stop", "vervoerstype", "vertraging"]}
+                                values={[]}
+                                top={10}
+                            />}
+                            title="Top vertragingen per halte"
+                            componentId="table"
+                            settings={[
+                              (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
+                            ]}
+                            defaultSettings={{
+                                "return_filter[]": ["line_number", "transport_type", "stop_end"],
+                                "transport_type[]": "",
+                                "period": "86400s",
+                                "top": 5}}
+                            names={{ 0: "top" }}
+                        />
+                    </div>
+
                     <div key="barchart-4" data-grid={{ x: 3, y: 3, w: 1, h: 2 }}>
                         <Widget
                             component={<DoughnutChartVehicle />}
