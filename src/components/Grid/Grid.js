@@ -9,6 +9,7 @@ import React, { Component } from "react"
 import { Responsive, WidthProvider } from "react-grid-layout"
 import BarChart from "../Graphs/BarChart"
 import DoughnutChart from "../Graphs/DoughnutChart"
+import DoughnutChartVehicle from "../Graphs/DoughnutChartVehicle"
 import Widget from "../Widget/Widget"
 import Delays from "../Feed/Delays"
 import Slider from 'rc-slider'
@@ -58,7 +59,7 @@ class Grid extends Component {
                     <div key="barchart-2" data-grid={{ x: 2, y: 3, w: 1, h: 2 }}>
                         <Widget
                             component={<DoughnutChart />}
-                            title="Vertraging per vervoersmiddel"
+                            title="Vertraging per stadsdeel"
                             componentId="bar"
                             settings={[
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />,
@@ -91,8 +92,8 @@ class Grid extends Component {
 
                     <div key="barchart-4" data-grid={{ x: 3, y: 3, w: 1, h: 2 }}>
                         <Widget
-                            component={<BarChart />}
-                            title="Vertraging per maand"
+                            component={<DoughnutChartVehicle />}
+                            title="Vertraging per voertuig"
                             componentId="bar"
                             settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider4' />]}
                             names={{ 0: "dagen", 1: "weken" }}

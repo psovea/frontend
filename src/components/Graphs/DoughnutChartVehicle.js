@@ -8,7 +8,7 @@ import { Doughnut } from 'react-chartjs-2';
 import 'rc-slider/assets/index.css';
 import './Graphs.css';
 
-class DoughnutChart extends React.Component {
+class DoughnutChartVehicle extends React.Component {
 
     constructor(props) {
         super(props);
@@ -32,11 +32,11 @@ class DoughnutChart extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchJSON('http://18.224.29.151:5000/get_delays?period=1d&return_filter[]=district&district[]=Centrum&district[]=Nieuw-West&district[]=Zuidoost&district[]=Noord&district[]=Oost&district[]=West&district[]=Westpoort&district[]=Zuid&top=8', "delays")
+        this.fetchJSON('http://18.224.29.151:5000/get_delays?top=8&period=1d&return_filter[]=transport_type', "delays")
     }
 
     makeData() {
-        var labelArray = this.state.delays.map(item => (item['metric']['district']));
+        var labelArray = this.state.delays.map(item => (item['metric']['transport_type']));
         var dataArray = this.state.delays.map(item => Object.values(item['value'])[1]);
         let data = {
             labels: labelArray,
@@ -78,4 +78,4 @@ class DoughnutChart extends React.Component {
 
 }
 
-export default DoughnutChart; 
+export default DoughnutChartVehicle; 
