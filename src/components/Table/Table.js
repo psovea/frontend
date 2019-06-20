@@ -37,14 +37,16 @@ class DataTable extends React.Component {
                     <tr className="table-header-row">
                         {this.state.headers.map(col => <th key={col} className="table-header-row-value">{col}</th>)}
                     </tr>
-    
+
                     {
                         this.state.values.map((row, i) => {
                             let metric = row.metric
                             let values = row.value
 
                             return <tr className="table-row" key={i}>
+                                <td className="table-row-value" key={i}>{i}</td>
                                 {
+
                                     Object.keys(metric).map(val => {
                                         return <td className="table-row-value" key={metric[val]}>{metric[val]}</td>
                                     })
@@ -54,7 +56,7 @@ class DataTable extends React.Component {
                             </tr>
                         })
                     }
-    
+
                 </tbody>
             </table>
       )
