@@ -41,9 +41,18 @@ class Searchbar extends Component {
         }
     }
 
+    componentDidUpdate(oldProps) {
+        const newProps = this.props
+
+        if (newProps.params && !R.equals(newProps.params, oldProps.params)) {
+            this.setState({ params: newProps.params })
+            this.setOptions()
+        }
+    }
+
     getOptions(uri, params, f) {
         var format_params = R.join("&", R.map((item) => `${item.key}=${item.value}`, params))
-        var url = `http://localhost:5000/${uri}?${format_params}`
+        var url = `https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/${uri}?operator=GVB&${format_params}`
 
         return fetch(url)
             .then(res => res.json())
@@ -61,14 +70,13 @@ class Searchbar extends Component {
     }
 
     setOptions() {
-        var params = R.map(([key, value]) => ({ "key": key, "value": value }), R.toPairs(this.props.params))
+        var params = R.map(([key, value]) => ({ "key": key, "value": R.join(",", value) }), R.toPairs(this.props.params))
 
         this.getOptions(this.props.endpoint, params, this.props.filterFunc)
             .then(res => this.setState({ options: R.map(item => ({ value: item, label: item }), res.sort()) }))
     }
 
     render() {
-        console.log(this.state.selected)
         return (
             <Select
                 options={this.state.options}
@@ -90,7 +98,6 @@ Searchbar.propTypes = {
     filterFunc: PropTypes.func,
     placeholderText: PropTypes.string,
     multipleOptions: PropTypes.bool,
-    onChange: PropTypes.func,
     updater: PropTypes.func
 }
 

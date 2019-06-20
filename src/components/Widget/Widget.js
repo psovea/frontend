@@ -24,18 +24,21 @@ class Widget extends React.Component {
             componentId: PropTypes.any,
             title: PropTypes.any,
             names: PropTypes.any,
-            defaultSettings: PropTypes.any
+            defaultSettings: PropTypes.any,
+            addSetting: PropTypes.any
         }
     }
 
     componentDidMount() {
-        this.setState({currentSettings: this.state.defaultSettings}, () => console.log(this.state))
+        this.setState({currentSettings: this.state.defaultSettings})
     }
 
     handleSettingsChange(i, v) {
-        console.log("Incoming value:", v)
+        // console.log("Incoming value:", v)
         var name = this.props.names[i];
-        this.setState({newSettings: {...this.state.newSettings, [name]: v}}, () => console.log(this.state))
+        this.setState({newSettings: {...this.state.newSettings, [name]: v}})
+
+        this.props.addSetting(this.props.componentId, {...this.state.newSettings, [name]: v})
     }
 
     makeSettings = () => {
@@ -52,7 +55,7 @@ class Widget extends React.Component {
 
     applySettings = () => {
         this.setState({currentSettings: this.state.newSettings, showSettings: false}, () => {
-            console.log(this.state.currentSettings)
+            // console.log(this.state.currentSettings)
             this.compRef.current.update(this.state.currentSettings)
         })
     }
@@ -60,11 +63,11 @@ class Widget extends React.Component {
     getCurrentSettings = () => this.state.currentSettings
 
     defaultSettings = () => {
-        this.setState({currentSettings: this.state.defaultSettings}, () => console.log(this.state))
+        this.setState({currentSettings: this.state.defaultSettings})
     }
 
     makeComponent = () => {
-        console.log("currentSettings: " + JSON.stringify(this.state.currentSettings))
+        // console.log("currentSettings: " + JSON.stringify(this.state.currentSettings))
         return (
             <div className="dashboard-widget-content" id={this.props.componentId}>
                 { React.cloneElement(this.component, {ref: this.compRef})}
