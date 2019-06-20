@@ -66,11 +66,10 @@ class Widget extends React.Component {
         this.setState({currentSettings: this.state.defaultSettings})
     }
 
-    makeComponent = () => {
-        // console.log("currentSettings: " + JSON.stringify(this.state.currentSettings))
+    makeComponent = (visibility, id) => {
         return (
-            <div className="dashboard-widget-content" id={this.props.componentId}>
-                { React.cloneElement(this.component, {ref: this.compRef})}
+            <div className={"dashboard-widget-content " + visibility} id={id}>
+                { React.cloneElement(this.component, {ref: this.compRef}) }
             </div>
         )
     }
@@ -87,11 +86,11 @@ class Widget extends React.Component {
                         <i className="dashboard-widget-header-settings-wrapper-icon fa fa-sliders" aria-hidden="true" />
                     </div>
                 </div>
-                {this.makeComponent()}
-                <div className={"dashboard-widget-content-settings " + (this.state.showSettings ? "show" : "hide")} id="bar">
+                {this.makeComponent((this.state.showSettings ? "hide" : "show"), this.props.componentId)}
+                <div className={"dashboard-widget-content-settings " + (this.state.showSettings ? "show" : "hide")} id={this.props.componentId}>
                     <div className="dashboard-widget-content-settings-container">
                         {this.makeSettings()}
-                    </div>
+                    </div> 
 
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">

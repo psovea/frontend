@@ -8,40 +8,75 @@ import { Doughnut } from 'react-chartjs-2';
 import 'rc-slider/assets/index.css';
 import './Graphs.css';
 
-const data = {
-    labels: [
-        'Red',
-        'Green',
-        'Yellow'
-    ],
-    datasets: [{
-        data: [300, 50, 100],
-        backgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56'
-        ],
-        hoverBackgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56'
-        ]
-    }]
-};
-
 class DoughnutChart extends React.Component {
-    // We store the dimensions of the dataContainer div.
+
     constructor(props) {
         super(props);
+        this.state = {
+            delays: [],
+        }
     }
 
-    update(newState) {
-        this.setState(newState)
+    fetchJSON(url, value) {
+        url = 'https://cors-anywhere.herokuapp.com/' + url
+        let jsonVar = {}
+        fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(res => {
+            return res.json();
+        }).then(json => {
+            this.setState({delays: json});
+        })
     }
-    
-    render = () => (
-        <Doughnut data={data} options={{ responsive: true, maintainAspectRatio: false }} />
-    )
+
+    componentDidMount() {
+        this.fetchJSON('http://18.224.29.151:5000/get-district-delays', "delays")
+    }
+
+    makeData() {
+        var labelArray = this.state.delays.map(item => Object.keys(item)[0]);
+        var dataArray = this.state.delays.map(item => Object.values(item)[0]);
+        let data = {
+            labels: labelArray,
+            datasets: [{
+                data: dataArray,
+                backgroundColor: [
+                    '#ff8080',
+                    '#ff6666',
+                    '#ff4d4d',
+                    '#ff3333',
+                    '#ff1a1a',
+                    '#ff0000',
+                    '#e60000',
+                    '#cc0000',
+                    '#b30000'
+                ],
+                hoverBackgroundColor: [
+                    '#ff8080',
+                    '#ff6666',
+                    '#ff4d4d',
+                    '#ff3333',
+                    '#ff1a1a',
+                    '#ff0000',
+                    '#e60000',
+                    '#cc0000',
+                    '#b30000'
+                ]
+            }]
+        }
+        return data
+    }
+
+    render() {
+        console.log(this.state)
+        return (
+            <Doughnut data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
+        );
+    }
+
 }
 
 export default DoughnutChart; 

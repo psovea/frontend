@@ -36,6 +36,10 @@
     overflow: scroll;
 }
 
+.dashboard-widget-content#map.hide {
+    display: none;
+}
+
 .dashboard-widget-header-settings-wrapper-icon {
     color: gray;
     font-size: 20px;
