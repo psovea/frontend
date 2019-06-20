@@ -38,12 +38,8 @@ class BarChart extends React.Component {
     }
 
     makeData() {
-        var labelArray = []
-        var dataArray = []
-        /* Put the label of the fetch data in the label array of the graph.
-         * Put the data of the fetch data in the data array of the graph. */
-        this.state.delays.forEach(item => labelArray.push(item['metric']['district']));
-        this.state.delays.forEach(item => dataArray.push(Object.values(item['value'])[1]));
+        var labelArray = this.state.delays.map(item => (item['metric']['district']));
+        var dataArray = this.state.delays.map(item => Object.values(item['value'])[1]);
         let data = {
             labels: labelArray,
             datasets: [{
