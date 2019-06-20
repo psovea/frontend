@@ -23,8 +23,14 @@ class DataTable extends React.Component {
         }
     }
 
+    formatTime(item) {
+        let minutes = Math.floor(item / 60).toString()
+        let seconds = (item % 60).toString()
+
+        return (minutes >= 1 ? minutes + " minuten en " : "") + seconds +  " seconden"
+      }
+
     render() {
-        // console.log("numShow table: " + this.state.numShow)
         return (
             <table className="striped">
                 <tbody>
@@ -38,10 +44,13 @@ class DataTable extends React.Component {
                             let values = row.value
 
                             return <tr className="table-row" key={i}>
-                                <td className="table-row-value" key={metric.stop_end}>{metric.stop_end}</td>
-                                <td className="table-row-value" key={metric.transport_type}>{metric.transport_type}</td>
-                                <td className="table-row-value" key={metric.district}>{metric.district}</td>
-                                <td className="table-row-value" key={values[1]}>{values[1]}</td>
+                                {
+                                    Object.keys(metric).map(val => {
+                                        return <td className="table-row-value" key={metric[val]}>{metric[val]}</td>
+                                    })
+                                }
+
+                                <td className="table-row-value" key={values[1]}>{this.formatTime(parseInt(values[1]))}</td>
                             </tr>
                         })
                     }
