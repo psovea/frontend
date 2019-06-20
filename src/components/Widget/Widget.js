@@ -10,6 +10,8 @@ class Widget extends React.Component {
             defaultSettings: props.defaultSettings
         }
 
+        this.url="18.224.29.151:5000/get_delays"
+
         this.compRef = React.createRef()
         this.component = props.component
 
@@ -17,31 +19,35 @@ class Widget extends React.Component {
         this.applySettings = this.applySettings.bind(this);
     }
 
-    static get propTypes() { 
+    static get propTypes() {
         return {
-            component: PropTypes.any, 
+            component: PropTypes.any,
             settings: PropTypes.any,
             componentId: PropTypes.any,
             title: PropTypes.any,
             names: PropTypes.any,
-            defaultSettings: PropTypes.any
+            defaultSettings: PropTypes.any,
+            addSetting: PropTypes.any
         }
     }
 
     componentDidMount() {
-        this.setState({currentSettings: this.state.defaultSettings}, () => console.log(this.state))
+        this.setState({currentSettings: this.state.defaultSettings}, this.fetchData)
     }
 
     handleSettingsChange(i, v) {
+        // console.log("Incoming value:", v)
         var name = this.props.names[i];
-        this.setState({newSettings: {...this.state.newSettings, [name]: v}}, () => console.log(this.state))
+        this.setState({newSettings: {...this.state.newSettings, [name]: v}})
+
+        this.props.addSetting(this.props.componentId, {...this.state.newSettings, [name]: v})
     }
 
     makeSettings = () => {
         return this.props.settings.map((setting, i) => {
             return (
             <div className="dashboard-widget-content-settings-container-content" key={`setting-${i}`}>
-                <p className="dashboard-widget-content-settings-container-content-title">title</p>
+                <p className="dashboard-widget-content-settings-container-content-title">{`setting-${i}`}</p>
                 <hr />
                 {setting((v) => this.handleSettingsChange(i, v))}
             </div>
@@ -50,16 +56,15 @@ class Widget extends React.Component {
     }
 
     applySettings = () => {
-        this.setState({currentSettings: this.state.newSettings, showSettings: false}, () => {
-            console.log(this.state.currentSettings)
-            this.compRef.current.update(this.state.currentSettings)
+        this.setState({currentSettings: {...this.state.currentSettings, ...this.state.newSettings}, showSettings: false}, () => {
+            this.fetchData()
         })
     }
 
     getCurrentSettings = () => this.state.currentSettings
 
     defaultSettings = () => {
-        this.setState({currentSettings: this.state.defaultSettings}, () => console.log(this.state))
+        this.setState({currentSettings: this.state.defaultSettings})
     }
 
     makeComponent = (visibility, id) => {
@@ -68,6 +73,39 @@ class Widget extends React.Component {
                 { React.cloneElement(this.component, {ref: this.compRef}) }
             </div>
         )
+    }
+
+    createUriFromSettings = () => {
+        if (!this.state.currentSettings) { return "" }
+        let keys = Object.keys(this.state.currentSettings)
+        let vals = Object.values(this.state.currentSettings)
+
+        let zipWith = (f, xs, ys) => xs.map((n,i) => {
+            if (n == "return_filter[]") {
+                return ys[i].map(x => n + "=" + x).join("&")
+            }
+
+            return f(n, ys[i])
+        })
+
+        return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
+    }
+
+    fetchData = () => {
+        let uri = this.createUriFromSettings()
+
+        if (uri == "") { return }
+
+        let url = 'https://cors-anywhere.herokuapp.com/' + this.url + uri
+
+        fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(res => { return res.json()})
+          .then(json => this.compRef.current.update(json))
+          .catch(e => console.log(e))
     }
 
     render() {
@@ -87,6 +125,7 @@ class Widget extends React.Component {
                     <div className="dashboard-widget-content-settings-container">
                         {this.makeSettings()}
                     </div> 
+
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">
                             <button onClick={this.applySettings} className="dashboard-widget-content-settings-buttons-button button outline primary"><i className="dashboard-widget-settings-button-icon fa fa-check"></i> apply</button>

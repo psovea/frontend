@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import socketIOClient from "socket.io-client";
 
-class Delay extends React.Component {
+class Delay extends Component {
   constructor(props) {
     super(props);
 
