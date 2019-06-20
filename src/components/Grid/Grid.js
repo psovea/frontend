@@ -71,11 +71,11 @@ class Grid extends Component {
                     <div key="barchart-3" data-grid={{ x: 1, y: 0, w: 1, h: 2 }}>
                         <Widget
                             component={<DataTable
-                                headers={["nr", "vervoerstype", "stadsdeel", "vertraging"]}
+                                headers={["stadsdeel", "nr", "vervoerstype", "vertraging"]}
                                 values={[]}
                                 top={10}
                             />}
-                            title="Top 5 vertragingen"
+                            title="Top vertragingen per halte"
                             componentId="table"
                             settings={[(f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />]}
                             defaultSettings={{
