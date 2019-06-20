@@ -81,28 +81,29 @@ class Grid extends Component {
                             title="Vertraging per stadsdeel"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />,
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 week", 40: "3 weken", 60: "5 week", 100: "10 weken" }} step={null} key='slider1' />
                             ]}
                             names={{ 0: "dagen", 1: "weken" }}
                         />
                     </div>
 
-                    <div key="barchart-3" data-grid={{ x: 1, y: 0, w: 1, h: 2 }}>
+                    <div key="barchart-3" data-grid={{ x: 1, y: 6, w: 1, h: 2 }}>
                         <Widget
                             component={<DataTable
-                                headers={["stadsdeel", "nr", "vervoerstype", "vertraging"]}
+                                headers={["nr", "stadsdeel", "stop", "vervoerstype", "vertraging"]}
                                 values={[]}
                                 top={10}
                             />}
                             title="Top vertragingen per halte"
                             componentId="table"
-                            settings={[(f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />]}
+                            settings={[
+                              (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
+                            ]}
                             defaultSettings={{
-                                "return_filter[]": ["district", "stop_end", "transport_type"],
+                                "return_filter[]": ["district", "transport_type", "stop_end"],
                                 "transport_type[]": "",
                                 "period": "86400s",
-                                "top": 25}}
+                                "top": 5}}
                             names={{ 0: "top" }}
                         />
                     </div>
@@ -117,6 +118,32 @@ class Grid extends Component {
                         />
 
                     </div>
+
+                    <div key="barchart-5" data-grid={{ x: 0, y: 4, w: 2, h: 2 }}>
+                        <Widget
+                            component={<DataTable
+                                headers={["Nr", "Stadsdeel", "Lijn Nr", "vervoerstype", "Vertraging"]}
+                                values={[]}
+                                top={10}
+                            />}
+                            title="Vertraging per Stadsdeel"
+                            componentId="table"
+                            settings={[
+                              (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
+                              (f) => <Searchbar updater={f} options={["Centrum", "Noord", "Zuid", "West", "Westpoort", "Nieuw-West", "Zuidoost", "Oost"]} multipleOptions={false} placeholderText={"stadsdeel"} key='searchDistrict'/>
+                            ]}
+                            defaultSettings={{
+                                "return_filter[]": ["line_number", "district", "transport_type"],
+                                "transport_type[]": "",
+                                "district[]": "Centrum",
+                                "period": "86400s",
+                                "top": 25}}
+                            names={{ 0: "top", 1: "district[]" }}
+                            addSetting={this.updateState.bind(this)}
+                        />
+                    </div>
+
+
                     <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 3 }}>
                         <Widget
                             component={<Maps />}

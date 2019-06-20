@@ -124,7 +124,7 @@ class Widget extends React.Component {
                 <div className={"dashboard-widget-content-settings " + (this.state.showSettings ? "show" : "hide")} id={this.props.componentId}>
                     <div className="dashboard-widget-content-settings-container">
                         {this.makeSettings()}
-                    </div> 
+                    </div>
 
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">
