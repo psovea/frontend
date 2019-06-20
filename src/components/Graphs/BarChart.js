@@ -46,14 +46,16 @@ class BarChart extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchJSON('http://18.224.29.151:5000/get-district-delays', "delays")
+        this.fetchJSON('http://18.224.29.151:5000/get_delays?period=1d&return_filter[]=district&district[]=Centrum&district[]=Nieuw-West&district[]=Zuidoost&district[]=Noord&district[]=Oost&district[]=West&district[]=Westpoort&district[]=Zuid&top=8', "delays")
     }
 
     makeData() {
         var labelArray = []
         var dataArray = []
-        this.state.delays.forEach(item => labelArray.push(Object.keys(item)[0]));
-        this.state.delays.forEach(item => dataArray.push(Object.values(item)[0]));
+        /* Put the label of the fetch data in the label array of the graph.
+         * Put the data of the fetch data in the data array of the graph. */
+        this.state.delays.forEach(item => labelArray.push(item['metric']['district']));
+        this.state.delays.forEach(item => dataArray.push(Object.values(item['value'])[1]));
         let data = {
             labels: labelArray,
             datasets: [{
