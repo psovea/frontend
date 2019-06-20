@@ -12,12 +12,33 @@ class Searchbar extends Component {
 
         this.state = {
             options: [],
-            multipleOptions: false
+            multipleOptions: false,
+            params: [],
+            endpoint: undefined,
+            placeholderText: "...",
+            filterFunc: (x) => x,
+            selected: []
         }
     }
 
     componentDidMount() {
-        this.setOptions()
+        this.setState({
+            placeholderText: this.props.placeholderText,
+            multipleOptions: this.props.multipleOptions
+        })
+
+        if (this.props.endpoint) {
+            this.setState({
+                params: this.props.params,
+                endpoint: this.props.endpoint,
+                filterFunc: this.props.filterFunc
+            })
+            this.setOptions()
+        } else {
+            this.setState({
+                options: R.map(item => ({ value: item, label: item }), this.props.options)
+            })
+        }
     }
 
     getOptions(uri, params, f) {
@@ -29,6 +50,16 @@ class Searchbar extends Component {
             .then(res => R.uniq(R.map(f, res)))
     }
 
+    handleChange = (selection) => {
+        var updatedState = selection && this.state.multipleOptions ?
+            { selected: R.map(opt => opt.value, selection) } :
+            (selection ? { selected: [selection.value] } : { selected: [] })
+
+        this.setState(updatedState, () => {
+            this.props.updater(this.state.selected)
+        })
+    }
+
     setOptions() {
         var params = R.map(([key, value]) => ({ "key": key, "value": value }), R.toPairs(this.props.params))
 
@@ -37,14 +68,16 @@ class Searchbar extends Component {
     }
 
     render() {
+        console.log(this.state.selected)
         return (
             <Select
                 options={this.state.options}
                 isClearable={true}
                 closeMenuOnScroll={true}
                 isMulti={this.state.multipleOptions}
-                placeholder={"Selecteer..."}
+                placeholder={`Selecteer ${this.state.placeholderText}`}
                 maxMenuHeight={200}
+                onChange={this.handleChange}
             />
         )
     }
@@ -54,7 +87,11 @@ Searchbar.propTypes = {
     options: PropTypes.array,
     params: PropTypes.object,
     endpoint: PropTypes.string,
-    filterFunc: PropTypes.func
+    filterFunc: PropTypes.func,
+    placeholderText: PropTypes.string,
+    multipleOptions: PropTypes.bool,
+    onChange: PropTypes.func,
+    updater: PropTypes.func
 }
 
 export default Searchbar

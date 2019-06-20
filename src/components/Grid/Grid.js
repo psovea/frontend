@@ -23,6 +23,7 @@ import "../../../node_modules/react-resizable/css/styles.css"
 import "./Grid.css"
 import 'rc-slider'
 import 'rc-slider/assets/index.css'
+import Searchbar from "../Searchbar/Searchbar";
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
@@ -51,8 +52,13 @@ class Grid extends Component {
                             component={<BarChart />}
                             title="Vertraging per dag"
                             componentId="bar"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>]}
-                            names={{0: "dagen"}}
+                            settings={[
+                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>,
+
+                                (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='searchTransport'
+                                />
+                            ]}
+                            names={{0: "dagen", 1: "transportType"}}
                         />
                     </div>
 

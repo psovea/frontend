@@ -17,9 +17,9 @@ class Widget extends React.Component {
         this.applySettings = this.applySettings.bind(this);
     }
 
-    static get propTypes() { 
+    static get propTypes() {
         return {
-            component: PropTypes.any, 
+            component: PropTypes.any,
             settings: PropTypes.any,
             componentId: PropTypes.any,
             title: PropTypes.any,
@@ -33,6 +33,7 @@ class Widget extends React.Component {
     }
 
     handleSettingsChange(i, v) {
+        console.log("Incoming value:", v)
         var name = this.props.names[i];
         this.setState({newSettings: {...this.state.newSettings, [name]: v}}, () => console.log(this.state))
     }
@@ -41,7 +42,7 @@ class Widget extends React.Component {
         return this.props.settings.map((setting, i) => {
             return (
             <div className="dashboard-widget-content-settings-container-content" key={`setting-${i}`}>
-                <p className="dashboard-widget-content-settings-container-content-title">title</p>
+                <p className="dashboard-widget-content-settings-container-content-title">{`setting-${i}`}</p>
                 <hr />
                 {setting((v) => this.handleSettingsChange(i, v))}
             </div>
@@ -87,7 +88,7 @@ class Widget extends React.Component {
                 <div className={"dashboard-widget-content-settings " + (this.state.showSettings ? "show" : "hide")} id="bar">
                     <div className="dashboard-widget-content-settings-container">
                         {this.makeSettings()}
-                    </div> 
+                    </div>
 
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">
