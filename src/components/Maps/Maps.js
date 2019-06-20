@@ -25,10 +25,16 @@ class Maps extends React.Component {
             districts: [],
             delays: [],
             heatmapdata: []
+
         }
-    };
+    }
+
+    update(newState) {
+        this.setState(newState)
+    }
 
     fetchJSON(url, value) {
+        // Hacky (wrong) way of handling CORS.
         url = 'https://cors-anywhere.herokuapp.com/' + url
         let jsonVar = {}
         fetch(url, {
@@ -42,6 +48,11 @@ class Maps extends React.Component {
             jsonVar[value] = json;
             this.setState(jsonVar);
         })
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        // If pre-update state is equal to post-update state, do not rerender.
+        return this.state != nextState
     }
 
     componentDidMount() {
