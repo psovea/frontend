@@ -16,8 +16,10 @@ class BarChart extends React.Component {
         }
     }
 
-    fetchJSON(url) {
+    fetchJSON(url, value) {
+        // Hacky (wrong) way of handling CORS.
         url = 'https://cors-anywhere.herokuapp.com/' + url
+        let jsonVar = {}
         fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +28,8 @@ class BarChart extends React.Component {
         }).then(res => {
             return res.json();
         }).then(json => {
-            this.setState({delays: json});
+            jsonVar[value] = json;
+            this.setState(jsonVar);
         })
     }
 
@@ -55,10 +58,10 @@ class BarChart extends React.Component {
         }
         return data
     }
-    
+
     render() {
         return (
-            <Bar data={this.makeData()} options={{ responsive:true, maintainAspectRatio: false }}/>
+            <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
         )
     }
 }
