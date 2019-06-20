@@ -61,10 +61,10 @@ class Grid extends Component {
                             title="Vertraging per vervoersmiddel"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>,
+                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "Dag", 40: "Week", 60: "Maand", 100: "Jaar" }} step={null} key='slider'/>,
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 week", 40: "3 weken", 60: "5 week", 100: "10 weken" }} step={null} key='slider1'/>
                             ]}
-                            names={{0: "dagen", 1: "weken"}}
+                            names={{0: "Periode", 1: "weken", 2: "bananen"}}
                         />
                     </div>
 

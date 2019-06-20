@@ -41,7 +41,7 @@ class Widget extends React.Component {
         return this.props.settings.map((setting, i) => {
             return (
             <div className="dashboard-widget-content-settings-container-content" key={`setting-${i}`}>
-                <p className="dashboard-widget-content-settings-container-content-title">title</p>
+                <p className="dashboard-widget-content-settings-container-content-title">{this.props.names[i]}</p>
                 <hr />
                 {setting((v) => this.handleSettingsChange(i, v))}
             </div>
