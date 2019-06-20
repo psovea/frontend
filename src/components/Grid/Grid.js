@@ -60,7 +60,7 @@ class Grid extends Component {
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
-                            componentId="bar1"
+                            componentId="bar"
                             settings={[
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>,
 
