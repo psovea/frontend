@@ -52,6 +52,7 @@
     "leaflet.markercluster": "^1.4.1",
     "point-in-polygon": "^1.0.1",
     "prop-types": "^15.7.2",
+    "ramda": "^0.26.1",
     "rc-slider": "^8.6.13",
     "react-activity-feed": "^0.9.14",
     "react-chartjs-2": "^2.7.6",
