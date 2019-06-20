@@ -10,7 +10,7 @@ class Widget extends React.Component {
             defaultSettings: props.defaultSettings
         }
 
-        this.url="18.224.29.151:5000/get_delays?period=86400s&"
+        this.url="18.224.29.151:5000/get_delays"
 
         this.compRef = React.createRef()
         this.component = props.component
@@ -84,9 +84,7 @@ class Widget extends React.Component {
             return f(n, ys[i])
         })
 
-        let uri = zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
-
-        return uri
+        return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
     }
 
     fetchData = () => {

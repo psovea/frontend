@@ -81,6 +81,7 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["district", "stop_end", "transport_type"],
                                 "transport_type[]": "",
+                                "period": "86400s",
                                 "top": 25}}
                             names={{ 0: "top" }}
                         />
