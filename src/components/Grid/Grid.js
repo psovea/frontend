@@ -73,10 +73,10 @@ class Grid extends Component {
                                 />
                             ]}
                             defaultSettings={{
-                                "return_filter[]": ["line_number", "district", "transport_type"],
+                                "return_filter[]": ["district"],
                                 "transport_type[]": "",
-                                "period": "86400s"}}
-                            names={{0: "period", 1: "transport_type"}}
+                                "period": 86400}}
+                            names={{ 0: "period" }}
                             addSetting={this.updateState.bind(this)}
                         />
                     </div>
