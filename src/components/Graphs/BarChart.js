@@ -54,10 +54,10 @@ class BarChart extends React.Component {
         }
         return data
     }
-    
+
     render() {
         return (
-            <Bar data={this.makeData()} options={{ responsive:true, maintainAspectRatio: false }}/>
+            <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
         )
     }
 }
