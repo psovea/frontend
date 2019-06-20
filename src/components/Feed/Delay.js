@@ -25,7 +25,7 @@ class Delay extends Component {
         let newDelay = {
           publicLine: obj.public_id,
           transportType: obj.transport_type,
-          stopName: obj.name,
+          name: obj.stop_name,
           operator: obj.operator,
           publicLine: obj.public_id,
           punctuality: info.punctuality
@@ -92,7 +92,7 @@ class Delay extends Component {
               <p className="delay-stream-item-header-line-value delay-stream-delay-value">{this.formatDelay(item)}</p>
             </div>
             <div className="delay-stream-item-header-line col-3">
-              <p className="delay-stream-item-header-line-value">{item.stopName ? item.stopName : "N/A"}</p>
+              <p className="delay-stream-item-header-line-value">{item.name ? item.name : "N/A"}</p>
             </div>
             <div className="delay-stream-item-header-line col-2">
               <p className="delay-stream-item-header-line-image"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/BSicon_LOGO_GVB.svg/500px-BSicon_LOGO_GVB.svg.png"></img></p>

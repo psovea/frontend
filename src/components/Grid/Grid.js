@@ -52,11 +52,11 @@ class Grid extends Component {
                 <ResponsiveGridLayout
                     className="grid"
                     breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-                    cols={{ lg: 4, md: 4, sm: 2, xs: 1, xxs: 1 }}
+                    cols={{ lg: 12, md: 6, sm: 1, xs: 1, xxs: 1 }}
                     isDraggable={false}
                     isResizable={false}
                 >
-                    <div key="barchart-1" data-grid={{ x: 0, y: 0, w: 1, h: 2 }}>
+                    <div key="barchart1" data-grid={{ x: 0, y: 2, w: 3, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
@@ -75,7 +75,7 @@ class Grid extends Component {
                         />
                     </div>
 
-                    <div key="barchart-2" data-grid={{ x: 2, y: 3, w: 1, h: 2 }}>
+                    <div key="barchart2" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<DoughnutChart />}
                             title="Vertraging per stadsdeel"
@@ -87,7 +87,51 @@ class Grid extends Component {
                         />
                     </div>
 
-                    <div key="barchart-3" data-grid={{ x: 1, y: 6, w: 1, h: 2 }}>
+                    <div key="map" data-grid={{ x: 6, y: 0, w: 6, h: 3 }}>
+                        <Widget
+                            component={<Maps />}
+                            title="Vertraging in regio Amsterdam"
+                            componentId="map"
+                            settings={[
+                                (f) => <Slider
+                                    onChange={f}
+                                    min={20}
+                                    defaultValue={20}
+                                    marks={{
+                                        25: "Afgelopen Uur",
+                                        50: "Afgelopen Dag",
+                                        75: "Afgelopen Week",
+                                        100: "Afgelopen Maand"
+                                    }}
+                                    step={null}
+                                    key='slider5' />
+                            ]}
+                            names={{ 0: "slider" }}
+                        />
+                    </div>
+
+                    <div key="feed" data-grid={{ x: 0, y: 3, w: 6, h: 3 }}>
+                        <Widget
+                            component={<Delays />}
+                            title="Live vertraging"
+                            componentId="feed"
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />]}
+                            names={{ 0: "dagen" }}
+                        />
+                    </div>
+
+                    <div key="barchart4" data-grid={{ x: 6, y: 3, w: 3, h: 2 }}>
+                        <Widget
+                            component={<DoughnutChartVehicle />}
+                            title="Vertraging per voertuig"
+                            componentId="bar"
+                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider4' />]}
+                            names={{ 0: "dagen", 1: "weken" }}
+                        />
+
+                    </div>
+
+                    <div key="datatable1" data-grid={{ x: 9, y: 4, w: 3, h: 3 }}>
                         <Widget
                             component={<DataTable
                                 headers={["nr", "stadsdeel", "stop", "vervoerstype", "vertraging"]}
@@ -103,13 +147,12 @@ class Grid extends Component {
                                 "return_filter[]": ["district", "transport_type", "stop_end"],
                                 "transport_type[]": "",
                                 "period": "86400s",
-                                "top": 5}}
+                                "top": 10}}
                             names={{ 0: "top" }}
                         />
                     </div>
 
-
-                    <div key="barchart-10" data-grid={{ x: 5, y: 6, w: 1, h: 2 }}>
+                    <div key="datatable2" data-grid={{ x: 0, y: 5, w: 3, h: 3 }}>
                         <Widget
                             component={<DataTable
                                 headers={["nr", "stadsdeel", "stop", "vervoerstype", "vertraging"]}
@@ -125,23 +168,12 @@ class Grid extends Component {
                                 "return_filter[]": ["line_number", "transport_type", "stop_end"],
                                 "transport_type[]": "",
                                 "period": "86400s",
-                                "top": 5}}
+                                "top": 10}}
                             names={{ 0: "top" }}
                         />
                     </div>
 
-                    <div key="barchart-4" data-grid={{ x: 3, y: 3, w: 1, h: 2 }}>
-                        <Widget
-                            component={<DoughnutChartVehicle />}
-                            title="Vertraging per voertuig"
-                            componentId="bar"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider4' />]}
-                            names={{ 0: "dagen", 1: "weken" }}
-                        />
-
-                    </div>
-
-                    <div key="barchart-5" data-grid={{ x: 0, y: 4, w: 2, h: 2 }}>
+                    <div key="datatable3" data-grid={{ x: 3, y: 5, w: 4, h: 3 }}>
                         <Widget
                             component={<DataTable
                                 headers={["Nr", "Stadsdeel", "Lijn Nr", "vervoerstype", "Vertraging"]}
@@ -165,39 +197,6 @@ class Grid extends Component {
                         />
                     </div>
 
-
-                    <div key="map" data-grid={{ x: 2, y: 0, w: 2, h: 3 }}>
-                        <Widget
-                            component={<Maps />}
-                            title="Vertraging in regio Amsterdam"
-                            componentId="map"
-                            settings={[
-                                (f) => <Slider
-                                    onChange={f}
-                                    min={20}
-                                    defaultValue={20}
-                                    marks={{
-                                        25: "Afgelopen Uur",
-                                        50: "Afgelopen Dag",
-                                        75: "Afgelopen Week",
-                                        100: "Afgelopen Maand"
-                                    }}
-                                    step={null}
-                                    key='slider5' />
-                            ]}
-                            names={{ 0: "slider" }}
-                        />
-                    </div>
-
-                    <div key="feed" data-grid={{ x: 0, y: 2, w: 2, h: 3 }}>
-                        <Widget
-                            component={<Delays />}
-                            title="Live vertraging"
-                            componentId="feed"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />]}
-                            names={{ 0: "dagen" }}
-                        />
-                    </div>
 
                 </ResponsiveGridLayout>
             </div>
