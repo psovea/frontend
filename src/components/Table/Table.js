@@ -13,13 +13,14 @@ class DataTable extends React.Component {
 
         this.state = {
             headers: this.props.headers,
-            values: this.props.values,
-            numShow: this.props.numShow
+            values: []
         }
     }
 
-    update(newState) {
-        this.setState(newState)
+    update(newData) {
+        if (newData) {
+            this.setState({values: newData})
+        }
     }
 
     render() {
@@ -33,11 +34,15 @@ class DataTable extends React.Component {
     
                     {
                         this.state.values.map((row, i) => {
-                            if (this.state.numShow == 0 || i < this.state.numShow) {
-                                return <tr className="table-row" key={row}>{row.map(col => 
-                                    <td className="table-row-value" key={col}>{col}</td>)}
-                                </tr>
-                            }
+                            let metric = row.metric
+                            let values = row.value
+
+                            return <tr className="table-row" key={i}>
+                                <td className="table-row-value" key={metric.stop_end}>{metric.stop_end}</td>
+                                <td className="table-row-value" key={metric.transport_type}>{metric.transport_type}</td>
+                                <td className="table-row-value" key={metric.district}>{metric.district}</td>
+                                <td className="table-row-value" key={values[1]}>{values[1]}</td>
+                            </tr>
                         })
                     }
     
@@ -50,7 +55,7 @@ class DataTable extends React.Component {
 DataTable.propTypes = {
     headers: PropTypes.any,
     values: PropTypes.any,
-    numShow: PropTypes.any,
+    top: PropTypes.any,
     stateF: PropTypes.any
 }
 
