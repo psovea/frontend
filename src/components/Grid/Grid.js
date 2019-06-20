@@ -62,7 +62,9 @@ class Grid extends Component {
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider'/>,
+                                (f) => <Slider onChange={f} min={86400} max={604800} defaultValue={86400} 
+                                               marks={{ 86400: "1 dag", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
+                                               step={null} key='slider'/>,
 
                                 (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='searchTransport'
                                 />,
@@ -70,7 +72,11 @@ class Grid extends Component {
                                 (f) => <Searchbar updater={f} endpoint={"get-lines"} params={this.state.bar1} multipleOptions={false} placeholderText={"lijn"} key='searchLine' filterFunc={(item) => `${item.public_id}: ${item.line_name}`}
                                 />
                             ]}
-                            names={{0: "dagen", 1: "transport_type"}}
+                            defaultSettings={{
+                                "return_filter[]": ["line_number", "district", "transport_type"],
+                                "transport_type[]": "",
+                                "period": "86400s"}}
+                            names={{0: "period", 1: "transport_type"}}
                             addSetting={this.updateState.bind(this)}
                         />
                     </div>
