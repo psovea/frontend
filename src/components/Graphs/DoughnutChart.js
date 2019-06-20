@@ -18,6 +18,7 @@ class DoughnutChart extends React.Component {
     }
 
     fetchJSON(url, value) {
+        // Hacky (wrong) way of handling CORS.
         url = 'https://cors-anywhere.herokuapp.com/' + url
         let jsonVar = {}
         fetch(url, {
@@ -28,7 +29,8 @@ class DoughnutChart extends React.Component {
         }).then(res => {
             return res.json();
         }).then(json => {
-            this.setState({delays: json});
+            jsonVar[value] = json;
+            this.setState(jsonVar);
         })
     }
 
