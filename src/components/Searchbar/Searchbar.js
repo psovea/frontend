@@ -70,7 +70,8 @@ class Searchbar extends Component {
     }
 
     setOptions() {
-        var params = R.map(([key, value]) => ({ "key": key, "value": R.join(",", value) }), R.toPairs(this.props.params))
+        console.log(this.props.params)
+        var params = R.map(([key, value]) => ({ "key": key, "value": R.join(",", value) }), R.filter((i) => typeof i === 'array', R.toPairs(this.props.params)))
 
         this.getOptions(this.props.endpoint, params, this.props.filterFunc)
             .then(res => this.setState({ options: R.map(item => ({ value: item, label: item }), res.sort()) }))
