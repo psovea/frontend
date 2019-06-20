@@ -90,21 +90,19 @@ class Grid extends Component {
                     <div key="barchart-3" data-grid={{ x: 1, y: 0, w: 1, h: 2 }}>
                         <Widget
                             component={<DataTable
-                                headers={["Lijn", "Halte", "Vervoerder"]}
-                                values={[
-                                    ["22", "Centraal Station", "GVB"],
-                                    ["23", "Centraal Station", "GVB"],
-                                    ["24", "Centraal Station", "GVB"],
-                                    ["25", "Centraal Station", "GVB"],
-                                    ["26", "Centraal Station", "GVB"]
-                                ]}
-                                numShow={0}
+                                headers={["nr", "vervoerstype", "stadsdeel", "vertraging"]}
+                                values={[]}
+                                top={10}
                             />}
                             title="Top 5 vertragingen"
                             componentId="table"
-                            settings={[(f) => <Slider onChange={f} min={1} defaultValue={1} marks={{ 1: "1", 2: "2", 3: "3", 4: "4" }} step={null} key='slider3' />]}
-                            defaultSettings={{ numShow: 0 }}
-                            names={{ 0: "numShow" }}
+                            settings={[(f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />]}
+                            defaultSettings={{
+                                "return_filter[]": ["district", "stop_end", "transport_type"],
+                                "transport_type[]": "",
+                                "period": "86400s",
+                                "top": 25}}
+                            names={{ 0: "top" }}
                         />
                     </div>
 
