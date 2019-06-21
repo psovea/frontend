@@ -78,13 +78,6 @@ class Widget extends React.Component {
     createUriFromSettings = () => {
         if (!this.state.currentSettings) { return "" }
 
-        /* TODO: fix later (hardcoded for demo, father forgive me) */
-        for (const [key, value] of Object.entries(this.state.currentSettings)) {
-            if (key === "period") {
-                this.setState({currentSettings: {period: value + "s"}})
-            }
-        }
-
         let keys = Object.keys(this.state.currentSettings)
         let vals = Object.values(this.state.currentSettings)
 
@@ -92,6 +85,8 @@ class Widget extends React.Component {
         let zipWith = (f, xs, ys) => xs.map((n,i) => {
             if (n == "return_filter[]") {
                 return ys[i].map(x => n + "=" + x).join("&")
+            } else if (n == "period") {
+                return n + "=" + ys[i].toString() + "s"
             }
 
             return f(n, ys[i])

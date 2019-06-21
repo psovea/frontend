@@ -12,34 +12,19 @@ class BarChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            delays: [],
+            data: []
         }
     }
 
-    fetchJSON(url, value) {
-        // Hacky (wrong) way of handling CORS.
-        url = 'https://cors-anywhere.herokuapp.com/' + url
-        let jsonVar = {}
-        fetch(url, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }).then(res => {
-            return res.json();
-        }).then(json => {
-            jsonVar[value] = json;
-            this.setState(jsonVar);
-        })
-    }
-
-    componentDidMount() {
-        this.fetchJSON('http://18.224.29.151:5000/get_delays?period=1d&return_filter[]=district&district[]=Centrum&district[]=Nieuw-West&district[]=Zuidoost&district[]=Noord&district[]=Oost&district[]=West&district[]=Westpoort&district[]=Zuid&top=8', "delays")
+    update(newData) {
+        this.setState({data: newData})
     }
 
     makeData() {
-        var labelArray = this.state.delays.map(item => (item['metric']['district']));
-        var dataArray = this.state.delays.map(item => Object.values(item['value'])[1]);
+        if (!this.state.data) { return [] }
+
+        var labelArray = this.state.data.map(item => (item['metric']['district']));
+        var dataArray = this.state.data.map(item => Object.values(item['value'])[1]);
         let data = {
             labels: labelArray,
             datasets: [{

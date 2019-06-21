@@ -73,10 +73,10 @@ class Grid extends Component {
                                 />
                             ]}
                             defaultSettings={{
-                                "return_filter[]": ["line_number", "district", "transport_type"],
+                                "return_filter[]": ["district"],
                                 "transport_type[]": "",
-                                "period": "86400s"}}
-                            names={{0: "period", 1: "transport_type"}}
+                                "period": 86400}}
+                            names={{ 0: "period" }}
                             addSetting={this.updateState.bind(this)}
                             settingsTitles={["Periode", "Vervoersmiddel", "Lijn"]}
                         />
@@ -157,7 +157,7 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["district", "transport_type", "stop_end"],
                                 "transport_type[]": "",
-                                "period": "86400s",
+                                "period": 86400,
                                 "top": 10}}
                             names={{ 0: "top" }}
                             settingsTitles={["Aantal topvertragingen"]}
@@ -179,7 +179,7 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["line_number", "transport_type", "stop_end"],
                                 "transport_type[]": "",
-                                "period": "86400s",
+                                "period": 86400,
                                 "top": 10}}
                             names={{ 0: "top" }}
                             settingsTitles={["Aantal topvertragingen"]}
@@ -203,7 +203,7 @@ class Grid extends Component {
                                 "return_filter[]": ["line_number", "district", "transport_type"],
                                 "transport_type[]": "",
                                 "district[]": "Centrum",
-                                "period": "86400s",
+                                "period": 86400,
                                 "top": 25}}
                             names={{ 0: "top", 1: "district[]" }}
                             addSetting={this.updateState.bind(this)}
