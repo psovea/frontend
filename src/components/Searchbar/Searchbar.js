@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Select from 'react-select';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import Select from 'react-select'
 
 import './Searchbar.css'
 
 import * as R from 'ramda'
+
+var naturalSort = require('natural-sort')
 
 class Searchbar extends Component {
     constructor(props) {
@@ -70,11 +72,10 @@ class Searchbar extends Component {
     }
 
     setOptions() {
-        console.log(this.props.params)
         var params = R.map(([key, value]) => ({ "key": key, "value": R.join(",", value) }), R.filter((i) => typeof i === 'array', R.toPairs(this.props.params)))
 
         this.getOptions(this.props.endpoint, params, this.props.filterFunc)
-            .then(res => this.setState({ options: R.map(item => ({ value: item, label: item }), res.sort()) }))
+            .then(res => this.setState({ options: R.map(item => ({ value: item, label: item }), res.sort(naturalSort())) }))
     }
 
     render() {
