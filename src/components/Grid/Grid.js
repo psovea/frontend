@@ -78,6 +78,7 @@ class Grid extends Component {
                                 "period": "86400s"}}
                             names={{0: "period", 1: "transport_type"}}
                             addSetting={this.updateState.bind(this)}
+                            settingsTitles={["Periode", "Vervoersmiddel", "Lijn"]}
                         />
                     </div>
 
@@ -90,6 +91,7 @@ class Grid extends Component {
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 week", 40: "3 weken", 60: "5 week", 100: "10 weken" }} step={null} key='slider1' />
                             ]}
                             names={{ 0: "dagen", 1: "weken" }}
+                            settingsTitles={["Periode"]}
                         />
                     </div>
 
@@ -113,6 +115,7 @@ class Grid extends Component {
                                     key='slider5' />
                             ]}
                             names={{ 0: "slider" }}
+                            settingsTitles={["Periode"]}
                         />
                     </div>
 
@@ -123,6 +126,7 @@ class Grid extends Component {
                             componentId="feed"
                             settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />]}
                             names={{ 0: "dagen" }}
+                            settingsTitles={["Periode"]}
                         />
                     </div>
 
@@ -133,6 +137,7 @@ class Grid extends Component {
                             componentId="bar"
                             settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider4' />]}
                             names={{ 0: "dagen", 1: "weken" }}
+                            settingsTitles={["Periode"]}
                         />
 
                     </div>
@@ -155,6 +160,7 @@ class Grid extends Component {
                                 "period": "86400s",
                                 "top": 10}}
                             names={{ 0: "top" }}
+                            settingsTitles={["Aantal topvertragingen"]}
                         />
                     </div>
 
@@ -176,6 +182,7 @@ class Grid extends Component {
                                 "period": "86400s",
                                 "top": 10}}
                             names={{ 0: "top" }}
+                            settingsTitles={["Aantal topvertragingen"]}
                         />
                     </div>
 
@@ -200,6 +207,7 @@ class Grid extends Component {
                                 "top": 25}}
                             names={{ 0: "top", 1: "district[]" }}
                             addSetting={this.updateState.bind(this)}
+                            settingsTitles={["Aantal top vertragingen"], ["Zoeken op stadsdeel"]}
                         />
                     </div>
 
