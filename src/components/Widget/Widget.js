@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'react-proptypes'
+import Loader from 'react-loader-spinner'
 
 class Widget extends React.Component {
     constructor(props) {
@@ -7,7 +8,8 @@ class Widget extends React.Component {
 
         this.state = {
             showSettings: false,
-            defaultSettings: props.defaultSettings
+            defaultSettings: props.defaultSettings,
+            loading: true
         }
 
         this.url="18.224.29.151:5000/get_delays"
@@ -61,6 +63,22 @@ class Widget extends React.Component {
         })
     }
 
+    // https://mhnpd.github.io/react-loader-spinner/?selectedKind=Loader&selectedStory=Oval&full=0&addons=0&stories=1&panelRight=0
+    // Link for loader types
+    loader = () => {
+        return (
+            <div className={"loader-widget"}>
+                <Loader 
+                    type="Oval"
+                    color="red"
+                    height="100"	
+                    width="100"
+                />
+            </div>
+        )
+    }
+
+
     getCurrentSettings = () => this.state.currentSettings
 
     defaultSettings = () => {
@@ -68,6 +86,19 @@ class Widget extends React.Component {
     }
 
     makeComponent = (visibility, id) => {
+        // If state.loading = true, then we display the loader else the widget
+        if (this.state.loading) {
+            return (
+                <div>
+                    {/* We need to clone the element, but we don't display it */}
+                    <div className={"dashboard-widget-content none"} id={id} style={{display: 'none'}}>
+                        { React.cloneElement(this.component, {ref: this.compRef}) }
+                    </div>
+                    {this.loader()}
+                </div>
+            )
+        }
+        // When the data is fetched we show the widget normally
         return (
             <div className={"dashboard-widget-content " + visibility} id={id}>
                 { React.cloneElement(this.component, {ref: this.compRef}) }
@@ -96,19 +127,20 @@ class Widget extends React.Component {
     }
 
     fetchData = () => {
+        this.setState({loading: true});
         let uri = this.createUriFromSettings()
-
-        if (uri == "") { return }
+        
+        if (uri == "") { this.setState({loading: false}); return }
 
         let url = 'https://cors-anywhere.herokuapp.com/' + this.url + uri
-
+        
         fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
-        }).then(res => { return res.json()})
-          .then(json => this.compRef.current.update(json))
+        }).then(res => { this.setState({loading: false}); return res.json()})
+          .then(json => { this.compRef.current.update(json)})
           .catch(e => console.log(e))
     }
 

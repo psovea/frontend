@@ -17,6 +17,7 @@ import Maps from "../Maps/Maps"
 import DataTable from "../Table/Table"
 
 
+
 // We need these css imports, else the graphics will glitch
 // while moving components in our grid.
 import "../../../node_modules/react-grid-layout/css/styles.css"
@@ -56,7 +57,7 @@ class Grid extends Component {
                     isDraggable={false}
                     isResizable={false}
                 >
-                    <div key="barchart1" data-grid={{ x: 0, y: 2, w: 3, h: 2 }}>
+                    {/* <div key="barchart1" data-grid={{ x: 0, y: 2, w: 3, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
@@ -79,8 +80,8 @@ class Grid extends Component {
                             names={{ 0: "period" }}
                             addSetting={this.updateState.bind(this)}
                             settingsTitles={["Periode", "Vervoersmiddel", "Lijn"]}
-                        />
-                    </div>
+                        />   
+                    </div> */}
 
                     <div key="barchart2" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
                         <Widget
@@ -95,7 +96,7 @@ class Grid extends Component {
                         />
                     </div>
 
-                    <div key="map" data-grid={{ x: 6, y: 0, w: 6, h: 3 }}>
+                    {/* <div key="map" data-grid={{ x: 6, y: 0, w: 6, h: 3 }}>
                         <Widget
                             component={<Maps />}
                             title="Vertraging in regio Amsterdam"
@@ -209,7 +210,7 @@ class Grid extends Component {
                             addSetting={this.updateState.bind(this)}
                             settingsTitles={["Aantal top vertragingen"], ["Zoeken op stadsdeel"]}
                         />
-                    </div>
+                    </div> */}
 
 
                 </ResponsiveGridLayout>

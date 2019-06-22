@@ -228,3 +228,11 @@
 .rc-slider-track {
     background-color: #d83120;
 }
+
+.loader-widget {
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    top: 50%;
+    margin-top: -50px;
+}
