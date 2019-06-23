@@ -6,6 +6,7 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
+import Missing from '../Missing/Missing';
 
 import 'rc-slider/assets/index.css';
 import './Graphs.css';
@@ -20,9 +21,7 @@ class DoughnutChart extends React.Component {
     }
 
     update(newData) {
-        if (newData) {
-            this.setState({delays: newData});
-        }
+        this.setState({delays: newData});
     }
 
     makeData() {
@@ -41,7 +40,9 @@ class DoughnutChart extends React.Component {
 
     render() {
         return (
-            <Doughnut data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
+            this.state.data == null 
+                ? <Missing/>
+                : <Doughnut data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
         );
     }
 

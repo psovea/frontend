@@ -10,6 +10,7 @@ import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css';
+import Missing from '../Missing/Missing';
 
 class Maps extends React.Component {
     constructor() {
@@ -113,7 +114,7 @@ class Maps extends React.Component {
                 </Map>
             )
         } else {
-            return <p>no data</p>
+            return <Missing/>
         }
     }
 }
