@@ -56,7 +56,7 @@ class Grid extends Component {
                     isDraggable={false}
                     isResizable={false}
                 >
-                    <div key="barchart1" data-grid={{ x: 0, y: 2, w: 3, h: 2 }}>
+                    <div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
@@ -101,8 +101,7 @@ class Grid extends Component {
                         />
                     </div>
 
-                    {/* TODO: fix loader for map */}
-                    {/* <div key="map" data-grid={{ x: 6, y: 0, w: 6, h: 3 }}>
+                    <div key="map" data-grid={{ x: 6, y: 0, w: 6, h: 3 }}>
                         <Widget
                             component={<Maps />}
                             title="Vertraging in regio Amsterdam"
@@ -123,8 +122,15 @@ class Grid extends Component {
                             ]}
                             names={{ 0: "slider" }}
                             settingsTitles={["Periode"]}
+                            defaultSettings={{
+                                "return_filter[]": ["stop_end"],
+                                "transport_type[]": "",
+                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
+                                "format": "heatmap",
+                                "period": 86400,
+                                "top": 8}}
                         />
-                    </div> */}
+                    </div>
 
                     <div key="feed" data-grid={{ x: 0, y: 3, w: 6, h: 3 }}>
                         <Widget
