@@ -26,7 +26,7 @@ class Delay extends Component {
     .then(res => res.json())
 
 
-    /* Wait for requests to be finished. */
+    /* Wait for requests to finish. */
     Promise.all([reqStop, reqLine]).then(data => {
 
       if (this._isMounted) {
