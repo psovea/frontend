@@ -40,7 +40,6 @@ class DoughnutChart extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <Doughnut data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
         );
