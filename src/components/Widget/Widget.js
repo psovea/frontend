@@ -114,7 +114,7 @@ class Widget extends React.Component {
 
 
         let zipWith = (f, xs, ys) => xs.map((n,i) => {
-            if (n == "return_filter[]") {
+            if (n == "return_filter[]" || n == "district[]") {
                 return ys[i].map(x => n + "=" + x).join("&")
             } else if (n == "period") {
                 return n + "=" + ys[i].toString() + "s"
@@ -127,21 +127,23 @@ class Widget extends React.Component {
     }
 
     fetchData = () => {
-        this.setState({loading: true});
         let uri = this.createUriFromSettings()
         
         if (uri == "") { this.setState({loading: false}); return }
 
-        let url = 'https://cors-anywhere.herokuapp.com/' + this.url + uri
+        this.setState({loading: true}, () => {
+            let url = 'https://cors-anywhere.herokuapp.com/' + this.url + uri
 
-        fetch(url, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }).then(res => { this.setState({loading: false}); return res.json()})
-          .then(json => { this.compRef.current.update(json)})
-          .catch(e => console.log(e))
+            fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => { return res.json()})
+            .then(json => { this.setState({loading: false}, () => this.compRef.current.update(json)) })
+            .catch(e => console.log(e))
+        });
     }
 
     render() {

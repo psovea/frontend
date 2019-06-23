@@ -9,7 +9,6 @@ import React, { Component } from "react"
 import { Responsive, WidthProvider } from "react-grid-layout"
 import BarChart from "../Graphs/BarChart"
 import DoughnutChart from "../Graphs/DoughnutChart"
-import DoughnutChartVehicle from "../Graphs/DoughnutChartVehicle"
 import Widget from "../Widget/Widget"
 import Delays from "../Feed/Delays"
 import Slider from 'rc-slider'
@@ -85,13 +84,19 @@ class Grid extends Component {
 
                     <div key="barchart2" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
                         <Widget
-                            component={<DoughnutChart />}
+                            component={<DoughnutChart metric="district" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000', '#e60000', '#cc0000', '#b30000']} />}
                             title="Vertraging per stadsdeel"
                             componentId="bar"
                             settings={[
                                 (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 week", 40: "3 weken", 60: "5 week", 100: "10 weken" }} step={null} key='slider1' />
                             ]}
                             names={{ 0: "dagen", 1: "weken" }}
+                            defaultSettings={{
+                                "return_filter[]": ["district"],
+                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
+                                "transport_type[]": "",
+                                "period": 86400,
+                                "top": 8}}
                             settingsTitles={["Periode"]}
                         />
                     </div>
@@ -134,11 +139,16 @@ class Grid extends Component {
 
                     <div key="barchart4" data-grid={{ x: 6, y: 3, w: 3, h: 2 }}>
                         <Widget
-                            component={<DoughnutChartVehicle />}
+                            component={<DoughnutChart metric="transport_type" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000']} />}
                             title="Vertraging per voertuig"
                             componentId="bar"
                             settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider4' />]}
                             names={{ 0: "dagen", 1: "weken" }}
+                            defaultSettings={{
+                                "return_filter[]": ["transport_type"],
+                                "transport_type[]": "",
+                                "period": 86400,
+                                "top": 8}}
                             settingsTitles={["Periode"]}
                         />
 
@@ -204,7 +214,7 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["line_number", "district", "transport_type"],
                                 "transport_type[]": "",
-                                "district[]": "Centrum",
+                                "district[]": ["Centrum"],
                                 "period": 86400,
                                 "top": 25}}
                             names={{ 0: "top", 1: "district[]" }}
