@@ -72,8 +72,8 @@ class Grid extends Component {
                             componentId="bar"
                             settings={[
                                 (f) => <Slider onChange={f} min={86400} max={604800} defaultValue={86400}
-                                               marks={{ 86400: "1 dag", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
-                                               step={null} key='slider'/>,
+                                    marks={{ 86400: "1 dag", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen" }}
+                                    step={null} key='slider' />,
 
                                 (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='searchTransport'
                                 />,
@@ -84,7 +84,8 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["district"],
                                 "transport_type[]": "",
-                                "period": 86400}}
+                                "period": 86400
+                            }}
                             names={{ 0: "period" }}
                             addSetting={this.updateState.bind(this)}
                             settingsTitles={["Periode", "Vervoersmiddel", "Lijn"]}
@@ -102,10 +103,11 @@ class Grid extends Component {
                             names={{ 0: "period" }}
                             defaultSettings={{
                                 "return_filter[]": ["district"],
-                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
+                                "district[]": ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"],
                                 "transport_type[]": "",
                                 "period": 86400,
-                                "top": 8}}
+                                "top": 8
+                            }}
                             settingsTitles={["Periode"]}
                         />
                     </div>
@@ -123,10 +125,10 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["stop_end"],
                                 "transport_type[]": "",
-                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
+                                "district[]": ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"],
                                 "format": "heatmap",
                                 "period": 86400,
-                                "top": 8}}
+                            }}
                         />
                     </div>
 
@@ -157,7 +159,8 @@ class Grid extends Component {
                                 "return_filter[]": ["transport_type"],
                                 "transport_type[]": "",
                                 "period": 86400,
-                                "top": 8}}
+                                "top": 8
+                            }}
                             settingsTitles={["Periode"]}
                         />
 
