@@ -2,11 +2,14 @@
  * Discription: This is the Table component. The table is shown in a grid box.
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import Missing from '../Missing/Missing';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Missing from '../Missing/Missing'
+import ReactTable from 'react-table'
+
 
 import "./Table.css"
+import "react-table/react-table.css"
 
 class DataTable extends React.Component {
     constructor(props) {

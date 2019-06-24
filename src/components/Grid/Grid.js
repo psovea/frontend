@@ -166,7 +166,7 @@ class Grid extends Component {
                     <div key="datatable1" data-grid={{ x: 9, y: 4, w: 3, h: 3 }}>
                         <Widget
                             component={<DataTable
-                                headers={["nr", "stadsdeel", "stop", "vervoerstype", "vertraging"]}
+                                headers={["Nr", "Stadsdeel", "Stop", "Vervoerstype", "Vertraging"]}
                                 values={[]}
                                 top={10}
                             />}
@@ -189,11 +189,11 @@ class Grid extends Component {
                     <div key="datatable2" data-grid={{ x: 0, y: 5, w: 3, h: 3 }}>
                         <Widget
                             component={<DataTable
-                                headers={["nr", "stadsdeel", "stop", "vervoerstype", "vertraging"]}
+                                headers={["Nr", "Lijn", "Stop", "Vervoerstype", "Vertraging"]}
                                 values={[]}
                                 top={10}
                             />}
-                            title="Top vertragingen per halte"
+                            title="Top vertragingen per lijn"
                             componentId="table"
                             settings={[
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
@@ -234,7 +234,6 @@ class Grid extends Component {
                             settingsTitles={["Aantal top vertragingen"], ["Periode"], ["Zoeken op stadsdeel"]}
                         />
                     </div>
-
 
                 </ResponsiveGridLayout>
             </div>
