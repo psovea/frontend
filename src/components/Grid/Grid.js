@@ -1,7 +1,7 @@
 /* Grid.js:
  * Discription: This file contains the main body. The body contains of a 4x4 grid.
  *              Grid box containers can be made here. Data graphs are shown in these boxes.
- *              Each box has there own x,y position in the grid.
+ *              Each box has their own x,y position in the grid.
  *              In this file you can change the width and height of these boxes.
  */
 
@@ -26,13 +26,16 @@ import 'rc-slider'
 import 'rc-slider/assets/index.css'
 import Searchbar from "../Searchbar/Searchbar";
 
+import { replace } from 'ramda'
+
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
 
-// This defines the grid; here we add other components (lets call
-// them widgets). Unfortunately we have to add div's directly into
-// the ResponiveGridLayout, in these divs we can put our widgets.
-// I have not found a way to work around this yet.
+/* This defines the grid; here we add other components (lets call
+ * them widgets). Unfortunately we have to add div's directly into
+ * the ResponiveGridLayout, in these divs we can put our widgets.
+ * I have not found a way to work around this yet.
+ */
 class Grid extends Component {
     constructor(props) {
         super(props)
@@ -40,6 +43,10 @@ class Grid extends Component {
         this.state = {}
     }
 
+    /* Update the state of the grid. This is purely for the searchbar, so
+     * the selection of previous search bars influence the results of following
+     * search bars.
+     */
     updateState(widgetID, val) {
         this.setState({
             [widgetID]: val
