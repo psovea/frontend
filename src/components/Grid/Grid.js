@@ -75,9 +75,8 @@ class Grid extends Component {
                                 />
                             ]}
                             defaultSettings={{
-                                "return_filter[]": ["district"],
-                                "transport_type[]": "",
-                                "period": 86400}}
+                                "days": [1,2,3,4,5,6,7]
+                            }}
                             names={{ 0: "period" }}
                             addSetting={this.updateState.bind(this)}
                             settingsTitles={["Periode", "Vervoersmiddel", "Lijn"]}
