@@ -132,17 +132,15 @@ class Widget extends React.Component {
                 return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + day_query
             })
             
-            // console.log(uris)
             return uris.some(x => x == "") ? null : uris
         }
 
         let uri = '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
-        // console.log(uri)
 
         return uri == "" ? null : [uri]
     }
 
-    f = (uri) => {
+    fetchSingle = (uri) => {
         let url = 'https://cors-anywhere.herokuapp.com/' + this.url + uri
         return fetch(url, {
             headers: {
@@ -158,7 +156,7 @@ class Widget extends React.Component {
         if (!uris) { this.setState({loading: false}); return }
 
         this.setState({loading: true}, () => {
-            Promise.all(uris.map(this.f))
+            Promise.all(uris.map(this.fetchSingle))
                 .then(json => { this.setState({loading: false}, () => this.compRef.current.update(json)) })
                 .catch(e => console.log(e))
         });
