@@ -64,7 +64,7 @@ class Grid extends Component {
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={86400} max={604800} defaultValue={86400} 
+                                (f) => <Slider onChange={f} min={86400} max={604800} defaultValue={86400}
                                                marks={{ 86400: "1 dag", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
                                                step={null} key='slider'/>,
 
@@ -81,7 +81,7 @@ class Grid extends Component {
                             names={{ 0: "period" }}
                             addSetting={this.updateState.bind(this)}
                             settingsTitles={["Periode", "Vervoersmiddel", "Lijn"]}
-                        />   
+                        />
                     </div>
 
                     <div key="barchart2" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
@@ -165,7 +165,7 @@ class Grid extends Component {
                     <div key="datatable1" data-grid={{ x: 9, y: 4, w: 3, h: 3 }}>
                         <Widget
                             component={<DataTable
-                                headers={["nr", "stadsdeel", "stop", "vervoerstype", "vertraging"]}
+                                headers={["Nr", "Stadsdeel", "Stop", "Vervoerstype", "Vertraging"]}
                                 values={[]}
                                 top={10}
                             />}
@@ -180,18 +180,18 @@ class Grid extends Component {
                                 "period": 86400,
                                 "top": 10}}
                             names={{ 0: "top" }}
-                            settingsTitles={["Aantal topvertragingen"]}
+                            settingsTitles={["Grootte van de Top"]}
                         />
                     </div>
 
                     <div key="datatable2" data-grid={{ x: 0, y: 5, w: 3, h: 3 }}>
                         <Widget
                             component={<DataTable
-                                headers={["nr", "stadsdeel", "stop", "vervoerstype", "vertraging"]}
+                                headers={["Nr", "Lijn", "Stop", "Vervoerstype", "Vertraging"]}
                                 values={[]}
                                 top={10}
                             />}
-                            title="Top vertragingen per halte"
+                            title="Top vertragingen per lijn"
                             componentId="table"
                             settings={[
                               (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
@@ -202,35 +202,9 @@ class Grid extends Component {
                                 "period": 86400,
                                 "top": 10}}
                             names={{ 0: "top" }}
-                            settingsTitles={["Aantal topvertragingen"]}
+                            settingsTitles={["Grootte van de Top"]}
                         />
                     </div>
-
-                    <div key="datatable3" data-grid={{ x: 3, y: 5, w: 4, h: 3 }}>
-                        <Widget
-                            component={<DataTable
-                                headers={["Nr", "Stadsdeel", "Lijn Nr", "vervoerstype", "Vertraging"]}
-                                values={[]}
-                                top={10}
-                            />}
-                            title="Vertraging per Stadsdeel"
-                            componentId="table"
-                            settings={[
-                              (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
-                              (f) => <Searchbar updater={f} options={["Centrum", "Noord", "Zuid", "West", "Westpoort", "Nieuw-West", "Zuidoost", "Oost"]} multipleOptions={false} placeholderText={"stadsdeel"} key='searchDistrict'/>
-                            ]}
-                            defaultSettings={{
-                                "return_filter[]": ["line_number", "district", "transport_type"],
-                                "transport_type[]": "",
-                                "district[]": ["Centrum"],
-                                "period": 86400,
-                                "top": 25}}
-                            names={{ 0: "top", 1: "district[]" }}
-                            addSetting={this.updateState.bind(this)}
-                            settingsTitles={["Aantal top vertragingen"], ["Zoeken op stadsdeel"]}
-                        />
-                    </div>
-
 
                 </ResponsiveGridLayout>
             </div>
