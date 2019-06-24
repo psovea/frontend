@@ -236,3 +236,9 @@
     top: 50%;
     margin-top: -50px;
 }
+
+.missing-data-text {
+    font-size: 15px;
+    font-style: italic;
+    margin-top: 25px;
+}

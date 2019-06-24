@@ -4,6 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Missing from '../Missing/Missing';
 
 import "./Table.css"
 
@@ -18,9 +19,7 @@ class DataTable extends React.Component {
     }
 
     update(newData) {
-        if (newData) {
-            this.setState({values: newData})
-        }
+        this.setState({values: newData})
     }
 
     formatTime(item) {
@@ -31,6 +30,10 @@ class DataTable extends React.Component {
       }
 
     render() {
+        if (this.state.values == null) {
+            return <Missing/>
+        }
+
         return (
             <table className="striped">
                 <tbody>

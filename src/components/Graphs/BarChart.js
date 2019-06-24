@@ -6,6 +6,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import './Graphs.css';
+import Missing from '../Missing/Missing';
 
 
 class BarChart extends React.Component {
@@ -42,7 +43,9 @@ class BarChart extends React.Component {
 
     render() {
         return (
-            <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
+            this.state.data == null 
+                ? <Missing/>
+                : <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
         )
     }
 }
