@@ -55,6 +55,8 @@ class Grid extends Component {
                     cols={{ lg: 12, md: 6, sm: 1, xs: 1, xxs: 1 }}
                     isDraggable={false}
                     isResizable={false}
+                    containerPadding={[25, 25]}
+                    margin={[30, 30]}
                 >
                     <div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
