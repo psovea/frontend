@@ -72,7 +72,7 @@ class Grid extends Component {
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={5} max={21} defaultValue={7} 
+                                (f) => <Slider onChange={f} min={5} max={21} defaultValue={7}
                                                marks={ mergeAll([...Array(22).keys()].filter(x => x >= 5).map(i => ({[i]: i}))) } //{{ 5: "5 dagen", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
                                                step={null} key='slider'/>,
 
@@ -88,7 +88,7 @@ class Grid extends Component {
                             names={{ 0: "days" }}
                             addSetting={this.updateState.bind(this)}
                             settingsTitles={["Aantal Dagen", "Vervoersmiddel", "Lijn"]}
-                        />   
+                        />
                     </div>
 
                     <div key="barchart2" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
@@ -170,8 +170,6 @@ class Grid extends Component {
                         <Widget
                             component={<DataTable
                                 headers={["Nr", "Stadsdeel", "Halte", "Vertraging"]}
-                                values={[]}
-                                top={10}
                                 order={["district", "stop_end"]}
                             />}
                             title="Top vertragingen per halte"
@@ -197,8 +195,6 @@ class Grid extends Component {
                         <Widget
                             component={<DataTable
                                 headers={["Nr", "Lijn", "Stadsdeel", "Halte", "Transporttype", "Vertraging"]}
-                                values={[]}
-                                top={10}
                                 order={["line_number", "district", "stop_end", "transport_type"]}
                             />}
                             title="Top vertragingen per lijn"

@@ -31,13 +31,15 @@ class DataTable extends React.Component {
         /* If the new data contains stop data, we should fetch the
          * stop names to display.
          */
-        const hasStops = R.hasPath(['metric', 'stop_end'])
-        if (R.all(hasStops)(newData)) {
-            this.getStopNames(newData)
-                .then(res => R.zipWith((x, y) => x.metric.stop_end = y, newData, res))
-                .then(res => this.setState({values: newData}))
+        const allHaveStops = R.all(R.hasPath(['metric', 'stop_end']))
+        const data = R.flatten(newData)
+
+        if (allHaveStops(data)) {
+            this.getStopNames(data)
+                .then(res => R.zipWith(R.assocPath(['metric', 'stop_end']), res, data))
+                .then(data => this.setState({values: data}))
         } else {
-            this.setState({values: newData})
+            this.setState({values: data})
         }
     }
 
@@ -70,8 +72,8 @@ class DataTable extends React.Component {
 
                     {
                         this.state.values.map((row, i) => {
-                            let metric = row.metric
-                            let values = row.value
+                            var metric = row.metric
+                            var values = row.value
 
                             return <tr className="table-row" key={i}>
                                 <td className="table-row-value" key={i}>{i + 1}</td>
