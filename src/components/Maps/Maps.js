@@ -57,7 +57,7 @@ class Maps extends React.Component {
 
     update(newData) {
         if (newData) {
-            this.setState({heatmapdata: newData});
+            this.setState({ heatmapdata: newData });
         }
     }
 
@@ -72,7 +72,7 @@ class Maps extends React.Component {
                     key={`marker-${i}`}
                     position={[stop.lat, stop.lon]} >
                     <Tooltip>
-                        {[stop.name]}
+                        {[stop.stop_name]}
                     </Tooltip>
                 </Marker >
             )
@@ -114,7 +114,7 @@ class Maps extends React.Component {
                 </Map>
             )
         } else {
-            return <Missing/>
+            return <Missing />
         }
     }
 }
