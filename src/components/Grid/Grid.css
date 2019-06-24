@@ -21,6 +21,8 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom: 1px solid lightgray;
+    width: 100%;
+    margin-left: 0px !important;
 }
 
 .dashboard-widget-header-title {
