@@ -90,7 +90,6 @@ class Widget extends React.Component {
         if (this.state.loading) {
             return (
                 <div>
-                    {/* We need to clone the element, but we don't display it, Not sure what this does, probably a better solution than this */}
                     <div className={"dashboard-widget-content none"} id={id} style={{ display: 'none' }}>
                         {React.cloneElement(this.component, { ref: this.compRef })}
                     </div>
