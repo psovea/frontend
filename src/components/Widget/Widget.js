@@ -124,7 +124,7 @@ class Widget extends React.Component {
         })
 
         if (keys.includes("days")) {
-            let uris = this.state.currentSettings.days.map(day => {
+            let uris = [...Array(this.state.currentSettings.days + 1).keys()].slice(1).map(day => {
                 let day_query = "start_time=" + (day * -this.DAY) + "&end_time=" + ((day - 1) * -this.DAY)
                 let new_keys = keys.filter(x => x != "days")
                 let new_vals = new_keys.map(x => this.state.currentSettings[x])

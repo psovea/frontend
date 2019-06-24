@@ -6,6 +6,7 @@
  */
 
 import React, { Component } from "react"
+import {mergeAll} from "ramda"
 import { Responsive, WidthProvider } from "react-grid-layout"
 import BarChart from "../Graphs/BarChart"
 import DoughnutChart from "../Graphs/DoughnutChart"
@@ -64,8 +65,8 @@ class Grid extends Component {
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={86400} max={604800} defaultValue={86400} 
-                                               marks={{ 86400: "1 dag", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
+                                (f) => <Slider onChange={f} min={5} max={21} defaultValue={7} 
+                                               marks={ mergeAll([...Array(22).keys()].filter(x => x >= 5).map(i => ({[i]: i}))) } //{{ 5: "5 dagen", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
                                                step={null} key='slider'/>,
 
                                 (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='searchTransport'
@@ -75,11 +76,11 @@ class Grid extends Component {
                                 />
                             ]}
                             defaultSettings={{
-                                "days": [1,2,3,4,5,6,7]
+                                "days": 7
                             }}
-                            names={{ 0: "period" }}
+                            names={{ 0: "days" }}
                             addSetting={this.updateState.bind(this)}
-                            settingsTitles={["Periode", "Vervoersmiddel", "Lijn"]}
+                            settingsTitles={["Aantal Dagen", "Vervoersmiddel", "Lijn"]}
                         />   
                     </div>
 
