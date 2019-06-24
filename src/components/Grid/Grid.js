@@ -26,7 +26,7 @@ import 'rc-slider'
 import 'rc-slider/assets/index.css'
 import Searchbar from "../Searchbar/Searchbar";
 
-import { replace } from 'ramda'
+// import { replace } from 'ramda'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
@@ -75,10 +75,10 @@ class Grid extends Component {
                                                marks={{ 86400: "1 dag", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
                                                step={null} key='slider'/>,
 
-                                (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='searchTransport'
+                                (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='search-transport'
                                 />,
 
-                                (f) => <Searchbar updater={f} endpoint={"get-lines"} params={this.state.bar1} multipleOptions={false} placeholderText={"lijn"} key='searchLine' filterFunc={(item) => `${item.public_id}: ${item.line_name}`}
+                                (f) => <Searchbar updater={f} endpoint={"get-lines"} params={this.state.bar1} multipleOptions={false} placeholderText={"lijn"} key='search-line' filterFunc={(item) => `${item.public_id}: ${item.line_name}`}
                                 />
                             ]}
                             defaultSettings={{
@@ -120,6 +120,7 @@ class Grid extends Component {
                             ]}
                             names={{ 0: "slider" }}
                             settingsTitles={["Periode"]}
+                            addSetting={this.updateState.bind(this)}
                             defaultSettings={{
                                 "return_filter[]": ["stop_end"],
                                 "transport_type[]": "",
@@ -163,75 +164,58 @@ class Grid extends Component {
 
                     </div>
 
-                    <div key="datatable1" data-grid={{ x: 9, y: 4, w: 3, h: 3 }}>
+                    <div key="datatable-stops" data-grid={{ x: 0, y: 5, w: 6, h: 3 }}>
                         <Widget
                             component={<DataTable
-                                headers={["Nr", "Stadsdeel", "Stop", "Vervoerstype", "Vertraging"]}
+                                headers={["Nr", "Stadsdeel", "Halte", "Vertraging"]}
                                 values={[]}
                                 top={10}
+                                order={["district", "stop_end"]}
                             />}
                             title="Top vertragingen per halte"
                             componentId="table"
                             settings={[
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
-                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
+                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
+                                (f) => <Searchbar updater={f} options={["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"]} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
                             ]}
+                            addSetting={this.updateState.bind(this)}
                             defaultSettings={{
-                                "return_filter[]": ["district", "transport_type", "stop_end"],
+                                "return_filter[]": ["district", "stop_end"],
                                 "transport_type[]": "",
+                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
                                 "period": 86400,
                                 "top": 10}}
-                            names={{ 0: "top", 1: "period"}}
-                            settingsTitles={["Aantal topvertragingen"], ["Periode"]}
+                            names={{ 0: "top", 1: "period", 2: "district[]"}}
+                            settingsTitles={["Aantal vertragingen", "Periode", "Filter op stadsdeel"]}
                         />
                     </div>
 
-                    <div key="datatable2" data-grid={{ x: 0, y: 5, w: 3, h: 3 }}>
+                    <div key="datatable-lines" data-grid={{ x: 6, y: 5, w: 6, h: 3 }}>
                         <Widget
                             component={<DataTable
-                                headers={["Nr", "Lijn", "Stop", "Vervoerstype", "Vertraging"]}
+                                headers={["Nr", "Lijn", "Stadsdeel", "Halte", "Transporttype", "Vertraging"]}
                                 values={[]}
                                 top={10}
+                                order={["line_number", "district", "stop_end", "transport_type"]}
                             />}
                             title="Top vertragingen per lijn"
                             componentId="table"
                             settings={[
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
-                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
+                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
+                                (f) => <Searchbar updater={f} options={["TRAM", "BUS", "METRO"]} multipleOptions={true} placeholderText={"transporttype"} key="transport-type" />,
+                                (f) => <Searchbar updater={f} options={["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"]} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
                             ]}
                             defaultSettings={{
-                                "return_filter[]": ["line_number", "transport_type", "stop_end"],
+                                "return_filter[]": ["line_number", "transport_type", "district", "stop_end"],
                                 "transport_type[]": "",
+                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
                                 "period": 86400,
                                 "top": 10}}
-                            names={{ 0: "top", 1: "period" }}
-                            settingsTitles={["Aantal topvertragingen"], ["Periode"]}
-                        />
-                    </div>
-
-                    <div key="datatable3" data-grid={{ x: 3, y: 5, w: 4, h: 3 }}>
-                        <Widget
-                            component={<DataTable
-                                headers={["Nr", "Stadsdeel", "Lijn Nr", "vervoerstype", "Vertraging"]}
-                                values={[]}
-                                top={10}
-                            />}
-                            title="Vertraging per Stadsdeel"
-                            componentId="table"
-                            settings={[
-                                (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
-                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
-                                (f) => <Searchbar updater={f} options={["Centrum", "Noord", "Zuid", "West", "Westpoort", "Nieuw-West", "Zuidoost", "Oost"]} multipleOptions={false} placeholderText={"stadsdeel"} key='searchDistrict'/>
-                            ]}
-                            defaultSettings={{
-                                "return_filter[]": ["line_number", "district", "transport_type"],
-                                "transport_type[]": "",
-                                "district[]": ["Centrum"],
-                                "period": 86400,
-                                "top": 25}}
-                            names={{ 0: "top",  1: "period", 2: "district[]"}}
                             addSetting={this.updateState.bind(this)}
-                            settingsTitles={["Aantal top vertragingen"], ["Periode"], ["Zoeken op stadsdeel"]}
+                            names={{ 0: "top", 1: "period", 2: "transport_type[]", 3: "district[]" }}
+                            settingsTitles={["Aantal topvertragingen", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
                         />
                     </div>
 
