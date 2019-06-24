@@ -24,13 +24,13 @@ class BarChart extends React.Component {
     makeData() {
         if (!this.state.data) { return [] }
 
-        var labelArray = this.state.data.map(item => (item['metric']['district']));
-        var dataArray = this.state.data.map(item => Object.values(item['value'])[1]);
+        var labelArray = this.state.data.map((x, i) => (i + 1) + " dagen").reverse()
+        var dataArray = this.state.data.map(item => Math.round(item[0]['value'][1] / 3600)).reverse()
         let data = {
             labels: labelArray,
             datasets: [{
                 data: dataArray,
-                label: 'Vertraging',
+                label: 'Vertraging (in uren)',
                 backgroundColor: 'rgba(255,99,132,0.2)',
                 borderColor: 'rgba(255,99,132,1)',
                 borderWidth: 1,

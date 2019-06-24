@@ -22,7 +22,7 @@ class DataTable extends React.Component {
     }
 
     update(newData) {
-        this.setState({values: newData})
+        this.setState({values: newData[0]})
     }
 
     formatTime(item) {
