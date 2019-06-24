@@ -10,6 +10,7 @@ import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css';
+import Missing from '../Missing/Missing';
 
 class Maps extends React.Component {
     constructor() {
@@ -54,11 +55,14 @@ class Maps extends React.Component {
         return this.state != nextState
     }
 
+    update(newData) {
+        if (newData) {
+            this.setState({heatmapdata: newData});
+        }
+    }
+
     componentDidMount() {
-        // Stop data
         this.fetchJSON(`http://18.224.29.151:5000/get-stops?town=amsterdam`, "stops")
-        // Heatmap data
-        this.fetchJSON('http://18.224.29.151:5000/get_delays?period=1d&return_filter[]=stop_end&format=heatmap&district[]=Centrum&district[]=Nieuw-West&district[]=Zuidoost&district[]=Noord&district[]=Oost&district[]=West&district[]=Westpoort&district[]=Zuid', 'heatmapdata')
     }
 
     createMarkers() {
@@ -75,43 +79,43 @@ class Maps extends React.Component {
         })
     }
 
-    update(newState) {
-        this.setState(newState)
-    }
-
     render() {
-        return (
-            <Map
-                ref={(ref) => { this.map = ref; }}
-                center={this.state.center}
-                zoom={this.state.zoom}
-                bounds={this.state.bounds}
-                maxBounds={this.state.bounds}
-                boundsOptions={{ padding: [50, 50] }}
-                maxZoom={16}
-                minZoom={11}
-            >
-                <HeatmapLayer
-                    fitBoundsOnLoad
-                    fitBoundsOnUpdate
-                    points={this.state.heatmapdata}
-                    longitudeExtractor={m => m[1]}
-                    latitudeExtractor={m => m[0]}
-                    intensityExtractor={m => parseFloat(m[2])}
-                />
-                <TileLayer
-                    attribution='&copy; PSOVEA'
-                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                />
-                <MarkerClusterGroup
-                    spiderLegPolylineOptions={{
-                        weight: 0,
-                        opacity: 0,
-                    }}>
-                    {this.createMarkers()}
-                </MarkerClusterGroup>
-            </Map>
-        )
+        if (this.state.heatmapdata.length != 0) {
+            return (
+                <Map
+                    ref={(ref) => { this.map = ref; }}
+                    center={this.state.center}
+                    zoom={this.state.zoom}
+                    bounds={this.state.bounds}
+                    maxBounds={this.state.bounds}
+                    boundsOptions={{ padding: [50, 50] }}
+                    maxZoom={16}
+                    minZoom={11}
+                >
+                    <HeatmapLayer
+                        fitBoundsOnLoad
+                        fitBoundsOnUpdate
+                        points={this.state.heatmapdata}
+                        longitudeExtractor={m => m[1]}
+                        latitudeExtractor={m => m[0]}
+                        intensityExtractor={m => parseFloat(m[2])}
+                    />
+                    <TileLayer
+                        attribution='&copy; PSOVEA'
+                        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    />
+                    <MarkerClusterGroup
+                        spiderLegPolylineOptions={{
+                            weight: 0,
+                            opacity: 0,
+                        }}>
+                        {this.createMarkers()}
+                    </MarkerClusterGroup>
+                </Map>
+            )
+        } else {
+            return <Missing/>
+        }
     }
 }
 
