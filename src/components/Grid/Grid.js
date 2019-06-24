@@ -64,7 +64,7 @@ class Grid extends Component {
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={86400} max={604800} defaultValue={86400} 
+                                (f) => <Slider onChange={f} min={86400} max={604800} defaultValue={86400}
                                                marks={{ 86400: "1 dag", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
                                                step={null} key='slider'/>,
 
@@ -81,7 +81,7 @@ class Grid extends Component {
                             names={{ 0: "period" }}
                             addSetting={this.updateState.bind(this)}
                             settingsTitles={["Periode", "Vervoersmiddel", "Lijn"]}
-                        />   
+                        />
                     </div>
 
                     <div key="barchart2" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
@@ -90,9 +90,9 @@ class Grid extends Component {
                             title="Vertraging per stadsdeel"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 week", 40: "3 weken", 60: "5 week", 100: "10 weken" }} step={null} key='slider1' />
+                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
                             ]}
-                            names={{ 0: "dagen", 1: "weken" }}
+                            names={{ 0: "period" }}
                             defaultSettings={{
                                 "return_filter[]": ["district"],
                                 "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
@@ -109,18 +109,7 @@ class Grid extends Component {
                             title="Vertraging in regio Amsterdam"
                             componentId="map"
                             settings={[
-                                (f) => <Slider
-                                    onChange={f}
-                                    min={20}
-                                    defaultValue={20}
-                                    marks={{
-                                        25: "Afgelopen Uur",
-                                        50: "Afgelopen Dag",
-                                        75: "Afgelopen Week",
-                                        100: "Afgelopen Maand"
-                                    }}
-                                    step={null}
-                                    key='slider5' />
+                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
                             ]}
                             names={{ 0: "slider" }}
                             settingsTitles={["Periode"]}
@@ -139,8 +128,10 @@ class Grid extends Component {
                             component={<Delays />}
                             title="Live vertraging"
                             componentId="feed"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider' />]}
-                            names={{ 0: "dagen" }}
+                            settings={[
+                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
+                            ]}
+                            names={{ 0: "period" }}
                             settingsTitles={["Periode"]}
                         />
                     </div>
@@ -150,8 +141,11 @@ class Grid extends Component {
                             component={<DoughnutChart metric="transport_type" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000']} />}
                             title="Vertraging per voertuig"
                             componentId="bar"
-                            settings={[(f) => <Slider onChange={f} min={20} defaultValue={20} marks={{ 20: "1 dag", 40: "3 dagen", 60: "1 week", 100: "2 weken" }} step={null} key='slider4' />]}
-                            names={{ 0: "dagen", 1: "weken" }}
+                            settings={[
+                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
+
+                            ]}
+                            names={{ 0: "period" }}
                             defaultSettings={{
                                 "return_filter[]": ["transport_type"],
                                 "transport_type[]": "",
@@ -172,15 +166,16 @@ class Grid extends Component {
                             title="Top vertragingen per halte"
                             componentId="table"
                             settings={[
-                              (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
+                                (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
+                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
                             ]}
                             defaultSettings={{
                                 "return_filter[]": ["district", "transport_type", "stop_end"],
                                 "transport_type[]": "",
                                 "period": 86400,
                                 "top": 10}}
-                            names={{ 0: "top" }}
-                            settingsTitles={["Aantal topvertragingen"]}
+                            names={{ 0: "top", 1: "period"}}
+                            settingsTitles={["Aantal topvertragingen"], ["Periode"]}
                         />
                     </div>
 
@@ -194,15 +189,16 @@ class Grid extends Component {
                             title="Top vertragingen per halte"
                             componentId="table"
                             settings={[
-                              (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
+                                (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
+                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
                             ]}
                             defaultSettings={{
                                 "return_filter[]": ["line_number", "transport_type", "stop_end"],
                                 "transport_type[]": "",
                                 "period": 86400,
                                 "top": 10}}
-                            names={{ 0: "top" }}
-                            settingsTitles={["Aantal topvertragingen"]}
+                            names={{ 0: "top", 1: "period" }}
+                            settingsTitles={["Aantal topvertragingen"], ["Periode"]}
                         />
                     </div>
 
@@ -216,8 +212,9 @@ class Grid extends Component {
                             title="Vertraging per Stadsdeel"
                             componentId="table"
                             settings={[
-                              (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
-                              (f) => <Searchbar updater={f} options={["Centrum", "Noord", "Zuid", "West", "Westpoort", "Nieuw-West", "Zuidoost", "Oost"]} multipleOptions={false} placeholderText={"stadsdeel"} key='searchDistrict'/>
+                                (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
+                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
+                                (f) => <Searchbar updater={f} options={["Centrum", "Noord", "Zuid", "West", "Westpoort", "Nieuw-West", "Zuidoost", "Oost"]} multipleOptions={false} placeholderText={"stadsdeel"} key='searchDistrict'/>
                             ]}
                             defaultSettings={{
                                 "return_filter[]": ["line_number", "district", "transport_type"],
@@ -225,9 +222,9 @@ class Grid extends Component {
                                 "district[]": ["Centrum"],
                                 "period": 86400,
                                 "top": 25}}
-                            names={{ 0: "top", 1: "district[]" }}
+                            names={{ 0: "top",  1: "period", 2: "district[]"}}
                             addSetting={this.updateState.bind(this)}
-                            settingsTitles={["Aantal top vertragingen"], ["Zoeken op stadsdeel"]}
+                            settingsTitles={["Aantal top vertragingen"], ["Periode"], ["Zoeken op stadsdeel"]}
                         />
                     </div>
 
