@@ -12,7 +12,7 @@ class Widget extends React.Component {
             loading: true
         }
 
-        this.url="18.224.29.151:5000/get_delays"
+        this.url = "18.224.29.151:5000/get_delays"
 
         this.compRef = React.createRef()
         this.component = props.component
@@ -36,30 +36,30 @@ class Widget extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({currentSettings: this.state.defaultSettings}, this.fetchData)
+        this.setState({ currentSettings: this.state.defaultSettings }, this.fetchData)
     }
 
     handleSettingsChange(i, v) {
         var name = this.props.names[i]
-        this.setState({newSettings: {...this.state.newSettings, [name]: v}})
+        this.setState({ newSettings: { ...this.state.newSettings, [name]: v } })
 
-        this.props.addSetting(this.props.componentId, {...this.state.newSettings, [name]: v})
+        this.props.addSetting(this.props.componentId, { ...this.state.newSettings, [name]: v })
     }
 
     makeSettings = () => {
         return this.props.settings.map((setting, i) => {
             return (
-            <div className="dashboard-widget-content-settings-container-content" key={`setting-${i}`}>
-                <p className="dashboard-widget-content-settings-container-content-title">{this.props.settingsTitles[i]}</p>
-                <hr />
-                {setting((v) => this.handleSettingsChange(i, v))}
-            </div>
+                <div className="dashboard-widget-content-settings-container-content" key={`setting-${i}`}>
+                    <p className="dashboard-widget-content-settings-container-content-title">{this.props.settingsTitles[i]}</p>
+                    <hr />
+                    {setting((v) => this.handleSettingsChange(i, v))}
+                </div>
             )
         })
     }
 
     applySettings = () => {
-        this.setState({currentSettings: {...this.state.currentSettings, ...this.state.newSettings}, showSettings: false}, () => {
+        this.setState({ currentSettings: { ...this.state.currentSettings, ...this.state.newSettings }, showSettings: false }, () => {
             this.fetchData()
         })
     }
@@ -83,7 +83,7 @@ class Widget extends React.Component {
     getCurrentSettings = () => this.state.currentSettings
 
     defaultSettings = () => {
-        this.setState({currentSettings: this.state.defaultSettings})
+        this.setState({ currentSettings: this.state.defaultSettings })
     }
 
     makeComponent = (visibility, id) => {
@@ -91,9 +91,8 @@ class Widget extends React.Component {
         if (this.state.loading) {
             return (
                 <div>
-                    {}
-                    <div className={"dashboard-widget-content none"} id={id} style={{display: 'none'}}>
-                        { React.cloneElement(this.component, {ref: this.compRef}) }
+                    <div className={"dashboard-widget-content none"} id={id} style={{ display: 'none' }}>
+                        {React.cloneElement(this.component, { ref: this.compRef })}
                     </div>
                     {this.loader()}
                 </div>
@@ -102,7 +101,7 @@ class Widget extends React.Component {
         // When the data is fetched we show the widget normally
         return (
             <div className={"dashboard-widget-content " + visibility} id={id}>
-                { React.cloneElement(this.component, {ref: this.compRef}) }
+                {React.cloneElement(this.component, { ref: this.compRef })}
             </div>
         )
     }
@@ -170,7 +169,7 @@ class Widget extends React.Component {
                         <p className="dashboard-widget-header-title">{this.props.title}</p>
                     </div>
 
-                    <div className="dashboard-widget-header-settings-wrapper col-2" onClick={() => this.setState({showSettings: !this.state.showSettings})}>
+                    <div className="dashboard-widget-header-settings-wrapper col-2" onClick={() => this.setState({ showSettings: !this.state.showSettings })}>
                         <i className="dashboard-widget-header-settings-wrapper-icon fa fa-sliders" aria-hidden="true" />
                     </div>
                 </div>

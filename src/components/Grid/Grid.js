@@ -102,10 +102,11 @@ class Grid extends Component {
                             names={{ 0: "period" }}
                             defaultSettings={{
                                 "return_filter[]": ["district"],
-                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
+                                "district[]": ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"],
                                 "transport_type[]": "",
                                 "period": 86400,
-                                "top": 8}}
+                                "top": 8
+                            }}
                             settingsTitles={["Periode"]}
                         />
                     </div>
@@ -123,10 +124,10 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["stop_end"],
                                 "transport_type[]": "",
-                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
+                                "district[]": ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"],
                                 "format": "heatmap",
                                 "period": 86400,
-                                "top": 8}}
+                            }}
                         />
                     </div>
 
@@ -157,7 +158,8 @@ class Grid extends Component {
                                 "return_filter[]": ["transport_type"],
                                 "transport_type[]": "",
                                 "period": 86400,
-                                "top": 8}}
+                                "top": 8
+                            }}
                             settingsTitles={["Periode"]}
                         />
 
