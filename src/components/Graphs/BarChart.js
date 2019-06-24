@@ -18,7 +18,6 @@ class BarChart extends React.Component {
     }
 
     update(newData) {
-        console.log("newdata ", newData)
         this.setState({data: newData})
     }
 
