@@ -12,10 +12,11 @@ class Widget extends React.Component {
             loading: true
         }
 
-        this.url="18.224.29.151:5000/get_delays"
+        this.url = "18.224.29.151:5000/get_delays"
 
         this.compRef = React.createRef()
         this.component = props.component
+        this.DAY = 86400
 
         this.handleSettingsChange = this.handleSettingsChange.bind(this)
         this.applySettings = this.applySettings.bind(this)
@@ -35,30 +36,30 @@ class Widget extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({currentSettings: this.state.defaultSettings}, this.fetchData)
+        this.setState({ currentSettings: this.state.defaultSettings }, this.fetchData)
     }
 
     handleSettingsChange(i, v) {
         var name = this.props.names[i]
-        this.setState({newSettings: {...this.state.newSettings, [name]: v}})
+        this.setState({ newSettings: { ...this.state.newSettings, [name]: v } })
 
-        this.props.addSetting(this.props.componentId, {...this.state.newSettings, [name]: v})
+        this.props.addSetting(this.props.componentId, { ...this.state.newSettings, [name]: v })
     }
 
     makeSettings = () => {
         return this.props.settings.map((setting, i) => {
             return (
-            <div className="dashboard-widget-content-settings-container-content" key={`setting-${i}`}>
-                <p className="dashboard-widget-content-settings-container-content-title">{this.props.settingsTitles[i]}</p>
-                <hr />
-                {setting((v) => this.handleSettingsChange(i, v))}
-            </div>
+                <div className="dashboard-widget-content-settings-container-content" key={`setting-${i}`}>
+                    <p className="dashboard-widget-content-settings-container-content-title">{this.props.settingsTitles[i]}</p>
+                    <hr />
+                    {setting((v) => this.handleSettingsChange(i, v))}
+                </div>
             )
         })
     }
 
     applySettings = () => {
-        this.setState({currentSettings: {...this.state.currentSettings, ...this.state.newSettings}, showSettings: false}, () => {
+        this.setState({ currentSettings: { ...this.state.currentSettings, ...this.state.newSettings }, showSettings: false }, () => {
             this.fetchData()
         })
     }
@@ -82,7 +83,7 @@ class Widget extends React.Component {
     getCurrentSettings = () => this.state.currentSettings
 
     defaultSettings = () => {
-        this.setState({currentSettings: this.state.defaultSettings})
+        this.setState({ currentSettings: this.state.defaultSettings })
     }
 
     makeComponent = (visibility, id) => {
@@ -90,9 +91,8 @@ class Widget extends React.Component {
         if (this.state.loading) {
             return (
                 <div>
-                    {}
-                    <div className={"dashboard-widget-content none"} id={id} style={{display: 'none'}}>
-                        { React.cloneElement(this.component, {ref: this.compRef}) }
+                    <div className={"dashboard-widget-content none"} id={id} style={{ display: 'none' }}>
+                        {React.cloneElement(this.component, { ref: this.compRef })}
                     </div>
                     {this.loader()}
                 </div>
@@ -101,7 +101,7 @@ class Widget extends React.Component {
         // When the data is fetched we show the widget normally
         return (
             <div className={"dashboard-widget-content " + visibility} id={id}>
-                { React.cloneElement(this.component, {ref: this.compRef}) }
+                {React.cloneElement(this.component, { ref: this.compRef })}
             </div>
         )
     }
@@ -112,37 +112,52 @@ class Widget extends React.Component {
         let keys = Object.keys(this.state.currentSettings)
         let vals = Object.values(this.state.currentSettings)
 
-
         let zipWith = (f, xs, ys) => xs.map((n,i) => {
             if (n == "return_filter[]" || n == "district[]") {
                 return ys[i].map(x => n + "=" + x).join("&")
-            } else if (n == "period") {
+            }  else if (n == "period") {
                 return n + "=" + ys[i].toString() + "s"
             }
 
             return f(n, ys[i])
         })
 
-        return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
+        if (keys.includes("days")) {
+            let uris = [...Array(this.state.currentSettings.days + 1).keys()].slice(1).map(day => {
+                let day_query = "start_time=" + (day * -this.DAY) + "&end_time=" + ((day - 1) * -this.DAY)
+                let new_keys = keys.filter(x => x != "days")
+                let new_vals = new_keys.map(x => this.state.currentSettings[x])
+                
+                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + day_query
+            })
+            
+            return uris.some(x => x == "") ? null : uris
+        }
+
+        let uri = '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
+
+        return uri == "" ? null : [uri]
+    }
+
+    fetchSingle = (uri) => {
+        let url = 'https://cors-anywhere.herokuapp.com/' + this.url + uri
+        return fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(res => res.json())
     }
 
     fetchData = () => {
-        let uri = this.createUriFromSettings()
-
-        if (uri == "") { this.setState({loading: false}); return }
+        let uris = this.createUriFromSettings()
+        
+        if (!uris) { this.setState({loading: false}); return }
 
         this.setState({loading: true}, () => {
-            let url = 'https://cors-anywhere.herokuapp.com/' + this.url + uri
-
-            fetch(url, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(res => { return res.json()})
-            .then(json => { this.setState({loading: false}, () => this.compRef.current.update(json)) })
-            .catch(e => console.log(e))
+            Promise.all(uris.map(this.fetchSingle))
+                .then(json => { this.setState({loading: false}, () => this.compRef.current.update(json)) })
+                .catch(e => console.log(e))
         });
     }
 
@@ -154,7 +169,7 @@ class Widget extends React.Component {
                         <p className="dashboard-widget-header-title">{this.props.title}</p>
                     </div>
 
-                    <div className="dashboard-widget-header-settings-wrapper col-2" onClick={() => this.setState({showSettings: !this.state.showSettings})}>
+                    <div className="dashboard-widget-header-settings-wrapper col-2" onClick={() => this.setState({ showSettings: !this.state.showSettings })}>
                         <i className="dashboard-widget-header-settings-wrapper-icon fa fa-sliders" aria-hidden="true" />
                     </div>
                 </div>

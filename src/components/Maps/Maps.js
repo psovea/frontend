@@ -29,10 +29,6 @@ class Maps extends React.Component {
         }
     }
 
-    update(newState) {
-        this.setState(newState)
-    }
-
     fetchJSON(url, value) {
         // Hacky (wrong) way of handling CORS.
         url = 'https://cors-anywhere.herokuapp.com/' + url
@@ -57,7 +53,7 @@ class Maps extends React.Component {
 
     update(newData) {
         if (newData) {
-            this.setState({heatmapdata: newData});
+            this.setState({heatmapdata: newData[0]});
         }
     }
 
@@ -72,7 +68,7 @@ class Maps extends React.Component {
                     key={`marker-${i}`}
                     position={[stop.lat, stop.lon]} >
                     <Tooltip>
-                        {[stop.name]}
+                        {[stop.stop_name]}
                     </Tooltip>
                 </Marker >
             )
@@ -114,7 +110,7 @@ class Maps extends React.Component {
                 </Map>
             )
         } else {
-            return <Missing/>
+            return <Missing />
         }
     }
 }

@@ -6,6 +6,7 @@
  */
 
 import React, { Component } from "react"
+import {mergeAll} from "ramda"
 import { Responsive, WidthProvider } from "react-grid-layout"
 import BarChart from "../Graphs/BarChart"
 import DoughnutChart from "../Graphs/DoughnutChart"
@@ -71,8 +72,8 @@ class Grid extends Component {
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={86400} max={604800} defaultValue={86400}
-                                               marks={{ 86400: "1 dag", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
+                                (f) => <Slider onChange={f} min={5} max={21} defaultValue={7} 
+                                               marks={ mergeAll([...Array(22).keys()].filter(x => x >= 5).map(i => ({[i]: i}))) } //{{ 5: "5 dagen", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
                                                step={null} key='slider'/>,
 
                                 (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='search-transport'
@@ -82,13 +83,12 @@ class Grid extends Component {
                                 />
                             ]}
                             defaultSettings={{
-                                "return_filter[]": ["district"],
-                                "transport_type[]": "",
-                                "period": 86400}}
-                            names={{ 0: "period" }}
+                                "days": 7
+                            }}
+                            names={{ 0: "days" }}
                             addSetting={this.updateState.bind(this)}
-                            settingsTitles={["Periode", "Vervoersmiddel", "Lijn"]}
-                        />
+                            settingsTitles={["Aantal Dagen", "Vervoersmiddel", "Lijn"]}
+                        />   
                     </div>
 
                     <div key="barchart2" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
@@ -102,10 +102,11 @@ class Grid extends Component {
                             names={{ 0: "period" }}
                             defaultSettings={{
                                 "return_filter[]": ["district"],
-                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
+                                "district[]": ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"],
                                 "transport_type[]": "",
                                 "period": 86400,
-                                "top": 8}}
+                                "top": 8
+                            }}
                             settingsTitles={["Periode"]}
                         />
                     </div>
@@ -124,10 +125,10 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["stop_end"],
                                 "transport_type[]": "",
-                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
+                                "district[]": ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"],
                                 "format": "heatmap",
                                 "period": 86400,
-                                "top": 8}}
+                            }}
                         />
                     </div>
 
@@ -158,7 +159,8 @@ class Grid extends Component {
                                 "return_filter[]": ["transport_type"],
                                 "transport_type[]": "",
                                 "period": 86400,
-                                "top": 8}}
+                                "top": 8
+                            }}
                             settingsTitles={["Periode"]}
                         />
 

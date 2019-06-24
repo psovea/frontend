@@ -21,7 +21,7 @@ class DoughnutChart extends React.Component {
     }
 
     update(newData) {
-        this.setState({delays: newData});
+        this.setState({delays: newData[0]});
     }
 
     makeData() {
