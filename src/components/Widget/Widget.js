@@ -69,10 +69,10 @@ class Widget extends React.Component {
     loader = () => {
         return (
             <div className={"loader-widget"}>
-                <Loader 
+                <Loader
                     type="Oval"
                     color="red"
-                    height="100"	
+                    height="100"
                     width="100"
                 />
             </div>
@@ -91,7 +91,7 @@ class Widget extends React.Component {
         if (this.state.loading) {
             return (
                 <div>
-                    {/* We need to clone the element, but we don't display it, Not sure what this does, probably a better solution than this */}
+                    {}
                     <div className={"dashboard-widget-content none"} id={id} style={{display: 'none'}}>
                         { React.cloneElement(this.component, {ref: this.compRef}) }
                     </div>
