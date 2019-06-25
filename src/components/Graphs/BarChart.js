@@ -22,7 +22,7 @@ class BarChart extends React.Component {
     }
 
     makeData() {
-        if (!this.state.data) { return [] }
+        if (this.state.data.length == 0) { return [] }
 
         var labelArray = this.state.data.map((x, i) => (i + 1) + " dagen").reverse()
         var dataArray = this.state.data.map(item => Math.round(item[0]['value'][1] / 3600)).reverse()
@@ -43,7 +43,7 @@ class BarChart extends React.Component {
 
     render() {
         return (
-            this.state.data == null 
+            this.state.data.length == 0
                 ? <Missing/>
                 : <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
         )
