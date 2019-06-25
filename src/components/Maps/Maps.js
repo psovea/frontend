@@ -80,13 +80,9 @@ class Maps extends React.Component {
     }
 
     update(newData, newSettings) {
-        console.log("newsettings: ", newSettings)
         if (newData) {
             this.setState({ heatmapdata: newData[0], currentSettings: newSettings }, () => this.fetchData());
-        } else {
-            this.setState({ currentSettings: newSettings }, () => this.fetchData());
         }
-
     }
 
     createMarkers() {
