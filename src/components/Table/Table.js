@@ -6,9 +6,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Missing from '../Missing/Missing'
 import ReactTable from 'react-table'
-
 import * as R from 'ramda'
-
 
 import "./Table.css"
 import "react-table/react-table.css"
@@ -70,10 +68,10 @@ class DataTable extends React.Component {
     }
 
     formatTime(item) {
-        let minutes = Math.floor(item / 60).toString()
-        let seconds = (item % 60).toString()
+        const minutes = Math.floor(item / 60).toString()
+        const seconds = Math.round(item % 60).toString()
 
-        return (minutes >= 1 ? minutes + " minuten en " : "") + seconds +  " seconden"
+        return (minutes >= 1 ? minutes + " minuten en " : "") + seconds + " seconden"
       }
 
     render() {
@@ -81,7 +79,10 @@ class DataTable extends React.Component {
             return <Missing/>
         }
 
+        /* Creates the table header and binds the rows to the data in the columns
+         * using the accessor. Also manually sets width for first row. */
         const columns = this.state.headers.map(h => ({Header: h, accessor: h}))
+        columns[0] = {maxWidth: 100, ...columns[0]}
 
         return <ReactTable 
               className="-striped -highlight"
