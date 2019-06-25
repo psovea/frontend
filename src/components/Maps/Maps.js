@@ -11,6 +11,8 @@ import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css';
 import Missing from '../Missing/Missing';
+import Control from 'react-leaflet-control';
+import legenda from './heatmap-legenda.png'
 
 class Maps extends React.Component {
     constructor() {
@@ -53,7 +55,7 @@ class Maps extends React.Component {
 
     update(newData) {
         if (newData) {
-            this.setState({heatmapdata: newData[0]});
+            this.setState({ heatmapdata: newData[0] });
         }
     }
 
@@ -107,6 +109,9 @@ class Maps extends React.Component {
                         }}>
                         {this.createMarkers()}
                     </MarkerClusterGroup>
+                    <Control position="topleft" >
+                        <img src={legenda} height="300px" />
+                    </Control>
                 </Map>
             )
         } else {
