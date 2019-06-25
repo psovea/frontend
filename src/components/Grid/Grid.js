@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from "react"
-import {mergeAll} from "ramda"
+import { mergeAll } from "ramda"
 import { Responsive, WidthProvider } from "react-grid-layout"
 import BarChart from "../Graphs/BarChart"
 import DoughnutChart from "../Graphs/DoughnutChart"
@@ -30,7 +30,7 @@ import Searchbar from "../Searchbar/Searchbar";
 // import { replace } from 'ramda'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
-
+const DISTRICTS = ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"]
 
 /* This defines the grid; here we add other components (lets call
  * them widgets). Unfortunately we have to add div's directly into
@@ -73,8 +73,8 @@ class Grid extends Component {
                             componentId="bar"
                             settings={[
                                 (f) => <Slider onChange={f} min={5} max={21} defaultValue={7}
-                                               marks={ mergeAll([...Array(22).keys()].filter(x => x >= 5).map(i => ({[i]: i}))) } //{{ 5: "5 dagen", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
-                                               step={null} key='slider'/>,
+                                    marks={mergeAll([...Array(22).keys()].filter(x => x >= 5).map(i => ({ [i]: i })))} //{{ 5: "5 dagen", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
+                                    step={null} key='slider' />,
 
                                 (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='search-transport'
                                 />,
@@ -105,7 +105,7 @@ class Grid extends Component {
                             names={{ 0: "period" }}
                             defaultSettings={{
                                 "return_filter[]": ["district"],
-                                "district[]": ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"],
+                                "district[]": DISTRICTS,
                                 "transport_type[]": [""],
                                 "period": 86400,
                                 "top": 8
@@ -120,15 +120,40 @@ class Grid extends Component {
                             title="Vertraging in regio Amsterdam"
                             componentId="map"
                             settings={[
-                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
+                                (f) => <Slider
+                                    onChange={f}
+                                    min={86400}
+                                    max={1209600}
+                                    defaultValue={86400}
+                                    marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }}
+                                    step={null}
+                                    key='slider1'
+                                />,
+                                (f) => <Searchbar
+                                    updater={f}
+                                    options={["TRAM", "BUS", "METRO"]}
+                                    multipleOptions={true}
+                                    placeholderText={"transporttype"}
+                                    key="transport-type"
+                                />,
+                                (f) => <Searchbar
+                                    updater={f}
+                                    endpoint={"get-lines"}
+                                    params={this.state.map}
+                                    multipleOptions={true}
+                                    placeholderText={"lijn"}
+                                    key='search-line'
+                                    filterFunc={(item) => `${item.public_id}: ${item.line_name}`}
+                                />
                             ]}
-                            names={{ 0: "slider" }}
+                            names={{ 0: "period", 1: "transport_type[]", 2: "line_number[]" }}
                             settingsTitles={["Periode"]}
                             addSetting={this.updateState.bind(this)}
                             defaultSettings={{
                                 "return_filter[]": ["stop_end"],
+                                "district[]": DISTRICTS,
+                                "line_number[]": "",
                                 "transport_type[]": [""],
-                                "district[]": ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"],
                                 "format": "heatmap",
                                 "period": 86400,
                             }}
@@ -180,16 +205,17 @@ class Grid extends Component {
                             settings={[
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
                                 (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
-                                (f) => <Searchbar updater={f} options={["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"]} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
+                                (f) => <Searchbar updater={f} options={DISTRICTS} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
                             ]}
                             addSetting={this.updateState.bind(this)}
                             defaultSettings={{
                                 "return_filter[]": ["district", "stop_end"],
+                                "district[]": DISTRICTS,
                                 "transport_type[]": [""],
-                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
                                 "period": 86400,
-                                "top": 10}}
-                            names={{ 0: "top", 1: "period", 2: "district[]"}}
+                                "top": 10
+                            }}
+                            names={{ 0: "top", 1: "period", 2: "district[]" }}
                             settingsTitles={["Aantal vertragingen", "Periode", "Filter op stadsdeel"]}
                         />
                     </div>
@@ -206,14 +232,15 @@ class Grid extends Component {
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
                                 (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
                                 (f) => <Searchbar updater={f} options={["TRAM", "BUS", "METRO"]} multipleOptions={true} placeholderText={"transporttype"} key="transport-type" />,
-                                (f) => <Searchbar updater={f} options={["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"]} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
+                                (f) => <Searchbar updater={f} options={DISTRICTS} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
                             ]}
                             defaultSettings={{
                                 "return_filter[]": ["line_number", "transport_type", "district", "stop_end"],
+                                "district[]": DISTRICTS,
                                 "transport_type[]": [""],
-                                "district[]": ["Centrum","Nieuw-West","Zuidoost","Noord","Oost","West","Westpoort","Zuid"],
                                 "period": 86400,
-                                "top": 10}}
+                                "top": 10
+                            }}
                             addSetting={this.updateState.bind(this)}
                             names={{ 0: "top", 1: "period", 2: "transport_type[]", 3: "district[]" }}
                             settingsTitles={["Aantal topvertragingen", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
