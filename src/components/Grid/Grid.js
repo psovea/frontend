@@ -65,7 +65,7 @@ class Grid extends Component {
                     containerPadding={[25, 25]}
                     margin={[30, 30]}
                 >
-                    {
+                    
 
                     <div key="datatable1" data-grid={{ x: 9, y: 4, w: 3, h: 3 }}>
                         <Widget
@@ -111,7 +111,7 @@ class Grid extends Component {
                             names={{ 0: "top", 1: "period" }}
                             settingsTitles={["Aantal topvertragingen"], ["Periode"]}
                         />
-                    </div>}
+                    </div>
 
                 </ResponsiveGridLayout>
             </div>

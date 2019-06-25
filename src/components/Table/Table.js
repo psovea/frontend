@@ -20,8 +20,10 @@ class DataTable extends React.Component {
         }
     }
 
+
+
     update(newData) {
-        this.setState({values: newData})
+        this.setState({values: newData}, () => {console.log(newData)})
     }
 
     formatTime(item) {
@@ -38,6 +40,7 @@ class DataTable extends React.Component {
             return <Missing/>
         }
 
+        const columns = []
         this.state.headers.map(h => {
             columns.push({Header: h})
         })
