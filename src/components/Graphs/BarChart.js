@@ -8,7 +8,6 @@ import { Bar } from 'react-chartjs-2';
 import './Graphs.css';
 import Missing from '../Missing/Missing';
 
-
 class BarChart extends React.Component {
     constructor(props) {
         super(props);
@@ -18,22 +17,22 @@ class BarChart extends React.Component {
     }
 
     update(newData) {
-        this.setState({data: newData})
+        this.setState({data: newData.flat()})
     }
 
     getFormattedDate(daysAgo) {
-        var dayTime = new Date();
-        dayTime.setDate(dayTime.getDate() - daysAgo);
-        var day = dayTime.getDate();
-        var month = dayTime.getMonth() + 1;
-        return day + "/" + month;
+        var dayTime = new Date()
+        dayTime.setDate(dayTime.getDate() - daysAgo)
+        var day = dayTime.getDate()
+        var month = dayTime.getMonth() + 1
+        return `${day}/${month}`
     }
 
     makeData() {
+        if (this.state.data.length == 0) { return [] }
 
-        if (!this.state.data) { return [] }
         var labelArray = this.state.data.map((x, i) => this.getFormattedDate(i + 1)).reverse()
-        var dataArray = this.state.data.map(item => Math.round(item[0]['value'][1] / 3600)).reverse()
+        var dataArray = this.state.data.map(item => Math.round(item['value'][1] / 3600)).reverse()
         let data = {
             labels: labelArray,
             datasets: [{
