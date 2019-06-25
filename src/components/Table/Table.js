@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 import Missing from '../Missing/Missing'
 import ReactTable from 'react-table'
 
-
 import "./Table.css"
 import "react-table/react-table.css"
 
@@ -32,40 +31,20 @@ class DataTable extends React.Component {
         return (minutes >= 1 ? minutes + " minuten en " : "") + seconds +  " seconden"
       }
 
+    
+
     render() {
         if (this.state.values == null) {
             return <Missing/>
         }
-
-        return (
-            <table className="striped">
-                <tbody>
-                    <tr className="table-header-row">
-                        {this.state.headers.map(col => <th key={col} className="table-header-row-value">{col}</th>)}
-                    </tr>
-
-                    {
-                        this.state.values.map((row, i) => {
-                            let metric = row.metric
-                            let values = row.value
-
-                            return <tr className="table-row" key={i}>
-                                <td className="table-row-value" key={i}>{i}</td>
-                                {
-
-                                    Object.keys(metric).map(val => {
-                                        return <td className="table-row-value" key={metric[val]}>{metric[val]}</td>
-                                    })
-                                }
-
-                                <td className="table-row-value" key={values[1]}>{this.formatTime(parseInt(values[1]))}</td>
-                            </tr>
-                        })
-                    }
-
-                </tbody>
-            </table>
-      )
+        const columns = []
+        this.state.headers.map(h => {
+            columns.push({Header: h})
+        })
+        return <ReactTable
+              data={data}
+              columns={columns}
+        />
     }
 }
 

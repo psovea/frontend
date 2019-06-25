@@ -65,7 +65,7 @@ class Grid extends Component {
                     containerPadding={[25, 25]}
                     margin={[30, 30]}
                 >
-                    <div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
+                    {/* <div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
@@ -207,7 +207,7 @@ class Grid extends Component {
                             names={{ 0: "top", 1: "period" }}
                             settingsTitles={["Aantal topvertragingen"], ["Periode"]}
                         />
-                    </div>
+                    </div> */}
 
                     <div key="datatable3" data-grid={{ x: 3, y: 5, w: 4, h: 3 }}>
                         <Widget
