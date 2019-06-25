@@ -66,7 +66,7 @@ class Grid extends Component {
                     containerPadding={[25, 25]}
                     margin={[30, 30]}
                 >
-                    <div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
+                    <div key="barchart1" data-grid={{ x: 6, y: 3, w: 6, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
@@ -173,7 +173,7 @@ class Grid extends Component {
                         />
                     </div>
 
-                    <div key="barchart4" data-grid={{ x: 6, y: 3, w: 3, h: 2 }}>
+                    <div key="barchart4" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<DoughnutChart metric="transport_type" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000']} />}
                             title="Vertraging per voertuig"
