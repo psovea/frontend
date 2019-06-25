@@ -152,7 +152,7 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["stop_end"],
                                 "district[]": DISTRICTS,
-                                "line_number[]": "",
+                                "line_number[]": [""],
                                 "transport_type[]": [""],
                                 "format": "heatmap",
                                 "period": 86400,
