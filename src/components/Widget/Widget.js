@@ -137,13 +137,10 @@ class Widget extends React.Component {
                 let day_query = "start_time=" + (day * -this.DAY) + "&end_time=" + ((day - 1) * -this.DAY)
                 let new_keys = keys.filter(x => x != "days")
                 let new_vals = new_keys.map(x => this.state.currentSettings[x])
-                console.log(new_keys)
-                console.log(new_vals)
 
                 return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
             })
 
-            console.log(uris.some(x => x == "") ? null : uris)
             return uris.some(x => x == "") ? null : uris
         }
 
