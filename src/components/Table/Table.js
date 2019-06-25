@@ -13,7 +13,7 @@ import "react-table/react-table.css"
 
 class DataTable extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
             headers: [],
@@ -22,7 +22,7 @@ class DataTable extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ headers: this.props.headers })
+        this.setState({headers: this.props.headers})
     }
 
     update(newData) {
