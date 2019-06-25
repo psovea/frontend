@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'react-proptypes'
 import Loader from 'react-loader-spinner'
+import Missing from '../Missing/Missing';
 
 class Widget extends React.Component {
     constructor(props) {
@@ -9,7 +10,8 @@ class Widget extends React.Component {
         this.state = {
             showSettings: false,
             defaultSettings: props.defaultSettings,
-            loading: true
+            loading: true,
+            error: false
         }
 
         this.url = "18.224.29.151:5000/get_delays"
@@ -98,6 +100,14 @@ class Widget extends React.Component {
                 </div>
             )
         }
+        // When the fetch fails we show the missing message.
+        if (this.state.error) {
+            return (
+                <div>
+                    <Missing />
+                </div>
+            )
+        }
         // When the data is fetched we show the widget normally
         return (
             <div className={"dashboard-widget-content " + visibility} id={id}>
@@ -152,12 +162,12 @@ class Widget extends React.Component {
     fetchData = () => {
         let uris = this.createUriFromSettings()
         
-        if (!uris) { this.setState({loading: false}); return }
+        if (!uris) { this.setState({loading: false, error: false}); return }
 
-        this.setState({loading: true}, () => {
+        this.setState({loading: true, error: false}, () => {
             Promise.all(uris.map(this.fetchSingle))
-                .then(json => { this.setState({loading: false}, () => this.compRef.current.update(json)) })
-                .catch(e => console.log(e))
+                .then(json => { this.setState({loading: false, error: false}, () => this.compRef.current.update(json)) })
+                .catch(e => {console.log(e); this.setState({loading: false, error: true}) })
         });
     }
 
