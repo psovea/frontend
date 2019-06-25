@@ -124,7 +124,7 @@ class Widget extends React.Component {
                     } catch(e) {
                         return ""
                     }
-                }).join("&")
+                }).filter(x => x != "").join("&")
             } else if (n == "period") {
                 return n + "=" + ys[i].toString() + "s"
             }
