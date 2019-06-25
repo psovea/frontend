@@ -125,7 +125,17 @@ class Widget extends React.Component {
         let zipWith = (f, xs, ys) => xs.map((n,i) => {
             if (n == "return_filter[]" || n == "district[]") {
                 return ys[i].map(x => n + "=" + x).join("&")
-            }  else if (n == "period") {
+            } else if (n == "transport_type[]") {
+                return ys[i].map(x => n + "=" + x.toUpperCase()).join("&")
+            } else if (n == "line_number[]") {
+                return ys[i].map(x => {
+                    try {
+                        return n + "=" + x.match(/([0-9]*):.*/i)[1]
+                    } catch(e) {
+                        return ""
+                    }
+                }).filter(x => x != "").join("&")
+            } else if (n == "period") {
                 return n + "=" + ys[i].toString() + "s"
             }
 
@@ -137,10 +147,10 @@ class Widget extends React.Component {
                 let day_query = "start_time=" + (day * -this.DAY) + "&end_time=" + ((day - 1) * -this.DAY)
                 let new_keys = keys.filter(x => x != "days")
                 let new_vals = new_keys.map(x => this.state.currentSettings[x])
-                
-                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + day_query
+
+                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
             })
-            
+
             return uris.some(x => x == "") ? null : uris
         }
 
@@ -161,7 +171,7 @@ class Widget extends React.Component {
 
     fetchData = () => {
         let uris = this.createUriFromSettings()
-        
+
         if (!uris) { this.setState({loading: false, error: false}); return }
 
         this.setState({loading: true, error: false}, () => {
