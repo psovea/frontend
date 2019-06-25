@@ -97,7 +97,7 @@ class Grid extends Component {
                     <div key="barchart2" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<DoughnutChart metric="district" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000', '#e60000', '#cc0000', '#b30000']} />}
-                            title="Vertraging per stadsdeel"
+                            title="Vertraging per stadsdeel (in uren)"
                             componentId="bar"
                             settings={[
                                 (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
@@ -176,7 +176,7 @@ class Grid extends Component {
                     <div key="barchart4" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<DoughnutChart metric="transport_type" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000']} />}
-                            title="Vertraging per voertuig"
+                            title="Vertraging per voertuig (in uren)"
                             componentId="bar"
                             settings={[
                                 (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
