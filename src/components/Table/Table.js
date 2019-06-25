@@ -20,10 +20,27 @@ class DataTable extends React.Component {
         }
     }
 
-
-
     update(newData) {
-        this.setState({values: newData}, () => {console.log(newData)})
+        const data = this.convertData(newData)
+        this.setState({values: data}, () => {console.log(newData)})
+    }
+
+    convertData(data) {
+        const convertedData = []
+
+        /* Gets metric and value data from fetched data. */
+        Object.values(data).map((d, i)=> {
+            convertedData.push({
+                Nr: i + 1,
+                Stop: d["metric"]["stop_end"],
+                Vervoerstype: d["metric"]["transport_type"],
+                Stadsdeel: d["metric"]["district"],
+                Lijn: parseInt(d["metric"]["line_number"]),
+                Vertraging: this.formatTime(d["value"][1])
+            })
+        })
+
+        return convertedData
     }
 
     formatTime(item) {
@@ -40,15 +57,10 @@ class DataTable extends React.Component {
             return <Missing/>
         }
 
-        const columns = []
-        this.state.headers.map(h => {
-            columns.push({Header: h})
-        })
-
-        const data = []
+        const columns = this.state.headers.map(h => ({Header: h, accessor: h}))
 
         return <ReactTable
-              data={data}
+              data={this.state.values}
               columns={columns}
               showPagination={false}
               defaultSortDesc={true}
