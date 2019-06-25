@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'react-proptypes'
 import Loader from 'react-loader-spinner'
+import Missing from '../Missing/Missing';
 
 class Widget extends React.Component {
     constructor(props) {
@@ -9,7 +10,8 @@ class Widget extends React.Component {
         this.state = {
             showSettings: false,
             defaultSettings: props.defaultSettings,
-            loading: true
+            loading: true,
+            error: false
         }
 
         this.url = "18.224.29.151:5000/get_delays"
@@ -98,6 +100,14 @@ class Widget extends React.Component {
                 </div>
             )
         }
+        // When the fetch fails we show the missing message.
+        if (this.state.error) {
+            return (
+                <div>
+                    <Missing />
+                </div>
+            )
+        }
         // When the data is fetched we show the widget normally
         return (
             <div className={"dashboard-widget-content " + visibility} id={id}>
@@ -115,7 +125,17 @@ class Widget extends React.Component {
         let zipWith = (f, xs, ys) => xs.map((n,i) => {
             if (n == "return_filter[]" || n == "district[]") {
                 return ys[i].map(x => n + "=" + x).join("&")
-            }  else if (n == "period") {
+            } else if (n == "transport_type[]") {
+                return ys[i].map(x => n + "=" + x.toUpperCase()).join("&")
+            } else if (n == "line_number[]") {
+                return ys[i].map(x => {
+                    try {
+                        return n + "=" + x.match(/([0-9]*):.*/i)[1]
+                    } catch(e) {
+                        return ""
+                    }
+                }).filter(x => x != "").join("&")
+            } else if (n == "period") {
                 return n + "=" + ys[i].toString() + "s"
             }
 
@@ -127,10 +147,10 @@ class Widget extends React.Component {
                 let day_query = "start_time=" + (day * -this.DAY) + "&end_time=" + ((day - 1) * -this.DAY)
                 let new_keys = keys.filter(x => x != "days")
                 let new_vals = new_keys.map(x => this.state.currentSettings[x])
-                
-                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + day_query
+
+                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
             })
-            
+
             return uris.some(x => x == "") ? null : uris
         }
 
@@ -151,13 +171,13 @@ class Widget extends React.Component {
 
     fetchData = () => {
         let uris = this.createUriFromSettings()
-        
-        if (!uris) { this.setState({loading: false}); return }
 
-        this.setState({loading: true}, () => {
+        if (!uris) { this.setState({loading: false, error: false}); return }
+
+        this.setState({loading: true, error: false}, () => {
             Promise.all(uris.map(this.fetchSingle))
-                .then(json => { this.setState({loading: false}, () => this.compRef.current.update(json)) })
-                .catch(e => console.log(e))
+                .then(json => { this.setState({loading: false, error: false}, () => this.compRef.current.update(json)) })
+                .catch(e => {console.log(e); this.setState({loading: false, error: true}) })
         });
     }
 

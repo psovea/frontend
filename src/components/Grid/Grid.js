@@ -83,9 +83,12 @@ class Grid extends Component {
                                 />
                             ]}
                             defaultSettings={{
-                                "days": 7
+                                "days": 7,
+                                "district[]": ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"],
+                                "transport_type[]": [""],
+                                "line_number[]": [""]
                             }}
-                            names={{ 0: "days" }}
+                            names={{ 0: "days", 1: "transport_type[]", 2: "line_number[]" }}
                             addSetting={this.updateState.bind(this)}
                             settingsTitles={["Aantal Dagen", "Vervoersmiddel", "Lijn"]}
                         />
@@ -103,7 +106,7 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["district"],
                                 "district[]": DISTRICTS,
-                                "transport_type[]": "",
+                                "transport_type[]": [""],
                                 "period": 86400,
                                 "top": 8
                             }}
@@ -149,8 +152,8 @@ class Grid extends Component {
                             defaultSettings={{
                                 "return_filter[]": ["stop_end"],
                                 "district[]": DISTRICTS,
-                                "transport_type[]": "",
                                 "line_number[]": "",
+                                "transport_type[]": [""],
                                 "format": "heatmap",
                                 "period": 86400,
                             }}
@@ -182,7 +185,7 @@ class Grid extends Component {
                             names={{ 0: "period" }}
                             defaultSettings={{
                                 "return_filter[]": ["transport_type"],
-                                "transport_type[]": "",
+                                "transport_type[]": [""],
                                 "period": 86400,
                                 "top": 8
                             }}
@@ -207,8 +210,8 @@ class Grid extends Component {
                             addSetting={this.updateState.bind(this)}
                             defaultSettings={{
                                 "return_filter[]": ["district", "stop_end"],
-                                "transport_type[]": "",
                                 "district[]": DISTRICTS,
+                                "transport_type[]": [""],
                                 "period": 86400,
                                 "top": 10
                             }}
@@ -233,8 +236,8 @@ class Grid extends Component {
                             ]}
                             defaultSettings={{
                                 "return_filter[]": ["line_number", "transport_type", "district", "stop_end"],
-                                "transport_type[]": "",
                                 "district[]": DISTRICTS,
+                                "transport_type[]": [""],
                                 "period": 86400,
                                 "top": 10
                             }}
