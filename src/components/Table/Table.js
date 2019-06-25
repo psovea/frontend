@@ -31,19 +31,25 @@ class DataTable extends React.Component {
         return (minutes >= 1 ? minutes + " minuten en " : "") + seconds +  " seconden"
       }
 
-    
+
 
     render() {
         if (this.state.values == null) {
             return <Missing/>
         }
-        const columns = []
+
         this.state.headers.map(h => {
             columns.push({Header: h})
         })
+
+        const data = []
+
         return <ReactTable
               data={data}
               columns={columns}
+              showPagination={false}
+              defaultSortDesc={true}
+              resizable={false}
         />
     }
 }

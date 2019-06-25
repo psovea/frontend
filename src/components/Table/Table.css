@@ -13,3 +13,8 @@
     font-size: 12px;
     border-bottom: 1px solid lightgray;
 }
+
+.ReactTable .rt-thead {
+    position: fixed;
+    width: 100%;
+}
