@@ -83,7 +83,8 @@ class DataTable extends React.Component {
 
         const columns = this.state.headers.map(h => ({Header: h, accessor: h}))
 
-        return <ReactTable
+        return <ReactTable 
+              className="-striped -highlight"
               data={this.state.values}
               columns={columns}
               showPagination={false}
@@ -92,6 +93,7 @@ class DataTable extends React.Component {
               showPageSizeOptions={false}
               minRows={0}
               defaultPageSize={100}
+              style={{height: "100%"}} // Makes sure the top row is pinned to the top.
         />
     }
 }
