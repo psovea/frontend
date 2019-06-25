@@ -30,14 +30,28 @@ class Maps extends React.Component {
             lines: [],
             delays: [],
             heatmapdata: [],
-            currentSettings: { line_number: "" }
+            currentSettings: { line_number: [""] }
         }
     }
 
     fetchData() {
+        /* Create uri for retrieving a line number */
+        let createUri = state => "&internal_id=" + (state
+            .filter(lineNum => !(lineNum == "" || lineNum == undefined))
+            .map(lineNum => lineNum.match(/([0-9]*):.*/i)[1]) // extract line number
+            .join("&internal_id="))
+
+        let lineNumUri =
+            /* Check if any of the line numbers are empty or undefined */
+            !R.any(R.isEmpty, this.state.currentSettings["line_number[]"])
+                /* Create uri for line number */
+                ? createUri(this.state.currentSettings["line_number[]"])
+                /* Or empty string */
+                : ""
+
         let urls = [
             'https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-stops?town=amsterdam',
-            `https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-line-info?operator=GVB&internal_id=${this.state.currentSettings["line_number"]}`
+            `https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-line-info?operator=GVB${lineNumUri}`
         ]
 
         let promises = urls.map(url => {
@@ -53,9 +67,11 @@ class Maps extends React.Component {
 
         let find = (obj, stops) => R.find(R.propEq('stop_code', obj.stop_code), stops)
 
-        Promise.all(promises).then(values =>
-            values[1].flat().map(x => find(x, values[0])).filter(x => x)
-        ).then(stops => this.setState({ stops: stops }))
+        Promise.all(promises).then(values => {
+            return values[1].flat().map(x => find(x, values[0])).filter(x => x)
+        }).then(stops => {
+            return this.setState({ stops: stops })
+        })
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -64,14 +80,13 @@ class Maps extends React.Component {
     }
 
     update(newData, newSettings) {
+        console.log("newsettings: ", newSettings)
         if (newData) {
             this.setState({ heatmapdata: newData[0], currentSettings: newSettings }, () => this.fetchData());
+        } else {
+            this.setState({ currentSettings: newSettings }, () => this.fetchData());
         }
 
-    }
-
-    componentDidMount() {
-        this.fetchData()
     }
 
     createMarkers() {
