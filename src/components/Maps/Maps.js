@@ -7,6 +7,8 @@
 import React from 'react'
 import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
 
+import * as R from 'ramda'
+
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import 'react-leaflet-markercluster/dist/styles.min.css';
@@ -25,27 +27,35 @@ class Maps extends React.Component {
             center: [52.3680, 4.9036],
             zoom: 13,
             stops: [],
+            lines: [],
             delays: [],
-            heatmapdata: []
-
+            heatmapdata: [],
+            currentSettings: { line_number: "" }
         }
     }
 
-    fetchJSON(url, value) {
-        // Hacky (wrong) way of handling CORS.
-        url = 'https://cors-anywhere.herokuapp.com/' + url
-        let jsonVar = {}
-        fetch(url, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }).then(res => {
-            return res.json();
-        }).then(json => {
-            jsonVar[value] = json;
-            this.setState(jsonVar);
+    fetchData() {
+        let urls = [
+            'https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-stops?town=amsterdam',
+            `https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-line-info?operator=GVB&internal_id=${this.state.currentSettings["line_number"]}`
+        ]
+
+        let promises = urls.map(url => {
+            return fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(res => {
+                return res.json();
+            })
         })
+
+        let find = (obj, stops) => R.find(R.propEq('stop_code', obj.stop_code), stops)
+
+        Promise.all(promises).then(values =>
+            values[1].flat().map(x => find(x, values[0])).filter(x => x)
+        ).then(stops => this.setState({ stops: stops }))
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -53,14 +63,15 @@ class Maps extends React.Component {
         return this.state != nextState
     }
 
-    update(newData) {
+    update(newData, newSettings) {
         if (newData) {
-            this.setState({ heatmapdata: newData[0] });
+            this.setState({ heatmapdata: newData[0], currentSettings: newSettings }, () => this.fetchData());
         }
+
     }
 
     componentDidMount() {
-        this.fetchJSON(`http://18.224.29.151:5000/get-stops?town=amsterdam`, "stops")
+        this.fetchData()
     }
 
     createMarkers() {

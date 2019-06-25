@@ -122,7 +122,7 @@ class Widget extends React.Component {
         let keys = Object.keys(this.state.currentSettings)
         let vals = Object.values(this.state.currentSettings)
 
-        let zipWith = (f, xs, ys) => xs.map((n,i) => {
+        let zipWith = (f, xs, ys) => xs.map((n, i) => {
             if (n == "return_filter[]" || n == "district[]") {
                 return ys[i].map(x => n + "=" + x).join("&")
             } else if (n == "transport_type[]") {
@@ -131,7 +131,7 @@ class Widget extends React.Component {
                 return ys[i].map(x => {
                     try {
                         return n + "=" + x.match(/([0-9]*):.*/i)[1]
-                    } catch(e) {
+                    } catch (e) {
                         return ""
                     }
                 }).filter(x => x != "").join("&")
@@ -172,12 +172,12 @@ class Widget extends React.Component {
     fetchData = () => {
         let uris = this.createUriFromSettings()
 
-        if (!uris) { this.setState({loading: false, error: false}); return }
+        if (!uris) { this.setState({ loading: false, error: false }); return }
 
-        this.setState({loading: true, error: false}, () => {
+        this.setState({ loading: true, error: false }, () => {
             Promise.all(uris.map(this.fetchSingle))
-                .then(json => { this.setState({loading: false, error: false}, () => this.compRef.current.update(json)) })
-                .catch(e => {console.log(e); this.setState({loading: false, error: true}) })
+                .then(json => { this.setState({ loading: false, error: false }, () => this.compRef.current.update(json, this.state.currentSettings)) })
+                .catch(e => { console.log(e); this.setState({ loading: false, error: true }) })
         });
     }
 
