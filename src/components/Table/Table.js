@@ -29,10 +29,12 @@ class DataTable extends React.Component {
 
     update(newData) {
         this.convertData(R.flatten(newData))
-        // this.setState({values: data}, () => {console.log(data)})
     }
 
-    parseData = (data) => /* Gets metric and value data from fetched data. */
+    /* Gets metric and value data from fetched data in order to put it in the
+     * ReactTable to be able to sort.
+     */
+    parseData = (data) =>
         Object.values(data).map((d, i) => ({
             Nr: i + 1,
             Halte: d["metric"]["stop_end"],
@@ -42,12 +44,11 @@ class DataTable extends React.Component {
             Vertraging: this.formatTime(d["value"][1])
         }))
 
+    /* If the new data contains stop data, we should fetch the
+     * stop names to display.
+     */
     convertData(data) {
-        /* If the new data contains stop data, we should fetch the
-         * stop names to display.
-         */
         const allHaveStops = R.all(R.hasPath(['metric', 'stop_end']))
-        // const data = R.flatten(newData)
 
         if (allHaveStops(data)) {
             this.getStopNames(data)
@@ -65,7 +66,7 @@ class DataTable extends React.Component {
         return fetch(`https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-stops?stop_code=${R.join(",", stops)}`)
             .then(res => res.json())
             .then(res => R.map(stop => R.includes({ stop_code: stop }) ? res[R.findIndex(R.propEq('stop_code', stop))(res)].stop_name : "Geen haltenaam beschikbaar", stops))
-        
+
     }
 
     formatTime(item) {
@@ -74,8 +75,6 @@ class DataTable extends React.Component {
 
         return (minutes >= 1 ? minutes + " minuten en " : "") + seconds +  " seconden"
       }
-
-
 
     render() {
         if (this.state.values == null) {
@@ -90,6 +89,9 @@ class DataTable extends React.Component {
               showPagination={false}
               defaultSortDesc={true}
               resizable={false}
+              showPageSizeOptions={false}
+              minRows={0}
+              defaultPageSize={100}
         />
     }
 }
