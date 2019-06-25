@@ -44,11 +44,12 @@ class DataTable extends React.Component {
     }
 
     getStopNames(data) {
-        var stops = R.join(",", R.map(item => item.metric.stop_end, data))
+        var stops = R.map(item => item.metric.stop_end, data)
 
-        return fetch(`https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-stops?stop_code=${stops}`)
+        /* Get the stop names and match the correct name to the stop code */
+        return fetch(`https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-stops?stop_code=${R.join(",", stops)}`)
             .then(res => res.json())
-            .then(res => R.map(stop => stop.stop_name, res))
+            .then(res => R.map(stop => R.includes({ stop_code: stop }) ? res[R.findIndex(R.propEq('stop_code', stop))(res)].stop_name : "Geen haltenaam beschikbaar", stops))
     }
 
     formatTime(item) {

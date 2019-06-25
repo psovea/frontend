@@ -21,10 +21,18 @@ class BarChart extends React.Component {
         this.setState({data: newData})
     }
 
-    makeData() {
-        if (this.state.data.length == 0) { return [] }
+    getFormattedDate(daysAgo) {
+        var dayTime = new Date();
+        dayTime.setDate(dayTime.getDate() - daysAgo);
+        var day = dayTime.getDate();
+        var month = dayTime.getMonth() + 1;
+        return day + "/" + month;
+    }
 
-        var labelArray = this.state.data.map((x, i) => (i + 1) + " dagen").reverse()
+    makeData() {
+
+        if (!this.state.data) { return [] }
+        var labelArray = this.state.data.map((x, i) => this.getFormattedDate(i + 1)).reverse()
         var dataArray = this.state.data.map(item => Math.round(item[0]['value'][1] / 3600)).reverse()
         let data = {
             labels: labelArray,
