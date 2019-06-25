@@ -37,7 +37,7 @@ class Maps extends React.Component {
     fetchData() {
         /* Create uri for retrieving a line number */
         let createUri = state => "&internal_id=" + (state
-            .filter(lineNum => !(lineNum == "" || lineNum == undefined))
+            .filter(R.compose(R.not, R.empty))
             .map(lineNum => lineNum.match(/([0-9]*):.*/i)[1]) // extract line number
             .join("&internal_id="))
 
