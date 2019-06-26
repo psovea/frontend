@@ -1,6 +1,6 @@
 /* Map.js:
  * Discription: This file uses react-leaflet to show a map of Amsterdam (The Netherlands).
- *              Bounderies of the map can be changed here.
+ *              Boundaries of the map can be changed here.
  *              The map also uses an API to show a Heatmap of traffic delay.
  */
 
@@ -11,14 +11,14 @@ import * as R from 'ramda'
 
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
-import 'react-leaflet-markercluster/dist/styles.min.css';
-import Missing from '../Missing/Missing';
-import Control from 'react-leaflet-control';
+import 'react-leaflet-markercluster/dist/styles.min.css'
+import Missing from '../Missing/Missing'
+import Control from 'react-leaflet-control'
 import legenda from './heatmap-legenda.png'
 
 class Maps extends React.Component {
     constructor() {
-        super();
+        super()
         this.state = {
             bounds: [
                 [52.218546, 4.589539],
@@ -61,12 +61,14 @@ class Maps extends React.Component {
                     'Accept': 'application/json'
                 }
             }).then(res => {
-                return res.json();
+                return res.json()
             })
         })
 
+        // Find all corresponding stops in the fetched line and stop data.
         let find = (obj, stops) => R.find(R.propEq('stop_code', obj.stop_code), stops)
 
+        // Filter all stops with the find function and set the state.
         Promise.all(promises).then(values => {
             return values[1].flat().map(x => find(x, values[0])).filter(x => x)
         }).then(stops => {
@@ -80,12 +82,14 @@ class Maps extends React.Component {
     }
 
     update(newData, newSettings) {
+        // Update function called by Widget.js to communicate between the components.
         if (newData) {
-            this.setState({ heatmapdata: newData[0], currentSettings: newSettings }, () => this.fetchData());
+            this.setState({ heatmapdata: newData[0], currentSettings: newSettings }, () => this.fetchData())
         }
     }
 
     createMarkers() {
+        // Create markers by mapping each stop coordinate and name to a marker component.
         return this.state.stops.map((stop, i) => {
             return (
                 <Marker
@@ -103,7 +107,7 @@ class Maps extends React.Component {
         if (this.state.heatmapdata.length != 0) {
             return (
                 <Map
-                    ref={(ref) => { this.map = ref; }}
+                    ref={(ref) => { this.map = ref }}
                     center={this.state.center}
                     zoom={this.state.zoom}
                     bounds={this.state.bounds}
@@ -121,7 +125,7 @@ class Maps extends React.Component {
                         intensityExtractor={m => parseFloat(m[2])}
                     />
                     <TileLayer
-                        attribution='&copy; PSOVEA'
+                        attribution='&copy; Overzicht'
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     />
                     <MarkerClusterGroup
@@ -142,4 +146,4 @@ class Maps extends React.Component {
     }
 }
 
-export default Maps;
+export default Maps
