@@ -133,18 +133,8 @@ class Maps extends React.Component {
         })
     }
 
-    randomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-      }
-
     createLines() {
         return Object.keys(this.state.lines).map(line => {
-            console.log(this.state.lines[line])
             return <Polyline key={line} color="#d92e20" positions={this.state.lines[line]} />
         })
     }
