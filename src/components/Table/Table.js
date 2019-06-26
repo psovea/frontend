@@ -96,7 +96,7 @@ class DataTable extends React.Component {
         const calcSeconds = (time) => {
             const matches = R.map(parseInt, time.match(/\d+/g))
 
-            return (matches.length === 2) ? parseInt(matches[0]) * 60 + parseInt(matches[1]) : parseInt(matches[1])
+            return (matches.length === 2) ? matches[0] * 60 + matches[1] : matches[1]
         }
 
         /* React-table requires a return value of 0 when two objects match,
@@ -140,7 +140,7 @@ class DataTable extends React.Component {
               data={this.state.values}
               columns={columns}
               showPagination={false}
-              defaultSortDesc={true}
+              //defaultSortDesc={true}
               resizable={false}
               showPageSizeOptions={false}
               minRows={0}
