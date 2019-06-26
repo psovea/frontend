@@ -94,12 +94,13 @@ class DataTable extends React.Component {
      * to seconds. */
     delaySort(a, b) {
         const calcSeconds = (time) => {
-            const matches = String(time).match("\d+")
+            const matches = R.map(parseInt, time.match(/\d+/g))
 
             return (matches.length === 2) ? parseInt(matches[0]) * 60 + parseInt(matches[1]) : parseInt(matches[1])
         }
 
-        /* React-table requires this way of returning */
+        /* React-table requires a return value of 0 when two objects match,
+         * 1 if object a > b and -1 if a < b. */
         if (a === b) return 0
 
         return calcSeconds(a) > calcSeconds(b) ? 1 : -1
