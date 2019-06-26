@@ -257,7 +257,6 @@
 .line-legend-container {
     box-sizing: border-box;
     margin: 0px;
-    /* padding: 5px; */
     width: 100px;
     background-color: white;
     border-radius: 5px;
@@ -267,8 +266,6 @@
 }
 
 .line-legend-row {
-    /* width: 90%; */
-    /* display: block; */
     margin: 0px !important;
     border-bottom: 1px solid lightgray;
     padding: 5px;
