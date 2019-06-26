@@ -1,15 +1,15 @@
-.table-header-row {
-    border-bottom: 1px solid lightgray;
-    font-size: 13px;
-}
-
-.table-header-row-value {
-    text-align: center;
-}
-
-.table-row-value {
-    text-align: center;
-    color: gray;
+.ReactTable {
     font-size: 12px;
-    border-bottom: 1px solid lightgray;
+    color: gray;
 }
+
+.ReactTable .rt-thead {
+    width: 100%;
+    color: var(--richblack);
+    font-weight: bold;
+} 
+
+.ReactTable .rt-td {
+    text-align: center;
+}
+

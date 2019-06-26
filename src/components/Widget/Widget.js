@@ -166,6 +166,7 @@ class Widget extends React.Component {
         }
 
         let uri = '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
+        console.log("uri",uri)
 
         return uri == "" ? null : [uri]
     }
@@ -189,7 +190,7 @@ class Widget extends React.Component {
             Promise.all(uris.map(this.fetchSingle))
                 .then(json => { this.setState({ loading: false, error: false }, () => this.compRef.current.update(json, this.state.currentSettings)) })
                 .catch(e => { console.log(e); this.setState({ loading: false, error: true }) })
-        });
+        })
     }
 
     render() {
@@ -213,8 +214,6 @@ class Widget extends React.Component {
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">
                             <button onClick={this.applySettings} className="dashboard-widget-content-settings-buttons-button button outline primary"><i className="dashboard-widget-settings-button-icon fa fa-check"></i> Toepassen</button>
-                            {/* TODO: make working default button */}
-                            {/* <button onClick={this.defaultSettings} className="dashboard-widget-content-settings-buttons-button button outline secondary"><i className="dashboard-widget-settings-button-icon fa fa-refresh"></i> reset</button> */}
                         </div>
                     </div>
                 </div>
