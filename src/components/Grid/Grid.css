@@ -251,3 +251,41 @@
 .dashboard-widget-content-settings-buttons-button {
     margin-left: 25%;
 }
+
+/* MAP */
+
+.line-legend-container {
+    box-sizing: border-box;
+    margin: 0px;
+    /* padding: 5px; */
+    width: 100px;
+    background-color: white;
+    border-radius: 5px;
+    -webkit-box-shadow: 2px 3px 5px 0px rgba(199,199,199,1);
+    -moz-box-shadow: 2px 3px 5px 0px rgba(199,199,199,1);
+    box-shadow: 2px 3px 5px 0px rgba(199,199,199,1);
+}
+
+.line-legend-row {
+    /* width: 90%; */
+    /* display: block; */
+    margin: 0px !important;
+    border-bottom: 1px solid lightgray;
+    padding: 5px;
+    box-sizing: border-box
+}
+
+.line-legend-text {
+    display: block;
+    margin: 0 auto !important;
+}
+
+.line-legend-text > p {
+    margin: 0px !important;
+}
+
+.line-legend-color {
+    height: 20px;
+    width: 50px;
+    margin: 0 auto !important;
+}

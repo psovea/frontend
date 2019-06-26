@@ -39,20 +39,22 @@ class Maps extends React.Component {
     find = (obj, stops, prop) => R.find(R.propEq(prop, obj[prop]), stops)
 
     /* Filter invalid stops, which always default to a certain position */
-    invalidStop = (stop) => (parseFloat(stop.lat) == 47.974766 || parseFloat(stop.lon) == 3.3135424)
+    isInvalidStop = (stop) => (parseFloat(stop.lat) == 47.974766 || parseFloat(stop.lon) == 3.3135424)
 
     /* Create [lat, lon] pairs between the stops for each line we want to filter. */
     getLines(values) {
         let groupedByLine = R.groupBy(R.prop('internal_id'), values[1].flat())
 
         return R.mergeAll(Object.keys(groupedByLine).map(line => (
-                {[line]: groupedByLine[line]
+                {[line]: { color: this.getRandomColor(),
+                           coords: groupedByLine[line]
                             .map(stop => this.find(stop, values[0], 'stop_code'))
                             .filter(x => x)
-                            .map(stop => this.invalidStop(stop)
+                            .map(stop => this.isInvalidStop(stop)
                                     ? null
                                     : [parseFloat(stop.lat), parseFloat(stop.lon)])
                             .filter(x => x)
+                          }
                 })))
     }
 
@@ -131,10 +133,39 @@ class Maps extends React.Component {
         })
     }
 
+    getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+
     createLines() {
         return Object.keys(this.state.lines).map(line => {
-            return <Polyline key={line} color="#d92e20" positions={this.state.lines[line]} />
+            let lineObj = this.state.lines[line]
+            return <Polyline key={line} color={lineObj.color} positions={lineObj.coords} />
         })
+    }
+
+    createLineLegend() {
+        console.log("comes here")
+        return <div className="line-legend-container">
+                {Object.keys(this.state.lines).map(line => {
+                    let lineObj = this.state.lines[line]
+                    return <div key={line} className="row line-legend-row">
+                                <div className="col-3 line-legend-color" style={{backgroundColor: lineObj.color}}></div>
+                                <div className="col-9 line-legend-text"><p>Lijn: {line}</p></div>
+                            </div>
+                })}
+                </div>
+    }
+
+    renderLineLegend() {
+        return (this.state.lines != []) ? <Control position="topright" >{this.createLineLegend()}</Control>
+                                        : null
     }
 
     render() {
@@ -175,6 +206,7 @@ class Maps extends React.Component {
                         <img src={legenda} height="300px" />
                     </Control>
 
+                    {this.renderLineLegend()}
                 </Map>
             )
         } else {
