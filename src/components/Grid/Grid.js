@@ -68,7 +68,7 @@ class Grid extends Component {
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Calendar updater={f} />,
+                                (f) => <Calendar updater={f} perDay={true} />,
 
                                 (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='search-transport'
                                 />,
@@ -79,7 +79,8 @@ class Grid extends Component {
                             defaultSettings={{
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": true
                                 },
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
@@ -107,7 +108,8 @@ class Grid extends Component {
                                 "transport_type[]": [""],
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 8
                             }}
@@ -150,8 +152,9 @@ class Grid extends Component {
                                 "format": "heatmap",
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
-                                }
+                                    "offset": 0,
+                                    "perDay": false
+                                },
                             }}
                         />
                     </div>
@@ -184,7 +187,8 @@ class Grid extends Component {
                                 "transport_type[]": [""],
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 8
                             }}
@@ -212,12 +216,11 @@ class Grid extends Component {
                                 "return_filter[]": ["district", "stop_end"],
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
-                                "period": 86400,
-                                "top": 10,
                                 "avg_per": "vehicle_delay",
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 10
                             }}
@@ -244,12 +247,11 @@ class Grid extends Component {
                                 "return_filter[]": ["line_number", "transport_type", "district"],
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
-                                "period": 86400,
-                                "top": 10,
                                 "avg_per": "vehicle_delay",
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 10
                             }}

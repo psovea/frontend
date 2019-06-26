@@ -1,5 +1,5 @@
 /* Table.js:
- * Discription: This is the Table component. The table is shown in a grid box.
+ * Description: This is the Table component. The table is shown in a grid box.
  */
 
 import React from 'react'
