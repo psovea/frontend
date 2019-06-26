@@ -125,8 +125,8 @@ class Maps extends React.Component {
                         intensityExtractor={m => parseFloat(m[2])}
                     />
                     <TileLayer
-                        attribution='&copy; Overzicht'
-                        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                        url='https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png'
                     />
                     <MarkerClusterGroup
                         spiderLegPolylineOptions={{
