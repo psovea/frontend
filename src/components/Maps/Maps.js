@@ -5,7 +5,7 @@
  */
 
 import React from 'react'
-import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
+import { Map, TileLayer, Marker, Tooltip, Polyline } from 'react-leaflet'
 
 import * as R from 'ramda'
 
@@ -30,9 +30,11 @@ class Maps extends React.Component {
             lines: [],
             delays: [],
             heatmapdata: [],
-            currentSettings: { line_number: [""] }
+            currentSettings: { line_number: [""] },
+            lines: {}
         }
     }
+
 
     fetchData() {
         /* Create uri for retrieving a line number */
@@ -70,9 +72,37 @@ class Maps extends React.Component {
 
         // Filter all stops with the find function and set the state.
         Promise.all(promises).then(values => {
-            return values[1].flat().map(x => find(x, values[0])).filter(x => x)
-        }).then(stops => {
-            return this.setState({ stops: stops })
+            let groups = R.groupBy(R.prop('internal_id'), values[1].flat())
+
+            let pl = R.mergeAll(Object.keys(groups).map(line => (
+                {[line]: groups[line]
+                    .map(x => {
+                        let obj = find(x, values[0])
+                        return obj ? R.assoc('order_number', x['order_number'], obj) : null
+                    })
+                    .filter(x => x)
+                })
+            ))
+
+            let lines = R.mergeAll(Object.keys(pl).map(line => {
+                let s = pl[line]
+                let comb = s.map(x => (parseFloat(x.lat) == 47.974766 || parseFloat(x.lon) == 3.3135424) ? null : [parseFloat(x.lat), parseFloat(x.lon)])
+                            .filter(x => x)
+
+                return {[line]: comb}
+            }))
+
+            let stops = values[1]
+                .flat()
+                .map(x => {
+                    let obj = find(x, values[0])
+                    return obj ? R.assoc('order_number', x['order_number'], obj) : null
+                })
+                .filter(x => x)
+
+            return [stops, lines]
+        }).then(data => {
+            return this.setState({ stops: data[0], lines: data[1] })
         })
     }
 
@@ -103,6 +133,22 @@ class Maps extends React.Component {
         })
     }
 
+    randomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+    createLines() {
+        return Object.keys(this.state.lines).map(line => {
+            console.log(this.state.lines[line])
+            return <Polyline key={line} color="#d92e20" positions={this.state.lines[line]} />
+        })
+    }
+
     render() {
         if (this.state.heatmapdata.length != 0) {
             return (
@@ -116,6 +162,8 @@ class Maps extends React.Component {
                     maxZoom={16}
                     minZoom={11}
                 >
+                    {this.createLines()}
+
                     <HeatmapLayer
                         fitBoundsOnLoad
                         fitBoundsOnUpdate
@@ -138,6 +186,7 @@ class Maps extends React.Component {
                     <Control position="topleft" >
                         <img src={legenda} height="300px" />
                     </Control>
+
                 </Map>
             )
         } else {
