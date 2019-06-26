@@ -1,3 +1,6 @@
+/* Import google font url. */
+@import url('https://fonts.googleapis.com/css?family=Biryani:700&display=swap');
+
 .dashboard-container {
     width: 100%;
 }
@@ -28,9 +31,9 @@
 
 .dashboard-widget-header-title {
     margin-bottom: 0px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--richblack);
+    font-size: 16px;
+    color: rgb(95, 95, 95);
+    font-family: 'Biryani', sans-serif;
 }
 
 .dashboard-widget-content {
