@@ -92,7 +92,7 @@ class Grid extends Component {
                         />
                     </div>
 
-                    {/* <div key="doughnut-district" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
+                    <div key="doughnut-district" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<DoughnutChart metric="district" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000', '#e60000', '#cc0000', '#b30000']} />}
                             title="Vertraging per stadsdeel (in uren)"
@@ -243,7 +243,7 @@ class Grid extends Component {
                             names={{ 0: "top", 1: "period", 2: "transport_type[]", 3: "district[]" }}
                             settingsTitles={["Aantal topvertragingen", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
                         />
-                    </div> */}
+                    </div>
 
                 </ResponsiveGridLayout>
             </div>

@@ -76,7 +76,6 @@ class Searchbar extends Component {
         var format_params = R.join("&", R.map((item) => `${R.replace("[]", "", item.key)}=${item.value}`, params))
         var url = `https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/${endpoint}?operator=GVB&${format_params}`
 
-        console.log(url)
         return fetch(url)
             .then(res => res.json())
             .then(res => R.uniq(R.map(f, res)))

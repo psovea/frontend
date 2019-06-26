@@ -149,7 +149,7 @@ class Widget extends React.Component {
                 let new_keys = keys.filter(x => x != "days" && x != "offset" && x != "range")
                 let new_vals = new_keys.map(x => this.state.currentSettings[x])
 
-                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + day_query
+                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
             })
 
             return uris.some(x => x == "") ? null : uris

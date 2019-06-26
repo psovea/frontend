@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import DayPicker, { DateUtils } from 'react-day-picker'
+import MomentLocaleUtils from 'react-day-picker/moment'
+
 import * as moment from 'moment'
 import 'react-day-picker/lib/style.css'
 import './Calendar.css'
@@ -60,8 +62,6 @@ class Calendar extends React.Component {
         const today = new Date()
         const modifiers = { start: from, end: to }
 
-        console.log(this.state)
-
         return (
             <div className="Calendar">
                 <DayPicker
@@ -71,6 +71,8 @@ class Calendar extends React.Component {
                     modifiers={modifiers}
                     onDayClick={this.handleClick}
                     disabledDays={{ after: today }}
+                    localeUtils={MomentLocaleUtils}
+                    locale={"nl"}
                 />
             </div>
         )
