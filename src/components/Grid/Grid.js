@@ -1,5 +1,5 @@
 /* Grid.js:
- * Discription: This file contains the main body. The body contains of a 4x4 grid.
+ * Description: This file contains the main body. The body contains of a 4x4 grid.
  *              Grid box containers can be made here. Data graphs are shown in these boxes.
  *              Each box has their own x,y position in the grid.
  *              In this file you can change the width and height of these boxes.
@@ -62,13 +62,14 @@ class Grid extends Component {
                     containerPadding={[25, 25]}
                     margin={[30, 30]}
                 >
+
                     <div key="barchart" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Calendar updater={f} />,
+                                (f) => <Calendar updater={f} perDay={true} />,
 
                                 (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='search-transport'
                                 />,
@@ -79,7 +80,8 @@ class Grid extends Component {
                             defaultSettings={{
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": true
                                 },
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
@@ -107,7 +109,8 @@ class Grid extends Component {
                                 "transport_type[]": [""],
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 8
                             }}
@@ -150,8 +153,9 @@ class Grid extends Component {
                                 "format": "heatmap",
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
-                                }
+                                    "offset": 0,
+                                    "perDay": false
+                                },
                             }}
                         />
                     </div>
@@ -184,7 +188,8 @@ class Grid extends Component {
                                 "transport_type[]": [""],
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 8
                             }}
@@ -212,17 +217,16 @@ class Grid extends Component {
                                 "return_filter[]": ["district", "stop_end"],
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
-                                "period": 86400,
-                                "top": 10,
                                 "avg_per": "vehicle_delay",
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 10
                             }}
                             names={{ 0: "top", 1: "range", 2: "district[]" }}
-                            settingsTitles={["Aantal vertragingen", "Periode", "Filter op stadsdeel"]}
+                            settingsTitles={["Aantal vertragingen Weergeven", "Periode", "Filter op stadsdeel"]}
                         />
                     </div>
 
@@ -244,18 +248,17 @@ class Grid extends Component {
                                 "return_filter[]": ["line_number", "transport_type", "district"],
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
-                                "period": 86400,
-                                "top": 10,
                                 "avg_per": "vehicle_delay",
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 10
                             }}
                             addSetting={this.updateState.bind(this)}
                             names={{ 0: "top", 1: "range", 2: "transport_type[]", 3: "district[]" }}
-                            settingsTitles={["Aantal topvertragingen", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
+                            settingsTitles={["Aantal Vertragingen Weergeven", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
                         />
                     </div>
 

@@ -86,31 +86,11 @@ class Widget extends React.Component {
     }
 
     makeComponent = (visibility, id) => {
-        // If state.loading = true, then we display the loader else the widget
-        if (this.state.loading) {
-            return (
-                <div>
-                    <div className={"dashboard-widget-content none"} id={id} style={{ display: 'none' }}>
-                        {React.cloneElement(this.component, { ref: this.compRef })}
-                    </div>
-                    {this.loader()}
+        return this.state.error   ? <div><Missing/></div>      :
+               this.state.loading ? <div>{this.loader()}</div> :
+               <div className={"dashboard-widget-content " + visibility} id={id}>
+                    {React.cloneElement(this.component, { ref: this.compRef })}
                 </div>
-            )
-        }
-
-        if (this.state.error) {
-            return (
-                <div>
-                    <Missing />
-                </div>
-            )
-        }
-
-        return (
-            <div className={"dashboard-widget-content " + visibility} id={id}>
-                {React.cloneElement(this.component, { ref: this.compRef })}
-            </div>
-        )
     }
 
     createUriFromSettings = () => {
@@ -140,16 +120,30 @@ class Widget extends React.Component {
         })
 
         if (keys.includes("range")) {
-            let uris = [...Array(this.state.currentSettings.range.days + 1).keys()].slice(1).map(day => {
-                let offsetDay = day + this.state.currentSettings.range.offset
-                let day_query = "start_time=" + ((offsetDay) * -this.DAY) + "&end_time=" + ((offsetDay - 1) * -this.DAY)
-                let new_keys = keys.filter(x => x != "days" && x != "offset" && x != "range")
-                let new_vals = new_keys.map(x => this.state.currentSettings[x])
+            // If the 'perDay' setting is true, we need to fetch the data per
+            // individual day. Otherwise, we can fetch it over the whole period.
+            if (this.state.currentSettings.range.perDay) {
+                let uris = [...Array(this.state.currentSettings.range.days + 1).keys()].slice(1).map(day => {
+                    let offsetDay = day + this.state.currentSettings.range.offset
+                    let day_query = "start_time=" + ((offsetDay) * -this.DAY) + "&end_time=" + ((offsetDay - 1) * -this.DAY)
+                    let new_keys = keys.filter(x => x != "days" && x != "offset" && x != "range")
+                    let new_vals = new_keys.map(x => this.state.currentSettings[x])
 
-                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
-            })
+                    return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
+                })
 
-            return uris.some(x => x == "") ? null : uris
+                return uris.some(x => x == "") ? null : uris
+            }
+
+            let start_day = (this.state.currentSettings.range.days + this.state.currentSettings.range.offset + 1) * -this.DAY
+            let end_day = (this.state.currentSettings.range.offset + 1) * -this.DAY
+            let day_query = "start_time=" + start_day + "&end_time=" + end_day
+            let new_keys = keys.filter(x => x != "days" && x != "offset" && x != "range")
+            let new_vals = new_keys.map(x => this.state.currentSettings[x])
+
+            let uri ='?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
+
+            return uri == "" ? null : [uri]
         } else if (keys.includes("days")) {
             let uris = [...Array(this.state.currentSettings.days + 1).keys()].slice(1).map(day => {
                 let day_query = "start_time=" + (day * -this.DAY) + "&end_time=" + ((day - 1) * -this.DAY)
@@ -163,7 +157,6 @@ class Widget extends React.Component {
         }
 
         let uri = '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
-        console.log("uri",uri)
 
         return uri == "" ? null : [uri]
     }

@@ -1,11 +1,14 @@
 /* Table.js:
- * Discription: This is the Table component. The table is shown in a grid box.
+ * Description: This is the Table component. The table is shown in a grid box.
  */
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import Missing from '../Missing/Missing'
 import ReactTable from 'react-table'
+
+import Missing from '../Missing/Missing'
+import {toLocalUrl} from '../../helper';
+
 import * as R from 'ramda'
 
 import "./Table.css"
@@ -21,19 +24,17 @@ class DataTable extends React.Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.setState({headers: this.props.headers})
     }
 
-    update(newData) {
+    update = (newData) => {
         this.convertData(R.flatten(newData))
     }
 
     /* Gets metric and value data from fetched data in order to put it in the
-     * ReactTable to be able to sort.
-     */
+     * ReactTable to be able to sort. */
     parseData = (data) => {
-        console.log("data", data)
         return Object.values(data).map((d, i) => ({
             Nr: i + 1,
             Halte: d["metric"]["stop_end"],
@@ -46,9 +47,8 @@ class DataTable extends React.Component {
 
 
     /* If the new data contains stop data, we should fetch the
-     * stop names to display.
-     */
-    convertData(data) {
+     * stop names to display. */
+    convertData = (data) => {
         const allHaveStops = R.all(R.hasPath(['metric', 'stop_end']))
 
         if (allHaveStops(data)) {
@@ -60,23 +60,28 @@ class DataTable extends React.Component {
         }
     }
 
-    getStopNames(data) {
+    /* Get the stop names and match the correct name to the stop code */
+    getStopNames = (data) => {
         var stops = R.map(item => item.metric.stop_end, data)
 
-        /* Get the stop names and match the correct name to the stop code */
-        return fetch(`https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-stops?stop_code=${R.join(",", stops)}`)
+        return fetch(toLocalUrl(`http://18.224.29.151:5000/get-stops?stop_code=${R.join(",", stops)}`))
             .then(res => res.json())
-            .then(res => R.map(stop => R.includes({ stop_code: stop }) ? res[R.findIndex(R.propEq('stop_code', stop))(res)].stop_name : "Geen haltenaam beschikbaar", stops))
-
+            .then(res => R.map(stop =>
+                R.includes({ stop_code: stop })
+                    ? res[R.findIndex(R.propEq('stop_code', stop))(res)].stop_name
+                    : "Geen haltenaam beschikbaar", stops
+                )
+            )
     }
 
-    formatTime(item) {
+    formatTime = (item) => {
         const minutes = Math.floor(item / 60).toString()
         const seconds = Math.round(item % 60).toString()
 
         return (minutes >= 1 ? minutes + " minuten en " : "") + seconds + " seconden"
     }
 
+    /* Helper to set the column width of the tables. */
     getColumnWidth = (rows, accessor) => {
         let {data} = rows
 
@@ -90,23 +95,21 @@ class DataTable extends React.Component {
         return Math.min(maxWidth, cellLength * magicSpacing)
     }
 
-    delaySort(a, b) {
-        /* Extracts minutes and seconds from time string and calculates back
-         * to seconds. */
+    /* Extracts minutes and seconds from time string and calculates back
+     * to seconds. */
+    delaySort = (a, b) => {
         const calcSeconds = (time) => {
-            const matches = String(time).match("\d+")
-
+            const matches = R.map(parseInt, time.match(/\d+/g))
             return (matches.length === 2) ? matches[0] * 60 + matches[1] : matches[1]
         }
 
-        /* React-table requires this way of returning */
-        if (a === b) return 0
-
-        return calcSeconds(a) > calcSeconds(b) ? 1 : -1
+        /* React-table requires a return value of 0 when two objects match,
+         * 1 if object a > b and -1 if a < b. */
+        return calcSeconds(a) > calcSeconds(b) ? 1 : (a === b) ? 0 : -1
     }
-      
 
-    render() {
+
+    render = () => {
         if (this.state.values == null) {
             return <Missing />
         }
@@ -123,15 +126,11 @@ class DataTable extends React.Component {
             return Math.min(maxWidth, cellLength * magicSpacing)
         }
 
-        /* Creates a header for each header and binds variables to it. If the header equals delay we 
+        /* Creates a header for each header and binds variables to it. If the header equals delay we
          * add a custom sorting function. */
-        const columns = []
-        this.state.headers.forEach(h => {
-            const column = (h === "Vertraging")
-              ? {Header: h, accessor: h, minWidth: getColumnWidth(this.state.values, h), sortMethod: this.delaySort}
-              : {Header: h, accessor: h, minWidth: getColumnWidth(this.state.values, h)}
-
-            columns.push(column)
+        const columns = this.state.headers.map(h => {
+            const header = {Header: h, accessor: h, minWidth: getColumnWidth(this.state.values, h)}
+            return (h === "Vertraging") ? R.assoc("sortMethod", this.delaySort, header) : header
         })
 
         return <ReactTable
@@ -139,7 +138,6 @@ class DataTable extends React.Component {
               data={this.state.values}
               columns={columns}
               showPagination={false}
-              defaultSortDesc={true}
               resizable={false}
               showPageSizeOptions={false}
               minRows={0}

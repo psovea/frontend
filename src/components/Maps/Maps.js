@@ -5,16 +5,17 @@
  */
 
 import React from 'react'
-import { Map, TileLayer, Marker, Tooltip, Polyline } from 'react-leaflet'
-
 import * as R from 'ramda'
+import Missing from '../Missing/Missing'
 
+import { Map, TileLayer, Marker, Tooltip, Polyline } from 'react-leaflet'
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
-import 'react-leaflet-markercluster/dist/styles.min.css'
-import Missing from '../Missing/Missing'
 import Control from 'react-leaflet-control'
+
+import 'react-leaflet-markercluster/dist/styles.min.css'
 import legenda from './heatmap-legenda.png'
+import {toLocalUrl} from '../../helper';
 
 class Maps extends React.Component {
     constructor() {
@@ -80,8 +81,8 @@ class Maps extends React.Component {
                 : ""
 
         let urls = [
-            'https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-stops?town=amsterdam',
-            `https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-line-info?operator=GVB${lineNumUri}`
+            toLocalUrl('http://18.224.29.151:5000/get-stops?town=amsterdam'),
+            toLocalUrl(`http://18.224.29.151:5000/get-line-info?operator=GVB${lineNumUri}`)
         ]
 
         let promises = urls.map(url => {
