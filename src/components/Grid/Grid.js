@@ -6,7 +6,6 @@
  */
 
 import React, { Component } from "react"
-import { mergeAll } from "ramda"
 import { Responsive, WidthProvider } from "react-grid-layout"
 import BarChart from "../Graphs/BarChart"
 import DoughnutChart from "../Graphs/DoughnutChart"
@@ -69,7 +68,7 @@ class Grid extends Component {
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Calendar updater={f} />,
+                                (f) => <Calendar updater={f} perDay={true} />,
 
                                 (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='search-transport'
                                 />,
@@ -80,7 +79,8 @@ class Grid extends Component {
                             defaultSettings={{
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": true
                                 },
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
@@ -108,7 +108,8 @@ class Grid extends Component {
                                 "transport_type[]": [""],
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 8
                             }}
@@ -151,8 +152,9 @@ class Grid extends Component {
                                 "format": "heatmap",
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
-                                }
+                                    "offset": 0,
+                                    "perDay": false
+                                },
                             }}
                         />
                     </div>
@@ -185,7 +187,8 @@ class Grid extends Component {
                                 "transport_type[]": [""],
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 8
                             }}
@@ -215,7 +218,8 @@ class Grid extends Component {
                                 "transport_type[]": [""],
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 10
                             }}
@@ -244,7 +248,8 @@ class Grid extends Component {
                                 "transport_type[]": [""],
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 10
                             }}
