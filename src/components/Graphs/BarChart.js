@@ -8,7 +8,6 @@ import { Bar } from 'react-chartjs-2';
 import './Graphs.css';
 import Missing from '../Missing/Missing';
 
-
 class BarChart extends React.Component {
     constructor(props) {
         super(props);
@@ -19,21 +18,22 @@ class BarChart extends React.Component {
     }
 
     update(newData) {
-        this.setState({data: newData})
+        this.setState({data: newData.flat()})
     }
 
     getFormattedDate(daysAgo) {
-        var dayTime = new Date();
-        dayTime.setDate(dayTime.getDate() - daysAgo);
-        var day = dayTime.getDate();
-        var month = dayTime.getMonth() + 1;
-        return day + "/" + month;
+        var dayTime = new Date()
+        dayTime.setDate(dayTime.getDate() - daysAgo)
+        var day = dayTime.getDate()
+        var month = dayTime.getMonth() + 1
+        return `${day}/${month}`
     }
 
     makeData() {
-        if (!this.state.data) { return [] }
+        if (this.state.data.length == 0) { return [] }
+
         var labelArray = this.state.data.map((x, i) => this.getFormattedDate(i + 1)).reverse()
-        var dataArray = this.state.data.map(item => Math.round(item[0]['value'][1] / 3600)).reverse()
+        var dataArray = this.state.data.map(item => Math.round(item['value'][1] / 3600)).reverse()
         let data = {
             labels: labelArray,
             datasets: [{
@@ -43,7 +43,7 @@ class BarChart extends React.Component {
                 borderColor: 'rgba(255,99,132,1)',
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                hoverBorderColor: 'rgba(255,99,132,1)',
+                hoverBorderColor: 'rgba(255,99,132,1)'
             }]
         }
         return data
@@ -51,9 +51,13 @@ class BarChart extends React.Component {
 
     render() {
         return (
+<<<<<<< HEAD
             this.state.data == null
+=======
+            this.state.data.length == 0
+>>>>>>> 6dee5e91db7da7de71880c0928d94bbbc63469f3
                 ? <Missing/>
-                : <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
+                : <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false, scales: { yAxes: [{ ticks: { beginAtZero: true } }] } }} />
         )
     }
 }

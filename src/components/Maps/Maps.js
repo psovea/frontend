@@ -1,22 +1,24 @@
 /* Map.js:
  * Discription: This file uses react-leaflet to show a map of Amsterdam (The Netherlands).
- *              Bounderies of the map can be changed here.
+ *              Boundaries of the map can be changed here.
  *              The map also uses an API to show a Heatmap of traffic delay.
  */
 
 import React from 'react'
 import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
 
+import * as R from 'ramda'
+
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
-import 'react-leaflet-markercluster/dist/styles.min.css';
-import Missing from '../Missing/Missing';
-import Control from 'react-leaflet-control';
+import 'react-leaflet-markercluster/dist/styles.min.css'
+import Missing from '../Missing/Missing'
+import Control from 'react-leaflet-control'
 import legenda from './heatmap-legenda.png'
 
 class Maps extends React.Component {
     constructor() {
-        super();
+        super()
         this.state = {
             bounds: [
                 [52.218546, 4.589539],
@@ -25,26 +27,52 @@ class Maps extends React.Component {
             center: [52.3680, 4.9036],
             zoom: 13,
             stops: [],
+            lines: [],
             delays: [],
-            heatmapdata: []
-
+            heatmapdata: [],
+            currentSettings: { line_number: [""] }
         }
     }
 
-    fetchJSON(url, value) {
-        // Hacky (wrong) way of handling CORS.
-        url = 'https://cors-anywhere.herokuapp.com/' + url
-        let jsonVar = {}
-        fetch(url, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }).then(res => {
-            return res.json();
-        }).then(json => {
-            jsonVar[value] = json;
-            this.setState(jsonVar);
+    fetchData() {
+        /* Create uri for retrieving a line number */
+        let createUri = state => "&internal_id=" + (state
+            .filter(R.compose(R.not, R.empty))
+            .map(lineNum => lineNum.match(/([0-9]*):.*/i)[1]) // extract line number
+            .join(','))
+
+        let lineNumUri =
+            /* Check if any of the line numbers are empty or undefined */
+            !R.any(R.isEmpty, this.state.currentSettings["line_number[]"]) && !R.isEmpty(this.state.currentSettings["line_number[]"])
+                /* Create uri for line number */
+                ? createUri(this.state.currentSettings["line_number[]"])
+                /* Or empty string */
+                : ""
+
+        let urls = [
+            'https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-stops?town=amsterdam',
+            `https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-line-info?operator=GVB${lineNumUri}`
+        ]
+
+        let promises = urls.map(url => {
+            return fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(res => {
+                return res.json()
+            })
+        })
+
+        // Find all corresponding stops in the fetched line and stop data.
+        let find = (obj, stops) => R.find(R.propEq('stop_code', obj.stop_code), stops)
+
+        // Filter all stops with the find function and set the state.
+        Promise.all(promises).then(values => {
+            return values[1].flat().map(x => find(x, values[0])).filter(x => x)
+        }).then(stops => {
+            return this.setState({ stops: stops })
         })
     }
 
@@ -53,17 +81,15 @@ class Maps extends React.Component {
         return this.state != nextState
     }
 
-    update(newData) {
+    update(newData, newSettings) {
+        // Update function called by Widget.js to communicate between the components.
         if (newData) {
-            this.setState({ heatmapdata: newData[0] });
+            this.setState({ heatmapdata: newData[0], currentSettings: newSettings }, () => this.fetchData())
         }
     }
 
-    componentDidMount() {
-        this.fetchJSON(`http://18.224.29.151:5000/get-stops?town=amsterdam`, "stops")
-    }
-
     createMarkers() {
+        // Create markers by mapping each stop coordinate and name to a marker component.
         return this.state.stops.map((stop, i) => {
             return (
                 <Marker
@@ -81,7 +107,7 @@ class Maps extends React.Component {
         if (this.state.heatmapdata.length != 0) {
             return (
                 <Map
-                    ref={(ref) => { this.map = ref; }}
+                    ref={(ref) => { this.map = ref }}
                     center={this.state.center}
                     zoom={this.state.zoom}
                     bounds={this.state.bounds}
@@ -99,7 +125,7 @@ class Maps extends React.Component {
                         intensityExtractor={m => parseFloat(m[2])}
                     />
                     <TileLayer
-                        attribution='&copy; PSOVEA'
+                        attribution='&copy; Overzicht'
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     />
                     <MarkerClusterGroup
@@ -120,4 +146,4 @@ class Maps extends React.Component {
     }
 }
 
-export default Maps;
+export default Maps

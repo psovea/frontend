@@ -122,11 +122,25 @@ class Widget extends React.Component {
         let keys = Object.keys(this.state.currentSettings)
         let vals = Object.values(this.state.currentSettings)
 
+<<<<<<< HEAD
 
         let zipWith = (f, xs, ys) => xs.map((n,i) => {
+=======
+        let zipWith = (f, xs, ys) => xs.map((n, i) => {
+>>>>>>> 6dee5e91db7da7de71880c0928d94bbbc63469f3
             if (n == "return_filter[]" || n == "district[]") {
                 return ys[i].map(x => n + "=" + x).join("&")
-            }  else if (n == "period") {
+            } else if (n == "transport_type[]") {
+                return ys[i].map(x => n + "=" + x.toUpperCase()).join("&")
+            } else if (n == "line_number[]") {
+                return ys[i].map(x => {
+                    try {
+                        return n + "=" + x.match(/([0-9]*):.*/i)[1]
+                    } catch (e) {
+                        return ""
+                    }
+                }).filter(x => x != "").join("&")
+            } else if (n == "period") {
                 return n + "=" + ys[i].toString() + "s"
             }
 
@@ -150,7 +164,11 @@ class Widget extends React.Component {
                 let new_keys = keys.filter(x => x != "days")
                 let new_vals = new_keys.map(x => this.state.currentSettings[x])
 
+<<<<<<< HEAD
                 return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + day_query
+=======
+                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
+>>>>>>> 6dee5e91db7da7de71880c0928d94bbbc63469f3
             })
 
             return uris.some(x => x == "") ? null : uris
@@ -173,13 +191,18 @@ class Widget extends React.Component {
 
     fetchData = () => {
         let uris = this.createUriFromSettings()
+<<<<<<< HEAD
 
         if (!uris) { this.setState({loading: false, error: false}); return }
+=======
+>>>>>>> 6dee5e91db7da7de71880c0928d94bbbc63469f3
 
-        this.setState({loading: true, error: false}, () => {
+        if (!uris) { this.setState({ loading: false, error: false }); return }
+
+        this.setState({ loading: true, error: false }, () => {
             Promise.all(uris.map(this.fetchSingle))
-                .then(json => { this.setState({loading: false, error: false}, () => this.compRef.current.update(json)) })
-                .catch(e => {console.log(e); this.setState({loading: false, error: true}) })
+                .then(json => { this.setState({ loading: false, error: false }, () => this.compRef.current.update(json, this.state.currentSettings)) })
+                .catch(e => { console.log(e); this.setState({ loading: false, error: true }) })
         });
     }
 
@@ -203,8 +226,9 @@ class Widget extends React.Component {
 
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">
-                            <button onClick={this.applySettings} className="dashboard-widget-content-settings-buttons-button button outline primary"><i className="dashboard-widget-settings-button-icon fa fa-check"></i> apply</button>
-                            <button onClick={this.defaultSettings} className="dashboard-widget-content-settings-buttons-button button outline secondary"><i className="dashboard-widget-settings-button-icon fa fa-refresh"></i> reset</button>
+                            <button onClick={this.applySettings} className="dashboard-widget-content-settings-buttons-button button outline primary"><i className="dashboard-widget-settings-button-icon fa fa-check"></i> Toepassen</button>
+                            {/* TODO: make working default button */}
+                            {/* <button onClick={this.defaultSettings} className="dashboard-widget-content-settings-buttons-button button outline secondary"><i className="dashboard-widget-settings-button-icon fa fa-refresh"></i> reset</button> */}
                         </div>
                     </div>
                 </div>
