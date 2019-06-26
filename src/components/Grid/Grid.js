@@ -66,7 +66,7 @@ class Grid extends Component {
                     containerPadding={[25, 25]}
                     margin={[30, 30]}
                 >
-                    {/* <div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
+                    <div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
@@ -112,7 +112,7 @@ class Grid extends Component {
                             }}
                             settingsTitles={["Periode"]}
                         />
-                    </div> */}
+                    </div>
 
                     <div key="map" data-grid={{ x: 6, y: 0, w: 6, h: 3 }}>
                         <Widget
@@ -160,7 +160,7 @@ class Grid extends Component {
                         />
                     </div>
 
-                    {/* <div key="feed" data-grid={{ x: 0, y: 3, w: 6, h: 3 }}>
+                    <div key="feed" data-grid={{ x: 0, y: 3, w: 6, h: 3 }}>
                         <Widget
                             component={<Delays />}
                             title="Live vertraging"
@@ -245,7 +245,7 @@ class Grid extends Component {
                             names={{ 0: "top", 1: "period", 2: "transport_type[]", 3: "district[]" }}
                             settingsTitles={["Aantal topvertragingen", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
                         />
-                    </div> */}
+                    </div>
 
                 </ResponsiveGridLayout>
             </div>
