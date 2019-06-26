@@ -166,7 +166,6 @@ class Widget extends React.Component {
         }
 
         let uri = '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
-        console.log("uri",uri)
 
         return uri == "" ? null : [uri]
     }
