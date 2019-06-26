@@ -84,7 +84,7 @@ class Grid extends Component {
                             ]}
                             defaultSettings={{
                                 "days": 7,
-                                "district[]": ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"],
+                                "district[]": DISTRICTS,
                                 "transport_type[]": [""],
                                 "line_number[]": [""]
                             }}
