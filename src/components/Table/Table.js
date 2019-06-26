@@ -89,6 +89,21 @@ class DataTable extends React.Component {
 
         return Math.min(maxWidth, cellLength * magicSpacing)
     }
+
+    delaySort(a, b) {
+        /* Extracts minutes and seconds from time string and calculates back
+         * to seconds. */
+        const calcSeconds = (time) => {
+            const matches = String(time).match("\d+")
+
+            return (matches.length === 2) ? matches[0] * 60 + matches[1] : matches[1]
+        }
+
+        /* React-table requires this way of returning */
+        if (a === b) return 0
+
+        return calcSeconds(a) > calcSeconds(b) ? 1 : -1
+    }
       
 
     render() {
@@ -108,7 +123,16 @@ class DataTable extends React.Component {
             return Math.min(maxWidth, cellLength * magicSpacing)
         }
 
-        const columns = this.state.headers.map(h => ({Header: h, accessor: h, minWidth: getColumnWidth(this.state.values, h)}))
+        /* Creates a header for each header and binds variables to it. If the header equals delay we 
+         * add a custom sorting function. */
+        const columns = []
+        this.state.headers.forEach(h => {
+            const column = (h === "Vertraging")
+              ? {Header: h, accessor: h, minWidth: getColumnWidth(this.state.values, h), sortMethod: this.delaySort}
+              : {Header: h, accessor: h, minWidth: getColumnWidth(this.state.values, h)}
+
+            columns.push(column)
+        })
 
         return <ReactTable
               className="-striped -highlight"

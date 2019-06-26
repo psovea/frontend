@@ -16,8 +16,6 @@ import Slider from 'rc-slider'
 import Maps from "../Maps/Maps"
 import DataTable from "../Table/Table"
 
-
-
 // We need these css imports, else the graphics will glitch
 // while moving components in our grid.
 import "../../../node_modules/react-grid-layout/css/styles.css"
@@ -67,7 +65,7 @@ class Grid extends Component {
                     margin={[30, 30]}
                 >
 
-                    {/*<div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
+                    <div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
@@ -194,7 +192,6 @@ class Grid extends Component {
                         />
 
                     </div>
-                    */}
 
                     <div key="datatable-stops" data-grid={{ x: 0, y: 5, w: 6, h: 3 }}>
                         <Widget
