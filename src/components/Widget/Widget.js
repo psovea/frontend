@@ -155,6 +155,7 @@ class Widget extends React.Component {
         }
 
         let uri = '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
+        console.log("uri",uri)
 
         return uri == "" ? null : [uri]
     }
@@ -176,7 +177,7 @@ class Widget extends React.Component {
 
         this.setState({loading: true, error: false}, () => {
             Promise.all(uris.map(this.fetchSingle))
-                .then(json => { this.setState({loading: false, error: false}, () => this.compRef.current.update(json)) })
+                .then(json => { console.log(json); this.setState({loading: false, error: false}, () => this.compRef.current.update(json)) })
                 .catch(e => {console.log(e); this.setState({loading: false, error: true}) })
         });
     }

@@ -67,7 +67,7 @@ class Grid extends Component {
                     margin={[30, 30]}
                 >
 
-                    <div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
+                    {/*<div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
@@ -194,6 +194,7 @@ class Grid extends Component {
                         />
 
                     </div>
+                    */}
 
                     <div key="datatable-stops" data-grid={{ x: 0, y: 5, w: 6, h: 3 }}>
                         <Widget
@@ -201,7 +202,7 @@ class Grid extends Component {
                                 headers={["Nr", "Stadsdeel", "Halte", "Vertraging"]}
                                 order={["district", "stop_end"]}
                             />}
-                            title="Top vertragingen per lijn"
+                            title="Gemiddelde Totale Vertraging per Halte"
                             componentId="table"
                             settings={[
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90", 100: "100"}} step={null} key='slider3' />,
@@ -214,7 +215,8 @@ class Grid extends Component {
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
                                 "period": 86400,
-                                "top": 10
+                                "top": 10,
+                                "avg_per": "vehicle_delay"
                             }}
                             names={{ 0: "top", 1: "period", 2: "district[]" }}
                             settingsTitles={["Aantal vertragingen", "Periode", "Filter op stadsdeel"]}
@@ -224,23 +226,24 @@ class Grid extends Component {
                     <div key="datatable-lines" data-grid={{ x: 6, y: 5, w: 6, h: 3 }}>
                         <Widget
                             component={<DataTable
-                                headers={["Nr", "Lijn", "Stadsdeel", "Halte", "Transporttype", "Vertraging"]}
-                                order={["line_number", "district", "stop_end", "transport_type"]}
+                                headers={["Nr", "Lijn", "Stadsdeel", "Vervoerstype", "Vertraging"]}
+                                order={["line_number", "district", "transport_type"]}
                             />}
-                            title="Top vertragingen per lijn"
+                            title="Gemiddelde Totale Vertraging per Lijn"
                             componentId="table"
                             settings={[
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" , 100: "100" }} step={null} key='slider3' />,
-                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
+                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={432000} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
                                 (f) => <Searchbar updater={f} options={["TRAM", "BUS", "METRO"]} multipleOptions={true} placeholderText={"transporttype"} key="transport-type" />,
                                 (f) => <Searchbar updater={f} options={DISTRICTS} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
                             ]}
                             defaultSettings={{
-                                "return_filter[]": ["line_number", "transport_type", "district", "stop_end"],
+                                "return_filter[]": ["line_number", "transport_type", "district"],
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
                                 "period": 86400,
-                                "top": 10
+                                "top": 10,
+                                "avg_per": "vehicle_delay"
                             }}
                             addSetting={this.updateState.bind(this)}
                             names={{ 0: "top", 1: "period", 2: "transport_type[]", 3: "district[]" }}
