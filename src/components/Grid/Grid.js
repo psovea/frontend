@@ -62,7 +62,7 @@ class Grid extends Component {
                     containerPadding={[25, 25]}
                     margin={[30, 30]}
                 >
-                    <div key="barchart" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
+                    {/* <div key="barchart" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
@@ -192,7 +192,7 @@ class Grid extends Component {
                             addSetting={this.updateState.bind(this)}
                         />
 
-                    </div>
+                    </div> */}
 
                     <div key="datatable-stops" data-grid={{ x: 0, y: 5, w: 6, h: 3 }}>
                         <Widget

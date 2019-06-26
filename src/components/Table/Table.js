@@ -94,17 +94,18 @@ class DataTable extends React.Component {
         /* Extracts minutes and seconds from time string and calculates back
          * to seconds. */
         const calcSeconds = (time) => {
-            const matches = String(time).match("\d+")
+            const matches = R.map(parseInt, time.match(/\d+/g))
 
             return (matches.length === 2) ? matches[0] * 60 + matches[1] : matches[1]
         }
 
-        /* React-table requires this way of returning */
+        /* React-table requires a return value of 0 when two objects match,
+         * 1 if object a > b and -1 if a < b. */
         if (a === b) return 0
 
         return calcSeconds(a) > calcSeconds(b) ? 1 : -1
     }
-      
+
 
     render() {
         if (this.state.values == null) {
