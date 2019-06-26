@@ -89,31 +89,11 @@ class Widget extends React.Component {
     }
 
     makeComponent = (visibility, id) => {
-        // If state.loading = true, then we display the loader else the widget
-        if (this.state.loading) {
-            return (
-                <div>
-                    <div className={"dashboard-widget-content none"} id={id} style={{ display: 'none' }}>
-                        {React.cloneElement(this.component, { ref: this.compRef })}
-                    </div>
-                    {this.loader()}
+        return this.state.error   ? <div><Missing/></div>      :
+               this.state.loading ? <div>{this.loader()}</div> :
+               <div className={"dashboard-widget-content " + visibility} id={id}>
+                    {React.cloneElement(this.component, { ref: this.compRef })}
                 </div>
-            )
-        }
-        // When the fetch fails we show the missing message.
-        if (this.state.error) {
-            return (
-                <div>
-                    <Missing />
-                </div>
-            )
-        }
-        // When the data is fetched we show the widget normally
-        return (
-            <div className={"dashboard-widget-content " + visibility} id={id}>
-                {React.cloneElement(this.component, { ref: this.compRef })}
-            </div>
-        )
     }
 
     createUriFromSettings = () => {
