@@ -5,7 +5,7 @@
  */
 
 import React from 'react'
-import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
+import { Map, TileLayer, Marker, Tooltip, Polyline } from 'react-leaflet'
 
 import * as R from 'ramda'
 
@@ -30,22 +30,52 @@ class Maps extends React.Component {
             lines: [],
             delays: [],
             heatmapdata: [],
-            currentSettings: { line_number: [""] }
+            currentSettings: { line_number: [""] },
+            lines: {}
         }
     }
 
-    fetchData() {
-        /* Create uri for retrieving a line number */
-        let createUri = state => "&internal_id=" + (state
-            .filter(R.compose(R.not, R.empty))
-            .map(lineNum => lineNum.match(/([0-9]*):.*/i)[1]) // extract line number
-            .join(','))
+    /* Find all stops that have certain value */
+    find = (obj, stops, prop) => R.find(R.propEq(prop, obj[prop]), stops)
 
-        let lineNumUri =
+    /* Filter invalid stops, which always default to a certain position */
+    isInvalidStop = (stop) => (parseFloat(stop.lat) == 47.974766 || parseFloat(stop.lon) == 3.3135424)
+
+    /* Create [lat, lon] pairs between the stops for each line we want to filter. */
+    getLines(values) {
+        let groupedByLine = R.groupBy(R.prop('internal_id'), values[1].flat())
+
+        return R.mergeAll(Object.keys(groupedByLine).map(line => (
+                {[line]: { color: this.getRandomColor(),
+                           coords: groupedByLine[line]
+                            .map(stop => this.find(stop, values[0], 'stop_code'))
+                            .filter(x => x)
+                            .map(stop => this.isInvalidStop(stop)
+                                    ? null
+                                    : [parseFloat(stop.lat), parseFloat(stop.lon)])
+                            .filter(x => x)
+                          }
+                })))
+    }
+
+    /* Retrieve the stops for a certain line number */
+    getStops = (values) => values[1].flat()
+                                    .map(x => this.find(x, values[0], 'stop_code'))
+                                    .filter(x => x)
+
+    /* Create uri for retrieving a line number */
+    createUri = state => "&internal_id=" + (state
+                      .filter(R.compose(R.not, R.empty))
+                      .map(lineNum => lineNum.match(/([0-9]*):.*/i)[1]) // extract line number
+                      .join(','))
+
+    fetchData() {
+        var lineNumUri =
             /* Check if any of the line numbers are empty or undefined */
-            !R.any(R.isEmpty, this.state.currentSettings["line_number[]"]) && !R.isEmpty(this.state.currentSettings["line_number[]"])
+            !R.any(R.isEmpty, this.state.currentSettings["line_number[]"]) &&
+            !R.isEmpty(this.state.currentSettings["line_number[]"])
                 /* Create uri for line number */
-                ? createUri(this.state.currentSettings["line_number[]"])
+                ? this.createUri(this.state.currentSettings["line_number[]"])
                 /* Or empty string */
                 : ""
 
@@ -65,14 +95,14 @@ class Maps extends React.Component {
             })
         })
 
-        // Find all corresponding stops in the fetched line and stop data.
-        let find = (obj, stops) => R.find(R.propEq('stop_code', obj.stop_code), stops)
-
         // Filter all stops with the find function and set the state.
         Promise.all(promises).then(values => {
-            return values[1].flat().map(x => find(x, values[0])).filter(x => x)
-        }).then(stops => {
-            return this.setState({ stops: stops })
+            let stops = this.getStops(values)
+            let lines = lineNumUri != "" ? this.getLines(values) : {}
+
+            return [stops, lines]
+        }).then(data => {
+            return this.setState({ stops: data[0], lines: data[1] })
         })
     }
 
@@ -103,6 +133,40 @@ class Maps extends React.Component {
         })
     }
 
+    getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+
+    createLines() {
+        return Object.keys(this.state.lines).map(line => {
+            let lineObj = this.state.lines[line]
+            return <Polyline key={line} color={lineObj.color} positions={lineObj.coords} />
+        })
+    }
+
+    createLineLegend() {
+        return <div className="line-legend-container">
+                {Object.keys(this.state.lines).map(line => {
+                    let lineObj = this.state.lines[line]
+                    return <div key={line} className="row line-legend-row">
+                                <div className="col-3 line-legend-color" style={{backgroundColor: lineObj.color}}></div>
+                                <div className="col-9 line-legend-text"><p>Lijn: {line}</p></div>
+                            </div>
+                })}
+                </div>
+    }
+
+    renderLineLegend() {
+        return (this.state.lines != []) ? <Control position="topright" >{this.createLineLegend()}</Control>
+                                        : null
+    }
+
     render() {
         if (this.state.heatmapdata.length != 0) {
             return (
@@ -116,6 +180,8 @@ class Maps extends React.Component {
                     maxZoom={16}
                     minZoom={11}
                 >
+                    {this.createLines()}
+
                     <HeatmapLayer
                         fitBoundsOnLoad
                         fitBoundsOnUpdate
@@ -125,8 +191,8 @@ class Maps extends React.Component {
                         intensityExtractor={m => parseFloat(m[2])}
                     />
                     <TileLayer
-                        attribution='&copy; Overzicht'
-                        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                        url='https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png'
                     />
                     <MarkerClusterGroup
                         spiderLegPolylineOptions={{
@@ -138,6 +204,8 @@ class Maps extends React.Component {
                     <Control position="topleft" >
                         <img src={legenda} height="300px" />
                     </Control>
+
+                    {this.renderLineLegend()}
                 </Map>
             )
         } else {
