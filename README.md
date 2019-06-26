@@ -1,7 +1,7 @@
 # Frontend
 Frontend for the OVerzicht application.
 
-![test](https://i.imgur.com/a2n2Njt.jpg)
+![test](https://i.imgur.com/KzciVAE.jpg)
 
 ## Contributing
 
@@ -22,3 +22,7 @@ Code should conform to the following things:
 
 - 4 spaces for indents
 - no `;`s
+
+#### Documentation
+
+Check the [wiki](https://github.com/psovea/frontend/wiki)
