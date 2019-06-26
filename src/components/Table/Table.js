@@ -140,7 +140,7 @@ class DataTable extends React.Component {
               data={this.state.values}
               columns={columns}
               showPagination={false}
-              //defaultSortDesc={true}
+              defaultSortDesc={true} // Sets default Sort on Descending (causes a first doubleclick)
               resizable={false}
               showPageSizeOptions={false}
               minRows={0}
