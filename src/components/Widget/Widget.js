@@ -142,7 +142,18 @@ class Widget extends React.Component {
             return f(n, ys[i])
         })
 
-        if (keys.includes("days")) {
+        if (keys.includes("range")) {
+            let uris = [...Array(this.state.currentSettings.range.days + 1).keys()].slice(1).map(day => {
+                let offsetDay = day + this.state.currentSettings.range.offset
+                let day_query = "start_time=" + ((offsetDay) * -this.DAY) + "&end_time=" + ((offsetDay - 1) * -this.DAY)
+                let new_keys = keys.filter(x => x != "days" && x != "offset" && x != "range")
+                let new_vals = new_keys.map(x => this.state.currentSettings[x])
+
+                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
+            })
+
+            return uris.some(x => x == "") ? null : uris
+        } else if (keys.includes("days")) {
             let uris = [...Array(this.state.currentSettings.days + 1).keys()].slice(1).map(day => {
                 let day_query = "start_time=" + (day * -this.DAY) + "&end_time=" + ((day - 1) * -this.DAY)
                 let new_keys = keys.filter(x => x != "days")

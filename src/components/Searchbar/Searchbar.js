@@ -76,7 +76,6 @@ class Searchbar extends Component {
         var format_params = R.join("&", R.map((item) => `${R.replace("[]", "", item.key)}=${item.value}`, params))
         var url = `https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/${endpoint}?operator=GVB&${format_params}`
 
-        console.log(url)
         return fetch(url)
             .then(res => res.json())
             .then(res => R.uniq(R.map(f, res)))
@@ -85,6 +84,7 @@ class Searchbar extends Component {
     /* Set the options for the search bar. */
     setOptions() {
         var params = R.map(([key, value]) => ({ "key": key, "value": R.join(",", value) }), R.filter((i) => R.equals(R.type(i[1]), "Array"), R.toPairs(this.props.params)))
+
         this.getOptions(this.props.endpoint, params, this.props.filterFunc)
             .then(res => this.setState({ options: R.map(item => ({ value: item, label: item }), res.sort(naturalSort())) }))
     }
