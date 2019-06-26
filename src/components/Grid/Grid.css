@@ -244,3 +244,7 @@
     font-style: italic;
     margin-top: 25px;
 }
+
+.dashboard-widget-content-settings-buttons-button {
+    margin-left: 25%;
+}

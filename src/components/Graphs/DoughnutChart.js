@@ -26,7 +26,8 @@ class DoughnutChart extends React.Component {
 
     makeData() {
         var labelArray = this.state.delays.map(item => (item['metric'][this.props.metric]));
-        var dataArray = this.state.delays.map(item => Object.values(item['value'])[1]);
+        // TODO: create variable for 3600 (hours)
+        var dataArray = this.state.delays.map(item => Math.round(Object.values(item['value'])[1] / 3600));
         let data = {
             labels: labelArray,
             datasets: [{
@@ -40,7 +41,7 @@ class DoughnutChart extends React.Component {
 
     render() {
         return (
-            this.state.delays == null 
+            this.state.delays == null
                 ? <Missing/>
                 : <Doughnut data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
         );

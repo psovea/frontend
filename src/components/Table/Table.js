@@ -32,15 +32,18 @@ class DataTable extends React.Component {
     /* Gets metric and value data from fetched data in order to put it in the
      * ReactTable to be able to sort.
      */
-    parseData = (data) =>
-        Object.values(data).map((d, i) => ({
+    parseData = (data) => {
+        console.log("data", data)
+        return Object.values(data).map((d, i) => ({
             Nr: i + 1,
             Halte: d["metric"]["stop_end"],
-            Transporttype: d["metric"]["transport_type"],
+            Vervoerstype: d["metric"]["transport_type"],
             Stadsdeel: d["metric"]["district"],
             Lijn: parseInt(d["metric"]["line_number"]),
             Vertraging: this.formatTime(d["value"][1])
-    }))
+        }))
+    }
+
 
     /* If the new data contains stop data, we should fetch the
      * stop names to display.
@@ -53,7 +56,7 @@ class DataTable extends React.Component {
                 .then(res => R.zipWith(R.assocPath(['metric', 'stop_end']), res, data))
                 .then(data => this.setState({values: this.parseData(data)}))
         } else {
-            this.setState({values: data})
+            this.setState({values: this.parseData(data)})
         }
     }
 
@@ -107,7 +110,7 @@ class DataTable extends React.Component {
 
         const columns = this.state.headers.map(h => ({Header: h, accessor: h, minWidth: getColumnWidth(this.state.values, h)}))
 
-        return <ReactTable 
+        return <ReactTable
               className="-striped -highlight"
               data={this.state.values}
               columns={columns}
