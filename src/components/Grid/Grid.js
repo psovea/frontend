@@ -1,5 +1,5 @@
 /* Grid.js:
- * Discription: This file contains the main body. The body contains of a 4x4 grid.
+ * Description: This file contains the main body. The body contains of a 4x4 grid.
  *              Grid box containers can be made here. Data graphs are shown in these boxes.
  *              Each box has their own x,y position in the grid.
  *              In this file you can change the width and height of these boxes.
@@ -69,7 +69,7 @@ class Grid extends Component {
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Calendar updater={f} />,
+                                (f) => <Calendar updater={f} perDay={true} />,
 
                                 (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='search-transport'
                                 />,
@@ -80,7 +80,8 @@ class Grid extends Component {
                             defaultSettings={{
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": true
                                 },
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
@@ -108,7 +109,8 @@ class Grid extends Component {
                                 "transport_type[]": [""],
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 8
                             }}
@@ -151,8 +153,9 @@ class Grid extends Component {
                                 "format": "heatmap",
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
-                                }
+                                    "offset": 0,
+                                    "perDay": false
+                                },
                             }}
                         />
                     </div>
@@ -185,7 +188,8 @@ class Grid extends Component {
                                 "transport_type[]": [""],
                                 "range": {
                                     "days": 7,
-                                    "offset": 0
+                                    "offset": 0,
+                                    "perDay": false
                                 },
                                 "top": 8
                             }}
@@ -196,63 +200,67 @@ class Grid extends Component {
                     </div>
 
                     <div key="datatable-stops" data-grid={{ x: 0, y: 5, w: 6, h: 3 }}>
-                       <Widget
-                           component={<DataTable
-                               headers={["Nr", "Stadsdeel", "Halte", "Vertraging"]}
-                               order={["district", "stop_end"]}
-                           />}
-                           title="Gemiddelde Totale Vertraging per Halte"
-                           componentId="table"
-                           settings={[
-                               (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90", 100: "100"}} step={null} key='slider3' />,
-                               (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
-                               (f) => <Searchbar updater={f} options={DISTRICTS} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
-                           ]}
-                           addSetting={this.updateState.bind(this)}
-                           defaultSettings={{
-                               "return_filter[]": ["district", "stop_end"],
-                               "district[]": DISTRICTS,
-                               "transport_type[]": [""],
-                               "period": 86400,
-                               "top": 10,
-                               "range": {
-                                   "days": 7,
-                                   "offset": 0
-                               },
-                               "avg_per": "vehicle_delay"
-                           }}
-                           names={{ 0: "top", 1: "period", 2: "district[]" }}
-                           settingsTitles={["Aantal vertragingen", "Periode", "Filter op stadsdeel"]}
-                       />
-                   </div>
+                        <Widget
+                            component={<DataTable
+                                headers={["Nr", "Stadsdeel", "Halte", "Vertraging"]}
+                                order={["district", "stop_end"]}
+                            />}
+                            title="Gemiddelde Totale Vertraging per Halte"
+                            componentId="table"
+                            settings={[
+                                (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90", 100: "100" }} step={null} key='slider3' />,
+                                (f) => <Calendar updater={f} />,
+                                (f) => <Searchbar updater={f} options={DISTRICTS} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
+                            ]}
+                            addSetting={this.updateState.bind(this)}
+                            defaultSettings={{
+                                "return_filter[]": ["district", "stop_end"],
+                                "district[]": DISTRICTS,
+                                "transport_type[]": [""],
+                                "avg_per": "vehicle_delay",
+                                "range": {
+                                    "days": 7,
+                                    "offset": 0,
+                                    "perDay": false
+                                },
+                                "top": 10
+                            }}
+                            names={{ 0: "top", 1: "range", 2: "district[]" }}
+                            settingsTitles={["Aantal vertragingen Weergeven", "Periode", "Filter op stadsdeel"]}
+                        />
+                    </div>
 
-                   <div key="datatable-lines" data-grid={{ x: 6, y: 5, w: 6, h: 3 }}>
-                       <Widget
-                           component={<DataTable
-                               headers={["Nr", "Lijn", "Stadsdeel", "Vervoerstype", "Vertraging"]}
-                               order={["line_number", "district", "transport_type"]}
-                           />}
-                           title="Gemiddelde Totale Vertraging per Lijn"
-                           componentId="table"
-                           settings={[
-                               (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" , 100: "100" }} step={null} key='slider3' />,
-                               (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={432000} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
-                               (f) => <Searchbar updater={f} options={["TRAM", "BUS", "METRO"]} multipleOptions={true} placeholderText={"transporttype"} key="transport-type" />,
-                               (f) => <Searchbar updater={f} options={DISTRICTS} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
-                           ]}
-                           defaultSettings={{
-                               "return_filter[]": ["line_number", "transport_type", "district"],
-                               "district[]": DISTRICTS,
-                               "transport_type[]": [""],
-                               "period": 86400,
-                               "top": 10,
-                               "avg_per": "vehicle_delay"
-                           }}
-                           addSetting={this.updateState.bind(this)}
-                           names={{ 0: "top", 1: "period", 2: "transport_type[]", 3: "district[]" }}
-                           settingsTitles={["Aantal topvertragingen", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
-                       />
-                   </div>
+                    <div key="datatable-lines" data-grid={{ x: 6, y: 5, w: 6, h: 3 }}>
+                        <Widget
+                            component={<DataTable
+                                headers={["Nr", "Lijn", "Stadsdeel", "Vervoerstype", "Vertraging"]}
+                                order={["line_number", "district", "transport_type"]}
+                            />}
+                            title="Gemiddelde Totale Vertraging per Lijn"
+                            componentId="table"
+                            settings={[
+                                (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90", 100: "100" }} step={null} key='slider3' />,
+                                (f) => <Calendar updater={f} />,
+                                (f) => <Searchbar updater={f} options={["TRAM", "BUS", "METRO"]} multipleOptions={true} placeholderText={"transporttype"} key="transport-type" />,
+                                (f) => <Searchbar updater={f} options={DISTRICTS} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
+                            ]}
+                            defaultSettings={{
+                                "return_filter[]": ["line_number", "transport_type", "district"],
+                                "district[]": DISTRICTS,
+                                "transport_type[]": [""],
+                                "avg_per": "vehicle_delay",
+                                "range": {
+                                    "days": 7,
+                                    "offset": 0,
+                                    "perDay": false
+                                },
+                                "top": 10
+                            }}
+                            addSetting={this.updateState.bind(this)}
+                            names={{ 0: "top", 1: "range", 2: "transport_type[]", 3: "district[]" }}
+                            settingsTitles={["Aantal Vertragingen Weergeven", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
+                        />
+                    </div>
 
                 </ResponsiveGridLayout>
             </div>
