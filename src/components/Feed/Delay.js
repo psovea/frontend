@@ -1,3 +1,9 @@
+/* Delay.js
+ * Description:
+ * Shows a list of incoming (live) delays. It connects to a socket that sends all incoming
+ * delays for the GVB.
+ */
+
 import React, { Component } from 'react';
 import socketIOClient from "socket.io-client";
 import Missing from '../Missing/Missing';
@@ -10,6 +16,7 @@ class Delay extends Component {
       delays: []
     }
 
+    /* static headers and values for each delay, including the width for the html. */
     this.headers = [["Tijd", "col-2"], ["Lijn", "col-2"], ["Vertraging", "col-3"], ["Halte", "col-3"], ["Vervoerder", "col-2"]]
     this.valueKeys = [["time", "col-2"], ["publicLine", "col-2"], ["punctuality", "delay-stream-delay-value col-3"], ["name", "col-3"]]
 
@@ -52,6 +59,7 @@ class Delay extends Component {
   componentDidMount() {
     this._isMounted = true;
 
+    /* Initiate connection with socket. */
     const socket = socketIOClient('http://127.0.0.1:3500');
     socket.on("message", data => {
       let info = JSON.parse(data)

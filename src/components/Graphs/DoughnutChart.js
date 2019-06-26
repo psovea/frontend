@@ -20,30 +20,38 @@ class DoughnutChart extends React.Component {
         }
     }
 
-    update(newData) {
-        this.setState({delays: newData[0]});
-    }
+    update = (newData) => this.setState({delays: newData[0]});
 
-    makeData() {
-        var labelArray = this.state.delays.map(item => (item['metric'][this.props.metric]));
-        // TODO: create variable for 3600 (hours)
-        var dataArray = this.state.delays.map(item => Math.round(Object.values(item['value'])[1] / 3600));
-        let data = {
-            labels: labelArray,
+    /* Convert seconds to hours. */
+    secondsToHours = (seconds) => Math.round(seconds / 3600)
+
+    /* Create object that can be passed to the chart. */
+    mkChartData = (labels, data) => (
+        {
+            labels: labels,
             datasets: [{
-                data: dataArray,
+                data: data,
                 backgroundColor: this.props.colors,
                 hoverBackgroundColor: this.props.colors
             }]
         }
-        return data
+    )
+
+    /*  */
+    makeData = () => {
+        var labels = this.state.delays.map(item => (item['metric'][this.props.metric]));
+        var data = this.state.delays.map(item => this.secondsToHours(Object.values(item['value'])[1]));
+        return this.mkChartData(labels, data)
     }
 
-    render() {
+    render = () => {
         return (
             this.state.delays == null
                 ? <Missing/>
-                : <Doughnut data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
+                : <Doughnut
+                    data={this.makeData()}
+                    options={{ responsive: true, maintainAspectRatio: false }}
+                  />
         );
     }
 
@@ -54,4 +62,4 @@ DoughnutChart.propTypes = {
     metric: PropTypes.string
 }
 
-export default DoughnutChart; 
+export default DoughnutChart;

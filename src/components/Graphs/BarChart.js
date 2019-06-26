@@ -1,6 +1,6 @@
 /* BarChart.js:
- * Discription: This is the component of a Barchart. This is used to be shown in a grid box.
- *              Data is obtained from an API.
+ * Description:
+ * Wrapper class for the react-charts bar chart.
  */
 
 import React from 'react';
@@ -24,6 +24,7 @@ class BarChart extends React.Component {
         })
     }
 
+    /* Shows a given date in dd:mm format. */
     getFormattedDate(daysAgo) {
         var dayTime = new Date()
         dayTime.setDate(dayTime.getDate() - daysAgo)
@@ -32,15 +33,12 @@ class BarChart extends React.Component {
         return `${day}/${month}`
     }
 
-    makeData() {
-        if (this.state.data.length == 0) { return [] }
-
-        var labelArray = this.state.data.map((x, i) => this.getFormattedDate(i + this.state.offset + 1)).reverse()
-        var dataArray = this.state.data.map(item => Math.round(item['value'][1] / 3600)).reverse()
-        let data = {
-            labels: labelArray,
+    /* Creates an object that can be passed to the bar chart.*/
+    mkChartData = (labels, data) => (
+        {
+            labels: labels,
             datasets: [{
-                data: dataArray,
+                data: data,
                 label: 'Vertraging (in uren)',
                 backgroundColor: 'rgba(255,99,132,0.2)',
                 borderColor: 'rgba(255,99,132,1)',
@@ -49,14 +47,32 @@ class BarChart extends React.Component {
                 hoverBorderColor: 'rgba(255,99,132,1)'
             }]
         }
-        return data
+    )
+
+    /* Convert seconds to hours. */
+    secondsToHours = (seconds) => Math.round(seconds / 3600)
+
+    /* Format the data such that it can be shown as a bar chart. */
+    formatData() {
+        if (this.state.data.length == 0) { return [] }
+
+        var labels = this.state.data.map((x, i) => this.getFormattedDate(i + this.state.offset + 1)).reverse()
+        var data = this.state.data.map(item => this.secondsToHours(item['value'][1])).reverse()
+
+        return this.mkChartData(labels, data)
     }
 
     render() {
         return (
             this.state.data.length == 0
                 ? <Missing/>
-                : <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false, scales: { yAxes: [{ ticks: { beginAtZero: true } }] } }} />
+                : <Bar
+                    data={this.formatData()}
+                    options={
+                        { responsive: true,
+                          maintainAspectRatio: false,
+                          scales: { yAxes: [{ ticks: { beginAtZero: true } }] } }}
+                  />
         )
     }
 }

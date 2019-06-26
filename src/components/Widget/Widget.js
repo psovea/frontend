@@ -81,9 +81,6 @@ class Widget extends React.Component {
         )
     }
 
-
-    getCurrentSettings = () => this.state.currentSettings
-
     defaultSettings = () => {
         this.setState({ currentSettings: this.state.defaultSettings })
     }
@@ -100,7 +97,7 @@ class Widget extends React.Component {
                 </div>
             )
         }
-        // When the fetch fails we show the missing message.
+
         if (this.state.error) {
             return (
                 <div>
@@ -108,7 +105,7 @@ class Widget extends React.Component {
                 </div>
             )
         }
-        // When the data is fetched we show the widget normally
+
         return (
             <div className={"dashboard-widget-content " + visibility} id={id}>
                 {React.cloneElement(this.component, { ref: this.compRef })}
