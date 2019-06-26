@@ -122,12 +122,7 @@ class Widget extends React.Component {
         let keys = Object.keys(this.state.currentSettings)
         let vals = Object.values(this.state.currentSettings)
 
-<<<<<<< HEAD
-
-        let zipWith = (f, xs, ys) => xs.map((n,i) => {
-=======
         let zipWith = (f, xs, ys) => xs.map((n, i) => {
->>>>>>> 6dee5e91db7da7de71880c0928d94bbbc63469f3
             if (n == "return_filter[]" || n == "district[]") {
                 return ys[i].map(x => n + "=" + x).join("&")
             } else if (n == "transport_type[]") {
@@ -164,11 +159,7 @@ class Widget extends React.Component {
                 let new_keys = keys.filter(x => x != "days")
                 let new_vals = new_keys.map(x => this.state.currentSettings[x])
 
-<<<<<<< HEAD
-                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + day_query
-=======
                 return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
->>>>>>> 6dee5e91db7da7de71880c0928d94bbbc63469f3
             })
 
             return uris.some(x => x == "") ? null : uris
@@ -191,11 +182,6 @@ class Widget extends React.Component {
 
     fetchData = () => {
         let uris = this.createUriFromSettings()
-<<<<<<< HEAD
-
-        if (!uris) { this.setState({loading: false, error: false}); return }
-=======
->>>>>>> 6dee5e91db7da7de71880c0928d94bbbc63469f3
 
         if (!uris) { this.setState({ loading: false, error: false }); return }
 
