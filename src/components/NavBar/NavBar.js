@@ -14,7 +14,7 @@ class NavBar extends Component {
         super(props);
     }
 
-    render() {
+    render = () => {
         return (
             <div className="navbar">
                 <div className="logoleft">

@@ -31,7 +31,7 @@ class Calendar extends React.Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.setState({
             to: new Date(),
             from: moment().subtract(7, 'days').toDate(),
@@ -64,12 +64,12 @@ class Calendar extends React.Component {
     }
 
     /* Calculate the difference in days between two dates. */
-    dateDiff(from, to) {
+    dateDiff = (from, to) => {
         const dayInMilliSecs = 86400000
         return Math.round(Math.abs(to.getTime() - from.getTime()) / dayInMilliSecs)
     }
 
-    render() {
+    render = () => {
         const { from, to } = this.state
         const today = new Date()
         const modifiers = { start: from, end: to }

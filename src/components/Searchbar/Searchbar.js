@@ -17,6 +17,7 @@ import PropTypes from 'prop-types'
 import Select from 'react-select'
 
 import './Searchbar.css'
+import {toLocalUrl} from '../../helper';
 
 import * as R from 'ramda'
 
@@ -74,7 +75,7 @@ class Searchbar extends Component {
      */
     getOptions(endpoint, params, f) {
         var format_params = R.join("&", R.map((item) => `${R.replace("[]", "", item.key)}=${item.value}`, params))
-        var url = `https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/${endpoint}?operator=GVB&${format_params}`
+        var url = toLocalUrl(`http://18.224.29.151:5000/${endpoint}?operator=GVB&${format_params}`)
 
         return fetch(url)
             .then(res => res.json())

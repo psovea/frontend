@@ -81,9 +81,6 @@ class Widget extends React.Component {
         )
     }
 
-
-    getCurrentSettings = () => this.state.currentSettings
-
     defaultSettings = () => {
         this.setState({ currentSettings: this.state.defaultSettings })
     }

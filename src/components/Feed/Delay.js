@@ -1,6 +1,14 @@
+/* Delay.js
+ * Description:
+ * Shows a list of incoming (live) delays. It connects to a socket that sends all incoming
+ * delays for the GVB.
+ */
+
 import React, { Component } from 'react';
 import socketIOClient from "socket.io-client";
 import Missing from '../Missing/Missing';
+
+import {toLocalUrl} from '../../helper';
 
 class Delay extends Component {
   constructor(props) {
@@ -10,6 +18,7 @@ class Delay extends Component {
       delays: []
     }
 
+    /* static headers and values for each delay, including the width for the html. */
     this.headers = [["Tijd", "col-2"], ["Lijn", "col-2"], ["Vertraging", "col-3"], ["Halte", "col-3"], ["Vervoerder", "col-2"]]
     this.valueKeys = [["time", "col-2"], ["publicLine", "col-2"], ["punctuality", "delay-stream-delay-value col-3"], ["name", "col-3"]]
 
@@ -17,14 +26,15 @@ class Delay extends Component {
   }
 
   /* Given a stopcode and line id, retrieve the necessary data from the database. */
-  getTravelInfo(info) {
+  getTravelInfo = (info) => {
 
-    let reqLine = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.224.29.151:5000/get-lines?operator=${info.dataownercode}&internal_id=${info.lineplanningnumber}`)
-    .then(res => res.json())
+    let reqLine = fetch(
+        toLocalUrl(`http://18.224.29.151:5000/get-lines?operator=${info.dataownercode}&internal_id=${info.lineplanningnumber}`)
+      ).then(res => res.json())
 
-    var reqStop = fetch("https://cors-anywhere.herokuapp.com/" + `http://18.224.29.151:5000/get-stops?stop_code=300${info.userstopcode}`)
-    .then(res => res.json())
-
+    var reqStop = fetch(
+        toLocalUrl(`http://18.224.29.151:5000/get-stops?stop_code=300${info.userstopcode}`)
+      ).then(res => res.json())
 
     /* Wait for requests to finish. */
     Promise.all([reqStop, reqLine]).then(data => {
@@ -49,9 +59,10 @@ class Delay extends Component {
     })
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this._isMounted = true;
 
+    /* Initiate connection with socket. */
     const socket = socketIOClient('http://127.0.0.1:3500');
     socket.on("message", data => {
       let info = JSON.parse(data)
@@ -59,12 +70,12 @@ class Delay extends Component {
     });
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     this._isMounted = false;
   }
 
   /* Formats the current time as hh:mm. */
-  getTime() {
+  getTime = () => {
     var today = new Date();
     var hh = today.getHours();
     var mm = today.getMinutes();
@@ -76,7 +87,7 @@ class Delay extends Component {
    * This formats these seconds as such:
    * "x minutes and y seconds"
    */
-  formatDelay(time) {
+  formatDelay = (time) => {
     let minutes = Math.floor(time / 60).toString()
     let seconds = (time % 60).toString()
 
@@ -84,7 +95,7 @@ class Delay extends Component {
   }
 
   /* Create a header row for a delay item. */
-  mkHeader() {
+  mkHeader = () => {
     return (
       <div className="delay-stream-item-header row">
         {this.headers.map((tup) => (
@@ -97,7 +108,7 @@ class Delay extends Component {
   }
 
   /* Show values corresponding to the headers. */
-  mkRow(item) {
+  mkRow = (item) => {
     return (
       <div key={item} className="delay-stream-item-header row">
         {
