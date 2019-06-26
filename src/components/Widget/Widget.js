@@ -19,7 +19,6 @@ class Widget extends React.Component {
 
         this.compRef = React.createRef()
         this.component = props.component
-        this.DAY = 86400
 
         this.handleSettingsChange = this.handleSettingsChange.bind(this)
         this.applySettings = this.applySettings.bind(this)
@@ -97,52 +96,16 @@ class Widget extends React.Component {
                 </div>
     }
 
+    /* Create a URI based on the settings. */
     createUriFromSettings = () => {
         if (!this.state.currentSettings) { return "" }
 
         let keys = Object.keys(this.state.currentSettings)
         let vals = Object.values(this.state.currentSettings)
 
-        if (keys.includes("range")) {
-            // If the 'perDay' setting is true, we need to fetch the data per
-            // individual day. Otherwise, we can fetch it over the whole period.
-            if (this.state.currentSettings.range.perDay) {
-                let uris = [...Array(this.state.currentSettings.range.days + 1).keys()].slice(1).map(day => {
-                    let offsetDay = day + this.state.currentSettings.range.offset
-                    let day_query = "start_time=" + ((offsetDay) * -this.DAY) + "&end_time=" + ((offsetDay - 1) * -this.DAY)
-                    let new_keys = keys.filter(x => x != "days" && x != "offset" && x != "range")
-                    let new_vals = new_keys.map(x => this.state.currentSettings[x])
-
-                    return '?' + helper.zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
-                })
-
-                return uris.some(x => x == "") ? null : uris
-            }
-
-            let start_day = (this.state.currentSettings.range.days + this.state.currentSettings.range.offset + 1) * -this.DAY
-            let end_day = (this.state.currentSettings.range.offset + 1) * -this.DAY
-            let day_query = "start_time=" + start_day + "&end_time=" + end_day
-            let new_keys = keys.filter(x => x != "days" && x != "offset" && x != "range")
-            let new_vals = new_keys.map(x => this.state.currentSettings[x])
-
-            let uri ='?' + helper.zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
-
-            return uri == "" ? null : [uri]
-        } else if (keys.includes("days")) {
-            let uris = [...Array(this.state.currentSettings.days + 1).keys()].slice(1).map(day => {
-                let day_query = "start_time=" + (day * -this.DAY) + "&end_time=" + ((day - 1) * -this.DAY)
-                let new_keys = keys.filter(x => x != "days")
-                let new_vals = new_keys.map(x => this.state.currentSettings[x])
-
-                return '?' + helper.zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
-            })
-
-            return uris.some(x => x == "") ? null : uris
-        }
-
-        let uri = '?' + helper.zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
-
-        return uri == "" ? null : [uri]
+        return keys.includes("range") ? helper.rangeURI(this.state.currentSettings, keys) :
+               keys.includes("days")  ? helper.daysURI(this.state.currentSettings, keys)  :
+               helper.uri(keys, vals)
     }
 
     fetchSingle = (uri) => {
