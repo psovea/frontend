@@ -144,6 +144,7 @@ class DataTable extends React.Component {
               showPageSizeOptions={false}
               minRows={0}
               defaultPageSize={100}
+              multiSort={false}
               style={{height: "100%"}} // Makes sure the top row is pinned to the top.
         />
     }

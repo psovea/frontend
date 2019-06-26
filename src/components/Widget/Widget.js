@@ -122,7 +122,7 @@ class Widget extends React.Component {
         let keys = Object.keys(this.state.currentSettings)
         let vals = Object.values(this.state.currentSettings)
 
-        let zipWith = (f, xs, ys) => xs.map((n,i) => {
+        let zipWith = (f, xs, ys) => xs.map((n, i) => {
             if (n == "return_filter[]" || n == "district[]") {
                 return ys[i].map(x => n + "=" + x).join("&")
             } else if (n == "transport_type[]") {
@@ -131,7 +131,7 @@ class Widget extends React.Component {
                 return ys[i].map(x => {
                     try {
                         return n + "=" + x.match(/([0-9]*):.*/i)[1]
-                    } catch(e) {
+                    } catch (e) {
                         return ""
                     }
                 }).filter(x => x != "").join("&")
@@ -142,7 +142,18 @@ class Widget extends React.Component {
             return f(n, ys[i])
         })
 
-        if (keys.includes("days")) {
+        if (keys.includes("range")) {
+            let uris = [...Array(this.state.currentSettings.range.days + 1).keys()].slice(1).map(day => {
+                let offsetDay = day + this.state.currentSettings.range.offset
+                let day_query = "start_time=" + ((offsetDay) * -this.DAY) + "&end_time=" + ((offsetDay - 1) * -this.DAY)
+                let new_keys = keys.filter(x => x != "days" && x != "offset" && x != "range")
+                let new_vals = new_keys.map(x => this.state.currentSettings[x])
+
+                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + "&" + day_query
+            })
+
+            return uris.some(x => x == "") ? null : uris
+        } else if (keys.includes("days")) {
             let uris = [...Array(this.state.currentSettings.days + 1).keys()].slice(1).map(day => {
                 let day_query = "start_time=" + (day * -this.DAY) + "&end_time=" + ((day - 1) * -this.DAY)
                 let new_keys = keys.filter(x => x != "days")
@@ -173,13 +184,13 @@ class Widget extends React.Component {
     fetchData = () => {
         let uris = this.createUriFromSettings()
 
-        if (!uris) { this.setState({loading: false, error: false}); return }
+        if (!uris) { this.setState({ loading: false, error: false }); return }
 
-        this.setState({loading: true, error: false}, () => {
+        this.setState({ loading: true, error: false }, () => {
             Promise.all(uris.map(this.fetchSingle))
-                .then(json => { console.log(json); this.setState({loading: false, error: false}, () => this.compRef.current.update(json)) })
-                .catch(e => {console.log(e); this.setState({loading: false, error: true}) })
-        });
+                .then(json => { this.setState({ loading: false, error: false }, () => this.compRef.current.update(json, this.state.currentSettings)) })
+                .catch(e => { console.log(e); this.setState({ loading: false, error: true }) })
+        })
     }
 
     render() {
@@ -203,8 +214,6 @@ class Widget extends React.Component {
                     <div className="dashboard-widget-content-settings-buttons">
                         <div className="dashboard-widget-content-settings-buttons-container">
                             <button onClick={this.applySettings} className="dashboard-widget-content-settings-buttons-button button outline primary"><i className="dashboard-widget-settings-button-icon fa fa-check"></i> Toepassen</button>
-                            {/* TODO: make working default button */}
-                            {/* <button onClick={this.defaultSettings} className="dashboard-widget-content-settings-buttons-button button outline secondary"><i className="dashboard-widget-settings-button-icon fa fa-refresh"></i> reset</button> */}
                         </div>
                     </div>
                 </div>

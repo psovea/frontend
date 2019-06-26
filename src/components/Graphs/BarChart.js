@@ -12,12 +12,16 @@ class BarChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            offset: 0
         }
     }
 
-    update(newData) {
-        this.setState({data: newData.flat()})
+    update(newData, newSettings) {
+        this.setState({
+            data: newData.flat(),
+            offset: newSettings.range.offset
+        })
     }
 
     getFormattedDate(daysAgo) {
@@ -31,7 +35,7 @@ class BarChart extends React.Component {
     makeData() {
         if (this.state.data.length == 0) { return [] }
 
-        var labelArray = this.state.data.map((x, i) => this.getFormattedDate(i + 1)).reverse()
+        var labelArray = this.state.data.map((x, i) => this.getFormattedDate(i + this.state.offset + 1)).reverse()
         var dataArray = this.state.data.map(item => Math.round(item['value'][1] / 3600)).reverse()
         let data = {
             labels: labelArray,
@@ -42,7 +46,7 @@ class BarChart extends React.Component {
                 borderColor: 'rgba(255,99,132,1)',
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                hoverBorderColor: 'rgba(255,99,132,1)',
+                hoverBorderColor: 'rgba(255,99,132,1)'
             }]
         }
         return data
@@ -52,7 +56,7 @@ class BarChart extends React.Component {
         return (
             this.state.data.length == 0
                 ? <Missing/>
-                : <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
+                : <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false, scales: { yAxes: [{ ticks: { beginAtZero: true } }] } }} />
         )
     }
 }
