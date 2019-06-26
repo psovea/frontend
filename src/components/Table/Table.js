@@ -40,7 +40,7 @@ class DataTable extends React.Component {
             Stadsdeel: d["metric"]["district"],
             Lijn: parseInt(d["metric"]["line_number"]),
             Vertraging: this.formatTime(d["value"][1])
-        }))
+    }))
 
     /* If the new data contains stop data, we should fetch the
      * stop names to display.
@@ -72,17 +72,40 @@ class DataTable extends React.Component {
         const seconds = Math.round(item % 60).toString()
 
         return (minutes >= 1 ? minutes + " minuten en " : "") + seconds + " seconden"
-      }
+    }
+
+    getColumnWidth = (rows, accessor) => {
+        let {data} = rows
+
+        const maxWidth = 400
+        const magicSpacing = 10
+        const cellLength = Math.max(
+          ...data.map(d => (`${d[accessor]}` || '').length),
+          headerText.length,
+        )
+
+        return Math.min(maxWidth, cellLength * magicSpacing)
+    }
+      
 
     render() {
         if (this.state.values == null) {
-            return <Missing/>
+            return <Missing />
         }
 
         /* Creates the table header and binds the rows to the data in the columns
          * using the accessor. Also manually sets width for first row. */
-        const columns = this.state.headers.map(h => ({Header: h, accessor: h}))
-        columns[0] = {maxWidth: 100, ...columns[0]}
+        const getColumnWidth = (rows, accessor) => {
+            const maxWidth = 400
+            const magicSpacing = 10
+            const cellLength = Math.max(
+              ...rows.map(row => (`${row[accessor]}` || '').length),
+              accessor.length,
+            )
+            return Math.min(maxWidth, cellLength * magicSpacing)
+        }
+
+        const columns = this.state.headers.map(h => ({Header: h, accessor: h, minWidth: getColumnWidth(this.state.values, h)}))
 
         return <ReactTable 
               className="-striped -highlight"
