@@ -151,7 +151,6 @@ class Maps extends React.Component {
     }
 
     createLineLegend() {
-        console.log("comes here")
         return <div className="line-legend-container">
                 {Object.keys(this.state.lines).map(line => {
                     let lineObj = this.state.lines[line]
