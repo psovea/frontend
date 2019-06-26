@@ -122,6 +122,7 @@ class Widget extends React.Component {
         let keys = Object.keys(this.state.currentSettings)
         let vals = Object.values(this.state.currentSettings)
 
+
         let zipWith = (f, xs, ys) => xs.map((n,i) => {
             if (n == "return_filter[]" || n == "district[]") {
                 return ys[i].map(x => n + "=" + x).join("&")
@@ -132,15 +133,26 @@ class Widget extends React.Component {
             return f(n, ys[i])
         })
 
-        if (keys.includes("days")) {
+        if (keys.includes("range")) {
+            let uris = [...Array(this.state.currentSettings.range.days + 1).keys()].slice(1).map(day => {
+                let offsetDay = day + this.state.currentSettings.range.offset
+                let day_query = "start_time=" + ((offsetDay) * -this.DAY) + "&end_time=" + ((offsetDay - 1) * -this.DAY)
+                let new_keys = keys.filter(x => x != "days" && x != "offset" && x != "range")
+                let new_vals = new_keys.map(x => this.state.currentSettings[x])
+
+                return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + day_query
+            })
+
+            return uris.some(x => x == "") ? null : uris
+        } else if (keys.includes("days")) {
             let uris = [...Array(this.state.currentSettings.days + 1).keys()].slice(1).map(day => {
                 let day_query = "start_time=" + (day * -this.DAY) + "&end_time=" + ((day - 1) * -this.DAY)
                 let new_keys = keys.filter(x => x != "days")
                 let new_vals = new_keys.map(x => this.state.currentSettings[x])
-                
+
                 return '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), new_keys, new_vals).join("&") + day_query
             })
-            
+
             return uris.some(x => x == "") ? null : uris
         }
 
@@ -161,7 +173,7 @@ class Widget extends React.Component {
 
     fetchData = () => {
         let uris = this.createUriFromSettings()
-        
+
         if (!uris) { this.setState({loading: false, error: false}); return }
 
         this.setState({loading: true, error: false}, () => {

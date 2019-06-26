@@ -13,7 +13,8 @@ class BarChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            settings: {}
         }
     }
 
@@ -50,7 +51,7 @@ class BarChart extends React.Component {
 
     render() {
         return (
-            this.state.data == null 
+            this.state.data == null
                 ? <Missing/>
                 : <Bar data={this.makeData()} options={{ responsive: true, maintainAspectRatio: false }} />
         )

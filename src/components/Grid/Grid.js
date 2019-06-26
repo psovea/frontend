@@ -15,8 +15,8 @@ import Delays from "../Feed/Delays"
 import Slider from 'rc-slider'
 import Maps from "../Maps/Maps"
 import DataTable from "../Table/Table"
-
-
+import Searchbar from "../Searchbar/Searchbar"
+import Calendar from "../Calendar/Calendar"
 
 // We need these css imports, else the graphics will glitch
 // while moving components in our grid.
@@ -25,9 +25,6 @@ import "../../../node_modules/react-resizable/css/styles.css"
 import "./Grid.css"
 import 'rc-slider'
 import 'rc-slider/assets/index.css'
-import Searchbar from "../Searchbar/Searchbar";
-
-// import { replace } from 'ramda'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
@@ -66,32 +63,33 @@ class Grid extends Component {
                     containerPadding={[25, 25]}
                     margin={[30, 30]}
                 >
-                    <div key="barchart1" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
+                    <div key="barchart" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<BarChart />}
                             title="Vertraging per dag"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={5} max={21} defaultValue={7}
-                                               marks={ mergeAll([...Array(22).keys()].filter(x => x >= 5).map(i => ({[i]: i}))) } //{{ 5: "5 dagen", 172800: "2 dagen", 259200: "3 dagen", 345600: "4 dagen", 432000: "5 dagen", 518400: "6 dagen", 604800: "7 dagen"}}
-                                               step={null} key='slider'/>,
+                                (f) => <Calendar updater={f} />,
 
                                 (f) => <Searchbar updater={f} options={["Bus", "Tram", "Metro", "Boot"]} multipleOptions={true} placeholderText={"vervoerstype"} key='search-transport'
                                 />,
 
-                                (f) => <Searchbar updater={f} endpoint={"get-lines"} params={this.state.bar1} multipleOptions={false} placeholderText={"lijn"} key='search-line' filterFunc={(item) => `${item.public_id}: ${item.line_name}`}
+                                (f) => <Searchbar updater={f} endpoint={"get-lines"} params={this.state.bar} multipleOptions={false} placeholderText={"lijn"} key='search-line' filterFunc={(item) => `${item.public_id}: ${item.line_name}`}
                                 />
                             ]}
                             defaultSettings={{
-                                "days": 7
+                                "range": {
+                                    "days": 7,
+                                    "offset": 0
+                                }
                             }}
-                            names={{ 0: "days" }}
+                            names={{ 0: "range", 1: "transport_type[]", 2: "line_number[]" }}
                             addSetting={this.updateState.bind(this)}
-                            settingsTitles={["Aantal Dagen", "Vervoersmiddel", "Lijn"]}
+                            settingsTitles={["Periode", "Vervoersmiddel", "Lijn"]}
                         />
                     </div>
 
-                    <div key="barchart2" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
+                    {/* <div key="doughnut-district" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<DoughnutChart metric="district" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000', '#e60000', '#cc0000', '#b30000']} />}
                             title="Vertraging per stadsdeel"
@@ -145,7 +143,7 @@ class Grid extends Component {
                         />
                     </div>
 
-                    <div key="barchart4" data-grid={{ x: 6, y: 3, w: 3, h: 2 }}>
+                    <div key="doughnut-transporttype" data-grid={{ x: 6, y: 3, w: 3, h: 2 }}>
                         <Widget
                             component={<DoughnutChart metric="transport_type" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000']} />}
                             title="Vertraging per voertuig"
@@ -215,7 +213,7 @@ class Grid extends Component {
                             names={{ 0: "top", 1: "period", 2: "transport_type[]", 3: "district[]" }}
                             settingsTitles={["Aantal topvertragingen", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
                         />
-                    </div>
+                    </div> */}
 
                 </ResponsiveGridLayout>
             </div>
