@@ -35,19 +35,45 @@ class Maps extends React.Component {
         }
     }
 
+    /* Find all stops that have certain value */
+    find = (obj, stops, prop) => R.find(R.propEq(prop, obj[prop]), stops)
+
+    /* Filter invalid stops, which always default to a certain position */
+    invalidStop = (stop) => (parseFloat(stop.lat) == 47.974766 || parseFloat(stop.lon) == 3.3135424)
+
+    /* Create [lat, lon] pairs between the stops for each line we want to filter. */
+    getLines(values) {
+        let groupedByLine = R.groupBy(R.prop('internal_id'), values[1].flat())
+
+        return R.mergeAll(Object.keys(groupedByLine).map(line => (
+                {[line]: groupedByLine[line]
+                            .map(stop => this.find(stop, values[0], 'stop_code'))
+                            .filter(x => x)
+                            .map(stop => this.invalidStop(stop)
+                                    ? null
+                                    : [parseFloat(stop.lat), parseFloat(stop.lon)])
+                            .filter(x => x)
+                })))
+    }
+
+    /* Retrieve the stops for a certain line number */
+    getStops = (values) => values[1].flat()
+                                    .map(x => this.find(x, values[0], 'stop_code'))
+                                    .filter(x => x)
+
+    /* Create uri for retrieving a line number */
+    createUri = state => "&internal_id=" + (state
+                      .filter(R.compose(R.not, R.empty))
+                      .map(lineNum => lineNum.match(/([0-9]*):.*/i)[1]) // extract line number
+                      .join(','))
 
     fetchData() {
-        /* Create uri for retrieving a line number */
-        let createUri = state => "&internal_id=" + (state
-            .filter(R.compose(R.not, R.empty))
-            .map(lineNum => lineNum.match(/([0-9]*):.*/i)[1]) // extract line number
-            .join(','))
-
-        let lineNumUri =
+        var lineNumUri =
             /* Check if any of the line numbers are empty or undefined */
-            !R.any(R.isEmpty, this.state.currentSettings["line_number[]"]) && !R.isEmpty(this.state.currentSettings["line_number[]"])
+            !R.any(R.isEmpty, this.state.currentSettings["line_number[]"]) &&
+            !R.isEmpty(this.state.currentSettings["line_number[]"])
                 /* Create uri for line number */
-                ? createUri(this.state.currentSettings["line_number[]"])
+                ? this.createUri(this.state.currentSettings["line_number[]"])
                 /* Or empty string */
                 : ""
 
@@ -67,38 +93,10 @@ class Maps extends React.Component {
             })
         })
 
-        // Find all corresponding stops in the fetched line and stop data.
-        let find = (obj, stops) => R.find(R.propEq('stop_code', obj.stop_code), stops)
-
         // Filter all stops with the find function and set the state.
         Promise.all(promises).then(values => {
-            let groups = R.groupBy(R.prop('internal_id'), values[1].flat())
-
-            let pl = R.mergeAll(Object.keys(groups).map(line => (
-                {[line]: groups[line]
-                    .map(x => {
-                        let obj = find(x, values[0])
-                        return obj ? R.assoc('order_number', x['order_number'], obj) : null
-                    })
-                    .filter(x => x)
-                })
-            ))
-
-            let lines = R.mergeAll(Object.keys(pl).map(line => {
-                let s = pl[line]
-                let comb = s.map(x => (parseFloat(x.lat) == 47.974766 || parseFloat(x.lon) == 3.3135424) ? null : [parseFloat(x.lat), parseFloat(x.lon)])
-                            .filter(x => x)
-
-                return {[line]: comb}
-            }))
-
-            let stops = values[1]
-                .flat()
-                .map(x => {
-                    let obj = find(x, values[0])
-                    return obj ? R.assoc('order_number', x['order_number'], obj) : null
-                })
-                .filter(x => x)
+            let stops = this.getStops(values)
+            let lines = lineNumUri != "" ? this.getLines(values) : {}
 
             return [stops, lines]
         }).then(data => {
