@@ -30,11 +30,11 @@ class DataTable extends React.Component {
     }
 
     /* Gets metric and value data from fetched data in order to put it in the
-     * ReactTable to be able to sort.
-     */
+     * ReactTable to be able to sort. */
     parseData = (data) => {
-        console.log("data", data)
         return Object.values(data).map((d, i) => ({
+
+
             Nr: i + 1,
             Halte: d["metric"]["stop_end"],
             Vervoerstype: d["metric"]["transport_type"],
@@ -46,8 +46,7 @@ class DataTable extends React.Component {
 
 
     /* If the new data contains stop data, we should fetch the
-     * stop names to display.
-     */
+     * stop names to display. */
     convertData(data) {
         const allHaveStops = R.all(R.hasPath(['metric', 'stop_end']))
 
@@ -60,10 +59,10 @@ class DataTable extends React.Component {
         }
     }
 
+    /* Get the stop names and match the correct name to the stop code */
     getStopNames(data) {
         var stops = R.map(item => item.metric.stop_end, data)
 
-        /* Get the stop names and match the correct name to the stop code */
         return fetch(`https://cors-anywhere.herokuapp.com/http://18.224.29.151:5000/get-stops?stop_code=${R.join(",", stops)}`)
             .then(res => res.json())
             .then(res => R.map(stop => R.includes({ stop_code: stop }) ? res[R.findIndex(R.propEq('stop_code', stop))(res)].stop_name : "Geen haltenaam beschikbaar", stops))
@@ -77,6 +76,7 @@ class DataTable extends React.Component {
         return (minutes >= 1 ? minutes + " minuten en " : "") + seconds + " seconden"
     }
 
+    /* Helper to set the column width of the tables. */
     getColumnWidth = (rows, accessor) => {
         let {data} = rows
 
@@ -90,21 +90,22 @@ class DataTable extends React.Component {
         return Math.min(maxWidth, cellLength * magicSpacing)
     }
 
+    /* Extracts minutes and seconds from time string and calculates back
+     * to seconds. */
     delaySort(a, b) {
-        /* Extracts minutes and seconds from time string and calculates back
-         * to seconds. */
         const calcSeconds = (time) => {
-            const matches = String(time).match("\d+")
+            const matches = R.map(parseInt, time.match(/\d+/g))
 
             return (matches.length === 2) ? matches[0] * 60 + matches[1] : matches[1]
         }
 
-        /* React-table requires this way of returning */
+        /* React-table requires a return value of 0 when two objects match,
+         * 1 if object a > b and -1 if a < b. */
         if (a === b) return 0
 
         return calcSeconds(a) > calcSeconds(b) ? 1 : -1
     }
-      
+
 
     render() {
         if (this.state.values == null) {
@@ -123,7 +124,7 @@ class DataTable extends React.Component {
             return Math.min(maxWidth, cellLength * magicSpacing)
         }
 
-        /* Creates a header for each header and binds variables to it. If the header equals delay we 
+        /* Creates a header for each header and binds variables to it. If the header equals delay we
          * add a custom sorting function. */
         const columns = []
         this.state.headers.forEach(h => {
@@ -139,7 +140,6 @@ class DataTable extends React.Component {
               data={this.state.values}
               columns={columns}
               showPagination={false}
-              defaultSortDesc={true}
               resizable={false}
               showPageSizeOptions={false}
               minRows={0}
