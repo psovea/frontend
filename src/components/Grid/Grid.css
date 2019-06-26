@@ -23,11 +23,13 @@
     border-bottom: 1px solid lightgray;
     width: 100%;
     margin-left: 0px !important;
+    background-color: ghostwhite;
 }
 
 .dashboard-widget-header-title {
     margin-bottom: 0px;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 600;
     color: var(--richblack);
 }
 
@@ -35,6 +37,7 @@
     padding: 15px;
     box-sizing: border-box;
     overflow: scroll;
+    background-color: ghostwhite;
 }
 
 .dashboard-widget-content#map.hide {
