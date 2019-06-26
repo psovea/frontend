@@ -98,14 +98,18 @@ class Grid extends Component {
                             title="Vertraging per stadsdeel (in uren)"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
+                                (f) => <Calendar updater={f} />
                             ]}
-                            names={{ 0: "period" }}
+                            names={{ 0: "range" }}
+                            addSetting={this.updateState.bind(this)}
                             defaultSettings={{
                                 "return_filter[]": ["district"],
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
-                                "period": 86400,
+                                "range": {
+                                    "days": 7,
+                                    "offset": 0
+                                },
                                 "top": 8
                             }}
                             settingsTitles={["Periode"]}
@@ -118,15 +122,7 @@ class Grid extends Component {
                             title="Vertraging in regio Amsterdam"
                             componentId="map"
                             settings={[
-                                (f) => <Slider
-                                    onChange={f}
-                                    min={86400}
-                                    max={1209600}
-                                    defaultValue={86400}
-                                    marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }}
-                                    step={null}
-                                    key='slider1'
-                                />,
+                                (f) => <Calendar updater={f} />,
                                 (f) => <Searchbar
                                     updater={f}
                                     options={["TRAM", "BUS", "METRO"]}
@@ -144,7 +140,7 @@ class Grid extends Component {
                                     filterFunc={(item) => `${item.public_id}: ${item.line_name}`}
                                 />
                             ]}
-                            names={{ 0: "period", 1: "transport_type[]", 2: "line_number[]" }}
+                            names={{ 0: "range", 1: "transport_type[]", 2: "line_number[]" }}
                             settingsTitles={["Periode"]}
                             addSetting={this.updateState.bind(this)}
                             defaultSettings={{
@@ -153,7 +149,10 @@ class Grid extends Component {
                                 "line_number[]": [""],
                                 "transport_type[]": [""],
                                 "format": "heatmap",
-                                "period": 86400,
+                                "range": {
+                                    "days": 7,
+                                    "offset": 0
+                                }
                             }}
                         />
                     </div>
@@ -177,17 +176,21 @@ class Grid extends Component {
                             title="Vertraging per voertuig (in uren)"
                             componentId="bar"
                             settings={[
-                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />
+                                (f) => <Calendar updater={f} />
 
                             ]}
-                            names={{ 0: "period" }}
+                            names={{ 0: "range" }}
                             defaultSettings={{
                                 "return_filter[]": ["transport_type"],
                                 "transport_type[]": [""],
-                                "period": 86400,
+                                "range": {
+                                    "days": 7,
+                                    "offset": 0
+                                },
                                 "top": 8
                             }}
                             settingsTitles={["Periode"]}
+                            addSetting={this.updateState.bind(this)}
                         />
 
                     </div>
@@ -202,7 +205,7 @@ class Grid extends Component {
                             componentId="table"
                             settings={[
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
-                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
+                                (f) => <Calendar updater={f} />,
                                 (f) => <Searchbar updater={f} options={DISTRICTS} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
                             ]}
                             addSetting={this.updateState.bind(this)}
@@ -210,10 +213,13 @@ class Grid extends Component {
                                 "return_filter[]": ["district", "stop_end"],
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
-                                "period": 86400,
+                                "range": {
+                                    "days": 7,
+                                    "offset": 0
+                                },
                                 "top": 10
                             }}
-                            names={{ 0: "top", 1: "period", 2: "district[]" }}
+                            names={{ 0: "top", 1: "range", 2: "district[]" }}
                             settingsTitles={["Aantal vertragingen", "Periode", "Filter op stadsdeel"]}
                         />
                     </div>
@@ -228,7 +234,7 @@ class Grid extends Component {
                             componentId="table"
                             settings={[
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90" }} step={null} key='slider3' />,
-                                (f) => <Slider onChange={f} min={86400} max={1209600} defaultValue={86400} marks={{ 86400: "1d", 172800: "2d", 259200: "3d", 432000: "5d", 604800: "1w", 1209600: "2w" }} step={null} key='slider1' />,
+                                (f) => <Calendar updater={f} />,
                                 (f) => <Searchbar updater={f} options={["TRAM", "BUS", "METRO"]} multipleOptions={true} placeholderText={"transporttype"} key="transport-type" />,
                                 (f) => <Searchbar updater={f} options={DISTRICTS} multipleOptions={true} placeholderText={"stadsdeel"} key="district" />
                             ]}
@@ -236,11 +242,14 @@ class Grid extends Component {
                                 "return_filter[]": ["line_number", "transport_type", "district", "stop_end"],
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
-                                "period": 86400,
+                                "range": {
+                                    "days": 7,
+                                    "offset": 0
+                                },
                                 "top": 10
                             }}
                             addSetting={this.updateState.bind(this)}
-                            names={{ 0: "top", 1: "period", 2: "transport_type[]", 3: "district[]" }}
+                            names={{ 0: "top", 1: "range", 2: "transport_type[]", 3: "district[]" }}
                             settingsTitles={["Aantal topvertragingen", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
                         />
                     </div>
