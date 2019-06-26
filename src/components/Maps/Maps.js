@@ -39,7 +39,7 @@ class Maps extends React.Component {
         let createUri = state => "&internal_id=" + (state
             .filter(R.compose(R.not, R.empty))
             .map(lineNum => lineNum.match(/([0-9]*):.*/i)[1]) // extract line number
-            .join("&internal_id="))
+            .join(','))
 
         let lineNumUri =
             /* Check if any of the line numbers are empty or undefined */
