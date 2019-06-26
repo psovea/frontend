@@ -43,7 +43,7 @@ class Maps extends React.Component {
 
         let lineNumUri =
             /* Check if any of the line numbers are empty or undefined */
-            !R.any(R.isEmpty, this.state.currentSettings["line_number[]"])
+            !R.any(R.isEmpty, this.state.currentSettings["line_number[]"]) && !R.isEmpty(this.state.currentSettings["line_number[]"])
                 /* Create uri for line number */
                 ? createUri(this.state.currentSettings["line_number[]"])
                 /* Or empty string */
