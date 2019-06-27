@@ -20,7 +20,6 @@ import Calendar from "../Calendar/Calendar"
 // We need these css imports, else the graphics will glitch
 // while moving components in our grid.
 import "../../../node_modules/react-grid-layout/css/styles.css"
-import "../../../node_modules/react-resizable/css/styles.css"
 import "./Grid.css"
 import 'rc-slider'
 import 'rc-slider/assets/index.css'
