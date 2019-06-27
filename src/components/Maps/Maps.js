@@ -43,7 +43,7 @@ class Maps extends React.Component {
     isInvalidStop = (stop) => (parseFloat(stop.lat) == 47.974766 || parseFloat(stop.lon) == 3.3135424)
 
     /* Create [lat, lon] pairs between the stops for each line we want to filter. */
-    getLines(values) {
+    getLines = (values) => {
         let groupedByLine = R.groupBy(R.prop('internal_id'), values[1].flat())
 
         return R.mergeAll(Object.keys(groupedByLine).map(line => (
@@ -70,7 +70,13 @@ class Maps extends React.Component {
                       .map(lineNum => lineNum.match(/([0-9]*):.*/i)[1]) // extract line number
                       .join(','))
 
-    fetchData() {
+    /* Create a list of promises. */
+    createPromises = R.map(url => fetch(url, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json' }
+        }).then(res => res.json()))
+
+    /* Fetch heatmap and stop info. */
+    fetchData = () => {
         var lineNumUri =
             /* Check if any of the line numbers are empty or undefined */
             !R.any(R.isEmpty, this.state.currentSettings["line_number[]"]) &&
@@ -85,16 +91,7 @@ class Maps extends React.Component {
             toLocalUrl(`http://18.224.29.151:5000/get-line-info?operator=GVB${lineNumUri}`)
         ]
 
-        let promises = urls.map(url => {
-            return fetch(url, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            }).then(res => {
-                return res.json()
-            })
-        })
+        let promises = this.createPromises(urls)
 
         // Filter all stops with the find function and set the state.
         Promise.all(promises).then(values => {
@@ -108,19 +105,19 @@ class Maps extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        // If pre-update state is equal to post-update state, do not rerender.
+        /* If pre-update state is equal to post-update state, do not rerender. */
         return this.state != nextState
     }
 
     update(newData, newSettings) {
-        // Update function called by Widget.js to communicate between the components.
+        /* Update function called by Widget.js to communicate between the components. */
         if (newData) {
             this.setState({ heatmapdata: newData[0], currentSettings: newSettings }, () => this.fetchData())
         }
     }
 
     createMarkers() {
-        // Create markers by mapping each stop coordinate and name to a marker component.
+        /* Create markers by mapping each stop coordinate and name to a marker component. */
         return this.state.stops.map((stop, i) => {
             return (
                 <Marker
@@ -134,6 +131,7 @@ class Maps extends React.Component {
         })
     }
 
+    /* Generate a random color to be used for the lines. */
     getRandomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -144,6 +142,7 @@ class Maps extends React.Component {
       }
 
 
+    /* Create PolyLines to be shown on the map. */
     createLines() {
         return Object.keys(this.state.lines).map(line => {
             let lineObj = this.state.lines[line]
@@ -151,6 +150,7 @@ class Maps extends React.Component {
         })
     }
 
+    /* If there are lines to be shown, create a legend. */
     createLineLegend() {
         return <div className="line-legend-container">
                 {Object.keys(this.state.lines).map(line => {
@@ -163,6 +163,7 @@ class Maps extends React.Component {
                 </div>
     }
 
+    /* Render the line legend. If there are no lines, we render nothing. */
     renderLineLegend() {
         return (this.state.lines != []) ? <Control position="topright" >{this.createLineLegend()}</Control>
                                         : null
