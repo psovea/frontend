@@ -3,13 +3,13 @@
  * Wrapper class for the react-charts bar chart.
  */
 
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
-import Missing from '../Missing/Missing';
+import React from 'react'
+import { Bar } from 'react-chartjs-2'
+import Missing from '../Missing/Missing'
 
 class BarChart extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             data: [],
             offset: 0
@@ -76,4 +76,4 @@ class BarChart extends React.Component {
     }
 }
 
-export default BarChart;
+export default BarChart

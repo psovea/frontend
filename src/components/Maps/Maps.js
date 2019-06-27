@@ -15,7 +15,7 @@ import Control from 'react-leaflet-control'
 
 import 'react-leaflet-markercluster/dist/styles.min.css'
 import legenda from './heatmap-legenda.png'
-import {toLocalUrl} from '../../helper';
+import {toLocalUrl} from '../../helper'
 
 class Maps extends React.Component {
     constructor() {
@@ -133,12 +133,12 @@ class Maps extends React.Component {
 
     /* Generate a random color to be used for the lines. */
     getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
+        var letters = '0123456789ABCDEF'
+        var color = '#'
         for (var i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
+          color += letters[Math.floor(Math.random() * 16)]
         }
-        return color;
+        return color
       }
 
 
