@@ -81,20 +81,6 @@ class DataTable extends React.Component {
         return (minutes >= 1 ? minutes + " minuten en " : "") + seconds + " seconden"
     }
 
-    /* Helper to set the column width of the tables. */
-    getColumnWidth = (rows, accessor) => {
-        let {data} = rows
-
-        const maxWidth = 400
-        const magicSpacing = 10
-        const cellLength = Math.max(
-          ...data.map(d => (`${d[accessor]}` || '').length),
-          headerText.length,
-        )
-
-        return Math.min(maxWidth, cellLength * magicSpacing)
-    }
-
     /* Extracts minutes and seconds from time string and calculates back
      * to seconds. */
     delaySort = (a, b) => {
@@ -121,7 +107,7 @@ class DataTable extends React.Component {
             const magicSpacing = 10
             const cellLength = Math.max(
               ...rows.map(row => (`${row[accessor]}` || '').length),
-              accessor.length,
+              accessor.length
             )
             return Math.min(maxWidth, cellLength * magicSpacing)
         }
