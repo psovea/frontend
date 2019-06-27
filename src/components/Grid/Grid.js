@@ -94,7 +94,7 @@ class Grid extends Component {
 
                     <div key="doughnut-district" data-grid={{ x: 9, y: 3, w: 3, h: 2 }}>
                         <Widget
-                            component={<DoughnutChart metric="district" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000', '#e60000', '#cc0000', '#b30000']} />}
+                            component={<DoughnutChart metric="district" colors={['#009688', '#4CAF50', '#CDDC39', '#9C27B0', '#3F51B5', '#2196F3', '#FFC107', '#00BCD4']} />}
                             title="Gem. vertraging per stadsdeel (seconden)"
                             componentId="bar"
                             settings={[
@@ -175,7 +175,7 @@ class Grid extends Component {
 
                     <div key="doughnut-transporttype" data-grid={{ x: 6, y: 3, w: 3, h: 2 }}>
                         <Widget
-                            component={<DoughnutChart metric="transport_type" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000']} />}
+                            component={<DoughnutChart metric="transport_type" colors={['#4CAF50', '#F44336', '#2196F3']} />}
                             title="Gem. vertraging per vervoerstype (seconden)"
                             componentId="bar"
                             settings={[
