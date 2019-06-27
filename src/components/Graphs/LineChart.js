@@ -5,7 +5,6 @@
 
 import React from 'react';
 import {Line} from 'react-chartjs-2';
-import './Graphs.css';
 
 const data = {
     /* Labels of the x-axis. */

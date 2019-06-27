@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import Missing from '../Missing/Missing';
 
 import 'rc-slider/assets/index.css';
-import './Graphs.css';
 
 class DoughnutChart extends React.Component {
 

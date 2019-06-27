@@ -16,7 +16,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
 
-import './Searchbar.css'
 import {toLocalUrl} from '../../helper';
 
 import * as R from 'ramda'
@@ -38,7 +37,7 @@ class Searchbar extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.setState({
             placeholderText: this.props.placeholderText,
             multipleOptions: this.props.multipleOptions
@@ -61,7 +60,7 @@ class Searchbar extends Component {
     /* Update the state if the options should be filtered based on selections
      * from earlier search bars.
      */
-    componentDidUpdate(oldProps) {
+    componentDidUpdate = (oldProps) => {
         const newProps = this.props
 
         if (newProps.params && !R.equals(newProps.params, oldProps.params)) {
@@ -73,7 +72,7 @@ class Searchbar extends Component {
     /* Get the options from the given enpoint and filter then accordingly so
      * they are put into a list of options.
      */
-    getOptions(endpoint, params, f) {
+    getOptions = (endpoint, params, f) => {
         var format_params = R.join("&", R.map((item) => `${R.replace("[]", "", item.key)}=${item.value}`, params))
         var url = toLocalUrl(`http://18.224.29.151:5000/${endpoint}?operator=GVB&${format_params}`)
 
@@ -83,8 +82,12 @@ class Searchbar extends Component {
     }
 
     /* Set the options for the search bar. */
-    setOptions() {
-        var params = R.map(([key, value]) => ({ "key": key, "value": R.join(",", value) }), R.filter((i) => R.equals(R.type(i[1]), "Array"), R.toPairs(this.props.params)))
+    setOptions = () => {
+        var params = R.map(
+            ([key, value]) => ({ "key": key, "value": R.join(",", value) }),
+            R.filter((i) => R.equals(R.type(i[1]), "Array"),
+            R.toPairs(this.props.params))
+        )
 
         this.getOptions(this.props.endpoint, params, this.props.filterFunc)
             .then(res => this.setState({ options: R.map(item => ({ value: item, label: item }), res.sort(naturalSort())) }))
@@ -101,7 +104,7 @@ class Searchbar extends Component {
         })
     }
 
-    render() {
+    render = () => {
         return (
             <Select
                 options={this.state.options}
