@@ -41,13 +41,11 @@
     padding: 15px;
     margin-left: 20px;
     margin-right: 20px;
-    /* border: 1px solid blue; */
 }
 
 .logoright img {
     float: right;
     height: inherit;
-    /* rotate: 90; */
 }
 
 .logoright span {
@@ -68,4 +66,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center; 
+}
+
+/* Media queries so that our header stays responsive even
+ * at lower resolutions. */
+@media only screen and (max-width: 650px) {
+    .logoright > span { display: none; }
+}
+
+@media only screen and (max-width: 470px) {
+    .logoright { display: none; }
+    .logoleft > span { display: none; }
 }
