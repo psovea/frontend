@@ -78,7 +78,8 @@ class Delay extends Component {
   getTime = () => {
     var today = new Date()
     var hh = today.getHours()
-    var mm = today.getMinutes()
+    var m = today.getMinutes()
+    var mm = m < 10 ? "0" + m : m
 
     return `${hh}:${mm}`
   }
