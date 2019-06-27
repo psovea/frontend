@@ -17,6 +17,8 @@ import DataTable from "../Table/Table"
 import Searchbar from "../Searchbar/Searchbar"
 import Calendar from "../Calendar/Calendar"
 
+import {DISTRICTS} from "../../helper"
+
 // We need these css imports, else the graphics will glitch
 // while moving components in our grid.
 import "../../../node_modules/react-grid-layout/css/styles.css"
@@ -25,7 +27,6 @@ import 'rc-slider'
 import 'rc-slider/assets/index.css'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
-const DISTRICTS = ["Centrum", "Nieuw-West", "Zuidoost", "Noord", "Oost", "West", "Westpoort", "Zuid"]
 
 /* This defines the grid; here we add other components (lets call
  * them widgets). Unfortunately we have to add div's directly into
