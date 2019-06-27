@@ -41,7 +41,11 @@
   },
   "dependencies": {
     "bundle": "^2.1.0",
+    "chart.js": "^2.8.0",
     "chota": "^0.6.2",
+    "file-loader": "^4.0.0",
+    "leaflet": "^1.5.1",
+    "leaflet.markercluster": "^1.4.1",
     "moment": "^2.24.0",
     "natural-sort": "^1.0.0",
     "prop-types": "^15.7.2",
