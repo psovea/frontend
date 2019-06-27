@@ -161,7 +161,7 @@ class Grid extends Component {
                         />
                     </div>
 
-                    <div key="feed" data-grid={{ x: 0, y: 3, w: 6, h: 3 }}>
+                    <div key="feed" data-grid={{ x: 0, y: 3, w: 6, h: 2 }}>
                         <Widget
                             component={<Delays />}
                             title="Live vertraging"

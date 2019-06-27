@@ -2,16 +2,16 @@
  * Discription: This is the NavBar. This consists currently of Logo's.
  */
 
-import React, { Component } from 'react';
-import logo from '../../assets/logo_red.svg';
+import React, { Component } from 'react'
+import logo from '../../assets/logo_red.svg'
 import andreas from '../../assets/andreaskruisen.svg'
 
-import './NavBar.css';
+import './NavBar.css'
 
 class NavBar extends Component {
 
     constructor(props) {
-        super(props);
+        super(props)
     }
 
     render = () => {
@@ -30,4 +30,4 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+export default NavBar

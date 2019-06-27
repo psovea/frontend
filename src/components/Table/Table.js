@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import ReactTable from 'react-table'
 
 import Missing from '../Missing/Missing'
-import {toLocalUrl} from '../../helper';
+import {toLocalUrl} from '../../helper'
 
 import * as R from 'ramda'
 
