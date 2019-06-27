@@ -7,9 +7,13 @@
     width: 100%;
     color: var(--richblack);
     font-weight: bold;
-} 
+}
 
 .ReactTable .rt-td {
     text-align: center;
+}
+
+.ReactTable .rt-thead.-header {
+    box-shadow: none !important;
 }
 
