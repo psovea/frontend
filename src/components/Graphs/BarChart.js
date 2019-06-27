@@ -38,7 +38,7 @@ class BarChart extends React.Component {
             labels: labels,
             datasets: [{
                 data: data,
-                label: 'Vertraging (in uren)',
+                label: 'Vertraging',
                 backgroundColor: 'rgba(255,99,132,0.2)',
                 borderColor: 'rgba(255,99,132,1)',
                 borderWidth: 1,
@@ -48,15 +48,12 @@ class BarChart extends React.Component {
         }
     )
 
-    /* Convert seconds to hours. */
-    secondsToHours = (seconds) => Math.round(seconds / 3600)
-
     /* Format the data such that it can be shown as a bar chart. */
     formatData() {
         if (this.state.data.length == 0) { return [] }
 
         var labels = this.state.data.map((x, i) => this.getFormattedDate(i + this.state.offset + 1)).reverse()
-        var data = this.state.data.map(item => this.secondsToHours(item['value'][1])).reverse()
+        var data = this.state.data.map(item => Math.round(item['value'][1])).reverse()
 
         return this.mkChartData(labels, data)
     }
@@ -65,12 +62,23 @@ class BarChart extends React.Component {
         return (
             this.state.data.length == 0
                 ? <Missing/>
-                : <Bar
+                :<Bar
                     data={this.formatData()}
                     options={
                         { responsive: true,
                           maintainAspectRatio: false,
-                          scales: { yAxes: [{ ticks: { beginAtZero: true } }] } }}
+                          scales: {
+                              yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'tijd (s)'
+                                }
+                              }]
+                            }
+                        }}
                   />
         )
     }

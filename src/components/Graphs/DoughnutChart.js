@@ -38,8 +38,8 @@ class DoughnutChart extends React.Component {
 
     /*  */
     makeData = () => {
-        var labels = this.state.delays.map(item => (item['metric'][this.props.metric]))
-        var data = this.state.delays.map(item => this.secondsToHours(Object.values(item['value'])[1]))
+        var labels = this.state.delays.map(item => (item['metric'][this.props.metric]));
+        var data = this.state.delays.map(item => Math.round(Object.values(item['value'])[1]));
         return this.mkChartData(labels, data)
     }
 

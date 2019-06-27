@@ -62,11 +62,10 @@ class Grid extends Component {
                     containerPadding={[25, 25]}
                     margin={[30, 30]}
                 >
-
-                    <div key="barchart" data-grid={{ x: 0, y: 0, w: 6, h: 3 }}>
+                    <div key="barchart" data-grid={{ x: 6, y: 1, w: 6, h: 2 }}>
                         <Widget
                             component={<BarChart />}
-                            title="Vertraging per dag"
+                            title="Gemiddelde vertraging per dag (seconden)"
                             componentId="bar"
                             settings={[
                                 (f) => <Calendar updater={f} perDay={true} />,
@@ -85,7 +84,8 @@ class Grid extends Component {
                                 },
                                 "district[]": DISTRICTS,
                                 "transport_type[]": [""],
-                                "line_number[]": [""]
+                                "line_number[]": [""],
+                                "avg_per": "vehicle_delay",
                             }}
                             names={{ 0: "range", 1: "transport_type[]", 2: "line_number[]" }}
                             addSetting={this.updateState.bind(this)}
@@ -93,10 +93,10 @@ class Grid extends Component {
                         />
                     </div>
 
-                    <div key="doughnut-district" data-grid={{ x: 9, y: 3, w: 3, h: 2 }}>
+                    <div key="doughnut-district" data-grid={{ x: 3, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<DoughnutChart metric="district" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000', '#e60000', '#cc0000', '#b30000']} />}
-                            title="Vertraging per stadsdeel (in uren)"
+                            title="Gem. vertraging per stadsdeel (seconden)"
                             componentId="bar"
                             settings={[
                                 (f) => <Calendar updater={f} />
@@ -112,7 +112,8 @@ class Grid extends Component {
                                     "offset": 0,
                                     "perDay": false
                                 },
-                                "top": 8
+                                "top": 8,
+                                "avg_per": "vehicle_delay"
                             }}
                             settingsTitles={["Periode"]}
                         />
@@ -173,10 +174,10 @@ class Grid extends Component {
                         />
                     </div>
 
-                    <div key="doughnut-transporttype" data-grid={{ x: 6, y: 3, w: 3, h: 2 }}>
+                    <div key="doughnut-transporttype" data-grid={{ x: 0, y: 0, w: 3, h: 2 }}>
                         <Widget
                             component={<DoughnutChart metric="transport_type" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000']} />}
-                            title="Vertraging per voertuig (in uren)"
+                            title="Gem. vertraging per voertuig (seconden)"
                             componentId="bar"
                             settings={[
                                 (f) => <Calendar updater={f} />
@@ -191,7 +192,8 @@ class Grid extends Component {
                                     "offset": 0,
                                     "perDay": false
                                 },
-                                "top": 8
+                                "top": 8,
+                                "avg_per": "vehicle_delay"
                             }}
                             settingsTitles={["Periode"]}
                             addSetting={this.updateState.bind(this)}
@@ -205,7 +207,7 @@ class Grid extends Component {
                                 headers={["Nr", "Stadsdeel", "Halte", "Vertraging"]}
                                 order={["district", "stop_end"]}
                             />}
-                            title="Gemiddelde Totale Vertraging per Halte"
+                            title="Gemiddelde totale vertraging per halte"
                             componentId="table"
                             settings={[
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90", 100: "100" }} step={null} key='slider3' />,
@@ -236,7 +238,7 @@ class Grid extends Component {
                                 headers={["Nr", "Lijn", "Stadsdeel", "Vervoerstype", "Vertraging"]}
                                 order={["line_number", "district", "transport_type"]}
                             />}
-                            title="Gemiddelde Totale Vertraging per Lijn"
+                            title="Gemiddelde totale vertraging per lijn"
                             componentId="table"
                             settings={[
                                 (f) => <Slider onChange={f} min={1} defaultValue={10} marks={{ 10: "10", 20: "20", 30: "30", 40: "40", 50: "50", 60: "60", 70: "70", 80: "80", 90: "90", 100: "100" }} step={null} key='slider3' />,
@@ -261,7 +263,6 @@ class Grid extends Component {
                             settingsTitles={["Aantal Vertragingen Weergeven", "Periode", "Filter op transporttype", "Filter op stadsdeel"]}
                         />
                     </div>
-
                 </ResponsiveGridLayout>
             </div>
         )
