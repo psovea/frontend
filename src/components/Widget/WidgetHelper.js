@@ -45,7 +45,7 @@ const zipWith = (f, xs, ys) => xs.map((n, i) => {
 const dayQuery = (start, end) => `start_time=${start}&end_time=${end}`
 
 /* Filter specific keys from a list. TODO: use */
-const filterKeys = R.filter(x => x != "days" && x != "offset" && x != "range")
+// const filterKeys = R.filter(x => x != "days" && x != "offset" && x != "range")
 
 /* Create a URI that can be used for accessing prometheus. */
 const createURI = (keys, vals) =>
