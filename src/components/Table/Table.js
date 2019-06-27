@@ -152,7 +152,6 @@ DataTable.propTypes = {
     headers: PropTypes.any,
     values: PropTypes.any,
     top: PropTypes.any,
-    stateF: PropTypes.any,
     order: PropTypes.any
 }
 
