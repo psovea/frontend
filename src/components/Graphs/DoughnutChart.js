@@ -3,24 +3,23 @@
  *              Data is obtained from an API.
  */
 
-import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import PropTypes from 'prop-types';
-import Missing from '../Missing/Missing';
+import React from 'react'
+import { Doughnut } from 'react-chartjs-2'
+import PropTypes from 'prop-types'
+import Missing from '../Missing/Missing'
 
-import 'rc-slider/assets/index.css';
-import './Graphs.css';
+import 'rc-slider/assets/index.css'
 
 class DoughnutChart extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             delays: [],
         }
     }
 
-    update = (newData) => this.setState({delays: newData[0]});
+    update = (newData) => this.setState({delays: newData[0]})
 
     /* Convert seconds to hours. */
     secondsToHours = (seconds) => Math.round(seconds / 3600)
@@ -39,8 +38,8 @@ class DoughnutChart extends React.Component {
 
     /*  */
     makeData = () => {
-        var labels = this.state.delays.map(item => (item['metric'][this.props.metric]));
-        var data = this.state.delays.map(item => this.secondsToHours(Object.values(item['value'])[1]));
+        var labels = this.state.delays.map(item => (item['metric'][this.props.metric]))
+        var data = this.state.delays.map(item => this.secondsToHours(Object.values(item['value'])[1]))
         return this.mkChartData(labels, data)
     }
 
@@ -52,7 +51,7 @@ class DoughnutChart extends React.Component {
                     data={this.makeData()}
                     options={{ responsive: true, maintainAspectRatio: false }}
                   />
-        );
+        )
     }
 
 }
@@ -62,4 +61,4 @@ DoughnutChart.propTypes = {
     metric: PropTypes.string
 }
 
-export default DoughnutChart;
+export default DoughnutChart

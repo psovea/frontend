@@ -4,15 +4,15 @@
  * delays for the GVB.
  */
 
-import React, { Component } from 'react';
-import socketIOClient from "socket.io-client";
-import Missing from '../Missing/Missing';
+import React, { Component } from 'react'
+import socketIOClient from "socket.io-client"
+import Missing from '../Missing/Missing'
 
-import {toLocalUrl} from '../../helper';
+import {toLocalUrl} from '../../helper'
 
 class Delay extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       delays: []
@@ -60,25 +60,25 @@ class Delay extends Component {
   }
 
   componentDidMount = () => {
-    this._isMounted = true;
+    this._isMounted = true
 
     /* Initiate connection with socket. */
-    const socket = socketIOClient('http://127.0.0.1:3500');
+    const socket = socketIOClient('http://127.0.0.1:3500')
     socket.on("message", data => {
       let info = JSON.parse(data)
-      this.getTravelInfo(info['ARRIVAL']);
-    });
+      this.getTravelInfo(info['ARRIVAL'])
+    })
   }
 
   componentWillUnmount = () => {
-    this._isMounted = false;
+    this._isMounted = false
   }
 
   /* Formats the current time as hh:mm. */
   getTime = () => {
-    var today = new Date();
-    var hh = today.getHours();
-    var mm = today.getMinutes();
+    var today = new Date()
+    var hh = today.getHours()
+    var mm = today.getMinutes()
 
     return `${hh}:${mm}`
   }
@@ -142,4 +142,4 @@ class Delay extends Component {
   }
 }
 
-export default Delay;
+export default Delay
