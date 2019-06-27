@@ -1,8 +1,13 @@
+/* Widget.js
+ * Description: Wrapper for a component. This includes settings, data fetching etc.
+ */
+
 import React from 'react'
 import PropTypes from 'react-proptypes'
 import Loader from 'react-loader-spinner'
 import Missing from '../Missing/Missing';
 import * as helper from './WidgetHelper'
+import { toLocalUrl } from '../../helper';
 
 class Widget extends React.Component {
     constructor(props) {
@@ -41,6 +46,9 @@ class Widget extends React.Component {
         this.setState({ currentSettings: this.state.defaultSettings }, this.fetchData)
     }
 
+    /* When one of the settings components change their value, it is updated in this
+     * state appropriately.
+     */
     handleSettingsChange(i, v) {
         var name = this.props.names[i]
         this.setState({ newSettings: { ...this.state.newSettings, [name]: v } })
@@ -48,6 +56,7 @@ class Widget extends React.Component {
         this.props.addSetting(this.props.componentId, { ...this.state.newSettings, [name]: v })
     }
 
+    /* Create settings HTML. */
     makeSettings = () => {
         return this.props.settings.map((setting, i) => {
             return (
@@ -60,14 +69,14 @@ class Widget extends React.Component {
         })
     }
 
+    /* Apply the updated settings and update the child component. */
     applySettings = () => {
         this.setState({ currentSettings: { ...this.state.currentSettings, ...this.state.newSettings }, showSettings: false }, () => {
             this.fetchData()
         })
     }
 
-    // https://mhnpd.github.io/react-loader-spinner/?selectedKind=Loader&selectedStory=Oval&full=0&addons=0&stories=1&panelRight=0
-    // Link for loader types
+    /* Render the loader. */
     loader = () => {
         return (
             <div className={"loader-widget"}>
@@ -81,10 +90,14 @@ class Widget extends React.Component {
         )
     }
 
+    /* Set the default settings. */
     defaultSettings = () => {
         this.setState({ currentSettings: this.state.defaultSettings })
     }
 
+    /* Create component. If an error has occured, show the "missing data" text
+     * , if it is loading, show the loader.
+     */
     makeComponent = (visibility, id) => {
         return this.state.error   ? <div><Missing/></div>      :
                this.state.loading ? <div>{this.loader()}</div> :
@@ -105,8 +118,9 @@ class Widget extends React.Component {
                helper.uri(keys, vals)
     }
 
+    /* Fetch uri */
     fetchSingle = (uri) => {
-        let url = 'https://cors-anywhere.herokuapp.com/' + this.url + uri
+        let url = toLocalUrl(this.url + uri)
         return fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
@@ -115,6 +129,7 @@ class Widget extends React.Component {
         }).then(res => res.json())
     }
 
+    /* Fetch all data based on the current settings. */
     fetchData = () => {
         let uris = this.createUriFromSettings()
 

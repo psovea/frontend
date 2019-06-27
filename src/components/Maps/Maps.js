@@ -104,19 +104,19 @@ class Maps extends React.Component {
         })
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate = (nextProps, nextState) => {
         /* If pre-update state is equal to post-update state, do not rerender. */
         return this.state != nextState
     }
 
-    update(newData, newSettings) {
+    update = (newData, newSettings) => {
         /* Update function called by Widget.js to communicate between the components. */
         if (newData) {
             this.setState({ heatmapdata: newData[0], currentSettings: newSettings }, () => this.fetchData())
         }
     }
 
-    createMarkers() {
+    createMarkers = () => {
         /* Create markers by mapping each stop coordinate and name to a marker component. */
         return this.state.stops.map((stop, i) => {
             return (
@@ -132,7 +132,7 @@ class Maps extends React.Component {
     }
 
     /* Generate a random color to be used for the lines. */
-    getRandomColor() {
+    getRandomColor = () => {
         var letters = '0123456789ABCDEF'
         var color = '#'
         for (var i = 0; i < 6; i++) {
@@ -143,7 +143,7 @@ class Maps extends React.Component {
 
 
     /* Create PolyLines to be shown on the map. */
-    createLines() {
+    createLines = () => {
         return Object.keys(this.state.lines).map(line => {
             let lineObj = this.state.lines[line]
             return <Polyline key={line} color={lineObj.color} positions={lineObj.coords} />
@@ -151,7 +151,7 @@ class Maps extends React.Component {
     }
 
     /* If there are lines to be shown, create a legend. */
-    createLineLegend() {
+    createLineLegend = () => {
         return <div className="line-legend-container">
                 {Object.keys(this.state.lines).map(line => {
                     let lineObj = this.state.lines[line]
@@ -164,12 +164,12 @@ class Maps extends React.Component {
     }
 
     /* Render the line legend. If there are no lines, we render nothing. */
-    renderLineLegend() {
+    renderLineLegend = () => {
         return (this.state.lines != []) ? <Control position="topright" >{this.createLineLegend()}</Control>
                                         : null
     }
 
-    render() {
+    render = () => {
         if (this.state.heatmapdata.length != 0) {
             return (
                 <Map
