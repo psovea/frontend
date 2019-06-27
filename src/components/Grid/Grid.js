@@ -176,7 +176,7 @@ class Grid extends Component {
                     <div key="doughnut-transporttype" data-grid={{ x: 6, y: 3, w: 3, h: 2 }}>
                         <Widget
                             component={<DoughnutChart metric="transport_type" colors={['#ff6666', '#ff4d4d', '#ff3333', '#ff1a1a', '#ff0000']} />}
-                            title="Vertraging per voertuig (in uren)"
+                            title="Vertraging per vervoerstype (in uren)"
                             componentId="bar"
                             settings={[
                                 (f) => <Calendar updater={f} />
