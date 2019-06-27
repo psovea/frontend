@@ -52,8 +52,8 @@ class Delay extends Component {
             transportType: obj.transport_type,
           }
 
-          /* Update the delays list. */
-          return { delays: [newDelay, ...prevState.delays] }
+          /* Update the delays list. We only want to show the first 25. */
+          return { delays: [newDelay, ...prevState.delays].slice(0, 25) }
         })
       }
     })
