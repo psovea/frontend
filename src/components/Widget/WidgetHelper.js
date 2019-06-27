@@ -1,9 +1,14 @@
 import * as R from 'ramda'
 
+import {DISTRICTS} from "../../helper"
+
 const DAY = 86400
 
 /* Inner list should be joined again. */
 const fromJoinableList = (ys, n) => ys.map(x => n + "=" + x).join("&")
+
+/* Check if districts are empty, should default to all districts. */
+const fromJoinableListDistricts = (ys, n) => fromJoinableList(R.empty(ys) ? DISTRICTS : ys, n)
 
 /* Transport types must be upper case. */
 const fromJoinableListToUpper = (ys, n) => ys.map(x => n + "=" + x.toUpperCase()).join("&")
@@ -26,7 +31,7 @@ const fromPeriod = (y, n) => n + "=" + y.toString() + "s"
 const zipFunc = (n) => (
     {
         "return_filter[]" : fromJoinableList,
-        "district[]"      : fromJoinableList,
+        "district[]"      : fromJoinableListDistricts,
         "transport_type[]": fromJoinableListToUpper,
         "line_number[]"   : fromJoinableListLine,
         "period"          : fromPeriod
