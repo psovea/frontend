@@ -16,7 +16,8 @@ class BarChart extends React.Component {
         }
     }
 
-    update(newData, newSettings) {
+    /* Update settings. */
+    update = (newData, newSettings) => {
         this.setState({
             data: newData.flat(),
             offset: newSettings.range.offset
@@ -24,7 +25,7 @@ class BarChart extends React.Component {
     }
 
     /* Shows a given date in dd:mm format. */
-    getFormattedDate(daysAgo) {
+    getFormattedDate = (daysAgo) => {
         var dayTime = new Date()
         dayTime.setDate(dayTime.getDate() - daysAgo)
         var day = dayTime.getDate()
@@ -49,7 +50,7 @@ class BarChart extends React.Component {
     )
 
     /* Format the data such that it can be shown as a bar chart. */
-    formatData() {
+    formatData = () => {
         if (this.state.data.length == 0) { return [] }
 
         var labels = this.state.data.map((x, i) => this.getFormattedDate(i + this.state.offset + 1)).reverse()
@@ -58,7 +59,7 @@ class BarChart extends React.Component {
         return this.mkChartData(labels, data)
     }
 
-    render() {
+    render = () => {
         return (
             this.state.data.length == 0
                 ? <Missing/>
