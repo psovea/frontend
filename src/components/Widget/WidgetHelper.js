@@ -44,12 +44,12 @@ const zipWith = (f, xs, ys) => xs.map((n, i) => {
 /* Set up a query for a period. */
 const dayQuery = (start, end) => `start_time=${start}&end_time=${end}`
 
-/* Filter specific keys from a list. */
+/* Filter specific keys from a list. TODO: use */
 const filterKeys = R.filter(x => x != "days" && x != "offset" && x != "range")
 
 /* Create a URI that can be used for accessing prometheus. */
 const createURI = (keys, vals) =>
-    '?' + zipWith((x, y) => x.toString() + "=" + y.toString(), keys, vals).join("&")
+    '?' + zipWith((x, y) => y.toString() + "=" + x.toString(), keys, vals).join("&")
 
 /* Create a URI for a specific period */
 const periodURI = (keys, vals, dayq) => `${createURI(keys, vals)}&${dayq}`
