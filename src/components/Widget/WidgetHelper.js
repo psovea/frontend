@@ -8,7 +8,7 @@ const DAY = 86400
 const fromJoinableList = (ys, n) => ys.map(x => n + "=" + x).join("&")
 
 /* Check if districts are empty, should default to all districts. */
-const fromJoinableListDistricts = (ys, n) => fromJoinableList(R.empty(ys) ? DISTRICTS : ys, n)
+const fromJoinableListDistricts = (ys, n) => fromJoinableList(R.isEmpty(ys) ? DISTRICTS : ys, n)
 
 /* Transport types must be upper case. */
 const fromJoinableListToUpper = (ys, n) => ys.map(x => n + "=" + x.toUpperCase()).join("&")
